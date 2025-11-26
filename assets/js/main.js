@@ -120,17 +120,15 @@ function initContactForm() {
             name: document.getElementById('name').value.trim(),
             email: document.getElementById('email').value.trim(),
             phone: document.getElementById('phone').value.trim(),
-            subject: document.getElementById('subject').value.trim(),
             message: document.getElementById('message').value.trim()
         };
         
         // Telegram mesajını formatla
         const telegramMessage = `🆕 *Yeni Sorğu - Suvarmax*\n\n` +
             `👤 *Ad Soyad:* ${formData.name}\n` +
-            `📧 *Email:* ${formData.email}\n` +
-            `📱 *Telefon:* ${formData.phone || 'Göstərilməyib'}\n` +
-            `📋 *Mövzu:* ${formData.subject}\n\n` +
-            `💬 *Mesaj:*\n${formData.message}\n\n` +
+            `📧 *Email:* ${formData.email || 'Göstərilməyib'}\n` +
+            `📱 *Telefon:* ${formData.phone}\n\n` +
+            `💬 *Mesaj:*\n${formData.message || 'Mesaj yoxdur'}\n\n` +
             `🕐 *Tarix:* ${new Date().toLocaleString('az-AZ')}`;
         
         // Telegram Bot API-yə mesaj göndər
