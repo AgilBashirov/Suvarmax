@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initLightbox();
     initContactForm();
     initLazyLoading();
+    initPartners();
 });
 
 /**
@@ -250,4 +251,57 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+/**
+ * Partnyorlar slider funksionallığı (Swiper.js istifadə edir)
+ */
+function initPartners() {
+    const partnersSwiper = document.querySelector('.partners-swiper');
+    if (!partnersSwiper) return;
+    
+    // Swiper init
+    const swiper = new Swiper('.partners-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+        navigation: {
+            nextEl: '.partners-nav-next',
+            prevEl: '.partners-nav-prev',
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 24,
+            },
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 24,
+            },
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+            },
+        },
+    });
+    
+    // Logoların yüklənməsini yoxla
+    const partnerImages = document.querySelectorAll('#partners img');
+    
+    partnerImages.forEach(img => {
+        img.addEventListener('error', function() {
+            console.log('Logo yüklənmə xətası:', this.alt);
+        });
+        
+        img.addEventListener('load', function() {
+            console.log('Logo uğurla yükləndi:', this.alt);
+        });
+    });
+    
+    console.log('Partnyorlar Swiper slider aktivləşdirildi');
+}
 

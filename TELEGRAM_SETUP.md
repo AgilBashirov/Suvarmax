@@ -80,3 +80,4 @@ Botunuzun yalnız sizin Chat ID-nizə mesaj göndərməsi üçün:
 - Bot-a `/start` yazıb aktivləşdirdinizmi yoxlayın
 - Browser console-da xətaları yoxlayın (F12)
 
+

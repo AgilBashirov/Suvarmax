@@ -1,0 +1,81 @@
+[
+  {
+    "id": 1,
+    "title": "Böyük Kənd Təsərrüfatı Sahəsi",
+    "description": "500 hektar sahə üçün mərkəzi pivot suvarma sistemi quraşdırılması. Müasir texnologiyalar və avtomatik idarəetmə sistemi ilə təchiz olunub.",
+    "date": "2024-01-15",
+    "location": {
+      "lat": 40.4093,
+      "lng": 49.8671
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Bağ Sahəsi Drip Suvarma",
+    "description": "Bağ üçün avtomatik drip suvarma sistemi layihələndirməsi və quraşdırılması. Su səmərəliliyi və keyfiyyətli məhsul hasilatı təmin edilir.",
+    "date": "2024-02-20",
+    "location": {
+      "lat": 40.3777,
+      "lng": 49.8920
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&h=600&fit=crop"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Park və Yaşıllıq Sahəsi",
+    "description": "Şəhər parkı üçün sprinkler suvarma sistemi quraşdırılması. Estetik görünüş və effektiv suvarma təmin edilir.",
+    "date": "2024-03-10",
+    "location": {
+      "lat": 40.3953,
+      "lng": 49.8822
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&h=600&fit=crop"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Tərəvəz Sahəsi",
+    "description": "Tərəvəz yetişdirmə üçün drip suvarma sistemi layihələndirməsi. Məhsuldarlığın artırılması və su ehtiyatlarının qənaətli istifadəsi.",
+    "date": "2024-04-05",
+    "location": {
+      "lat": 40.4189,
+      "lng": 49.8519
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&h=600&fit=crop"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Golf Meydanı",
+    "description": "Golf meydanı üçün peşəkar suvarma sistemi quraşdırılması. Yüksək keyfiyyətli çəmən örtüyü və avtomatik suvarma.",
+    "date": "2024-05-12",
+    "location": {
+      "lat": 40.3650,
+      "lng": 49.8350
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&h=600&fit=crop"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Sənaye Sahəsi",
+    "description": "Sənaye müəssisəsi üçün suvarma sistemi layihələndirməsi və quraşdırılması. Geniş sahə üçün effektiv həll.",
+    "date": "2024-06-18",
+    "location": {
+      "lat": 40.3822,
+      "lng": 49.8186
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=600&fit=crop"
+    ]
+  }
+]
+

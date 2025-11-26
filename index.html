@@ -27,6 +27,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body class="font-sans antialiased">
     <!-- Navigation -->
@@ -45,6 +47,7 @@
                     <a href="#home" class="text-primary font-medium hover:text-primary-dark transition">Ana Səhifə</a>
                     <a href="#about" class="text-gray-700 hover:text-primary transition">Haqqımızda</a>
                     <a href="#services" class="text-gray-700 hover:text-primary transition">Xidmətlər</a>
+                    <a href="#partners" class="text-gray-700 hover:text-primary transition">Partnyorlar</a>
                     <a href="#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition">Əlaqə</a>
                 </div>
             </div>
@@ -381,6 +384,7 @@
         </div>
     </section>
 
+
     <!-- About Section -->
     <section id="about" class="py-16 bg-white">
         <div class="container mx-auto px-4">
@@ -447,6 +451,113 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="py-16 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Partnyorlarımız</h2>
+            <p class="text-center text-gray-600 mb-12">Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız</p>
+            
+            <!-- Swiper Slider Container -->
+            <div class="swiper partners-swiper relative">
+                <div class="swiper-wrapper">
+                    <!-- LandPro -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="LandPro">
+                            <a href="https://landpro.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://landpro.az/images/logo.png" 
+                                    alt="LandPro Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3ELandPro%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">LandPro</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- ParkLand -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="ParkLand">
+                            <a href="https://parkland.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://parkland.az/wp-content/uploads/2025/08/LOGO-long.png" 
+                                    alt="ParkLand Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3EParkLand%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">ParkLand</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Green Garden -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="Green Garden">
+                            <a href="https://greengarden.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://greengarden.az/image/catalog/web.png" 
+                                    alt="Green Garden Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3EGreen Garden%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">Green Garden</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- LandPro (Copy) -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="LandPro">
+                            <a href="https://landpro.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://landpro.az/images/logo.png" 
+                                    alt="LandPro Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3ELandPro%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">LandPro</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- ParkLand (Copy) -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="ParkLand">
+                            <a href="https://parkland.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://parkland.az/wp-content/uploads/2025/08/LOGO-long.png" 
+                                    alt="ParkLand Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3EParkLand%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">ParkLand</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Green Garden (Copy) -->
+                    <div class="swiper-slide">
+                        <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="Green Garden">
+                            <a href="https://greengarden.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
+                                <img 
+                                    src="https://greengarden.az/image/catalog/web.png" 
+                                    alt="Green Garden Logo" 
+                                    class="max-w-full max-h-20 h-auto w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'60\'%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-size=\'18\' font-weight=\'bold\'%3EGreen Garden%3C/text%3E%3C/svg%3E';"
+                                >
+                                <span class="partner-tooltip">Green Garden</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation buttons -->
+                <div class="swiper-button-next partners-nav-next"></div>
+                <div class="swiper-button-prev partners-nav-prev"></div>
             </div>
         </div>
     </section>
@@ -558,6 +669,7 @@
                         <li><a href="#home" class="hover:text-white transition">Ana Səhifə</a></li>
                         <li><a href="#about" class="hover:text-white transition">Haqqımızda</a></li>
                         <li><a href="#services" class="hover:text-white transition">Xidmətlər</a></li>
+                        <li><a href="#partners" class="hover:text-white transition">Partnyorlar</a></li>
                         <li><a href="#contact" class="hover:text-white transition">Əlaqə</a></li>
                     </ul>
                 </div>
@@ -596,6 +708,8 @@
         </div>
     </footer>
 
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
