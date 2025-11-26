@@ -103,8 +103,8 @@ function initContactForm() {
     
     // Telegram Bot konfiqurasiyası
     // ⚠️ MÜHİM: Bu məlumatları öz bot token və chat ID-nizlə əvəz edin!
-    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'; // BotFather-dən aldığınız token
-    const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // Mesajların göndəriləcəyi chat ID
+    const TELEGRAM_BOT_TOKEN = '8554708256:AAGUJXtJjehvX4gvHMGphK6YI6L7zuQ6I1E'; // BotFather-dən aldığınız token
+    const TELEGRAM_CHAT_ID = '5449848409'; // Mesajların göndəriləcəyi chat ID
     
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
