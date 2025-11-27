@@ -1,130 +1,129 @@
-# Suvarmax - Peşəkar Suvarma Sistemləri Vebsaytı
+# Suvarmax - Professional Irrigation Systems Website
 
-Suvarmax üçün hazırlanmış mobil-first, responsiv statik vebsayt. HTML, CSS (Tailwind) və vanilla JavaScript ilə yaradılmışdır.
+A mobile-first, responsive static website built for Suvarmax. Created with HTML, CSS (Tailwind) and vanilla JavaScript.
 
-## 📁 Fayl Strukturu
+## 📁 File Structure
 
 ```
 suvarmax/
-├── index.html          # One-page sayt (bütün bölmələr bir faylda)
-├── README.md           # Bu fayl
+├── index.html          # One-page site (all sections in one file)
+├── README.md           # This file
+├── TELEGRAM_SETUP.md   # Telegram bot setup guide
 └── assets/
     ├── css/
-    │   └── style.css   # Custom CSS stilləri
+    │   └── style.css   # Custom CSS styles
     ├── js/
-    │   └── main.js     # JavaScript funksionallığı
+    │   └── main.js     # JavaScript functionality
     └── images/
-        └── logo.svg    # Loqo faylı
+        └── logo.svg    # Logo file
 ```
 
-## 🚀 GitHub Pages-ə Yükləmə
+## 🚀 Deploying to GitHub Pages
 
-### 1. GitHub Repository Yaratmaq
+### 1. Create GitHub Repository
 
-GitHub-da yeni repository yaradın (məsələn: `suvarmax`).
+Create a new repository on GitHub (e.g., `suvarmax`).
 
-### 2. Git Əmrləri
+### 2. Git Commands
 
-Proyekt qovluğunda aşağıdakı əmrləri yerinə yetirin:
+Run the following commands in the project folder:
 
 ```bash
-# Git repository-ni başlat
+# Initialize git repository
 git init
 
-# Bütün faylları əlavə et
+# Add all files
 git add .
 
-# Commit yarat
+# Create commit
 git commit -m "Initial commit — Suvarmax static site"
 
-# Branch-i main olaraq adlandır
+# Rename branch to main
 git branch -M main
 
-# GitHub repository-ni remote olaraq əlavə et
-# (YOUR_USERNAME-i öz GitHub istifadəçi adınızla əvəz edin)
+# Add GitHub repository as remote
+# (Replace YOUR_USERNAME with your GitHub username)
 git remote add origin https://github.com/YOUR_USERNAME/suvarmax.git
 
-# Kodları GitHub-a push et
+# Push code to GitHub
 git push -u origin main
 ```
 
-### 3. GitHub Pages Aktivləşdirmə
+### 3. Enable GitHub Pages
 
-1. GitHub repository-nizə daxil olun
-2. **Settings** → **Pages** bölməsinə keçin
-3. **Source** altında:
-   - **Branch**: `main` seçin
-   - **Folder**: `/ (root)` seçin
-4. **Save** düyməsini basın
-5. Bir neçə dəqiqə sonra saytınız `https://YOUR_USERNAME.github.io/suvarmax/` ünvanında yayımlanacaq
+1. Go to your GitHub repository
+2. Navigate to **Settings** → **Pages**
+3. Under **Source**:
+   - **Branch**: Select `main`
+   - **Folder**: Select `/ (root)`
+4. Click **Save**
+5. After a few minutes, your site will be published at `https://YOUR_USERNAME.github.io/suvarmax/`
 
-## 🔧 Konfiqurasiya
+## 🔧 Configuration
 
-### Əlaqə Məlumatlarını Dəyişdirmək
+### Changing Contact Information
 
-`index.html` faylında əlaqə məlumatlarını dəyişdirin:
-- Əlaqə bölməsində (#contact)
-- Footer bölməsində
+Update contact information in `index.html`:
+- In the Contact section (#contact)
+- In the Footer section
 
-Axtarın və dəyişdirin:
-- `+994 XX XXX XX XX` → öz telefon nömrəniz
-- `info@suvarmax.az` → öz email ünvanınız
-- `Bakı, Azərbaycan` → öz ünvanınız
+Find and replace:
+- `+994 XX XXX XX XX` → your phone number
+- `info@suvarmax.az` → your email address
+- `Bakı, Azərbaycan` → your address
 
-### Loqo Dəyişdirmək
+### Changing Logo
 
-`assets/images/logo.svg` faylını öz loqonuzla əvəz edin və ya HTML fayllarında loqo yolunu dəyişdirin.
+Replace `assets/images/logo.svg` with your own logo or update the logo path in HTML files.
 
-### Telegram Bot Quraşdırması
+### Telegram Bot Setup
 
-Form məlumatları Telegram botuna göndərilir. Quraşdırma üçün:
+Form submissions are sent to a Telegram bot. For setup:
 
-1. `TELEGRAM_SETUP.md` faylına baxın - ətraflı təlimatlar var
-2. Telegram-da [@BotFather](https://t.me/botfather) ilə bot yaradın
-3. Bot Token və Chat ID-ni əldə edin
-4. `assets/js/main.js` faylında `TELEGRAM_BOT_TOKEN` və `TELEGRAM_CHAT_ID` dəyişənlərini dəyişdirin
+1. See `TELEGRAM_SETUP.md` for detailed instructions
+2. Create a bot with [@BotFather](https://t.me/botfather) on Telegram
+3. Get your Bot Token and Chat ID
+4. Update `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` variables in `assets/js/main.js`
 
-**Qeyd:** Bot Token və Chat ID-ni GitHub-a yükləməmək üçün diqqətli olun. Production üçün backend proxy istifadə etmək tövsiyə olunur.
+**Note:** Be careful not to upload Bot Token and Chat ID to public GitHub repositories. For production, using a backend proxy is recommended.
 
+## 🎨 Design
 
-## 🎨 Dizayn
-
-- **Rəng palitrası**: Yaşılımtıl əsas rəng (#2d8659), tünd boz və ağ
+- **Color palette**: Green primary color (#2d8659), dark gray and white
 - **Font**: Inter (Google Fonts)
-- **Layout**: Mobil-first, responsiv dizayn
+- **Layout**: Mobile-first, responsive design
 - **Framework**: Tailwind CSS (CDN)
 
-## 📱 Xüsusiyyətlər
+## 📱 Features
 
-- ✅ One-page sayt (bütün bölmələr bir faylda)
-- ✅ Anchor linklər ilə smooth scroll naviqasiya
-- ✅ Mobil-first responsiv dizayn
-- ✅ Sofistik Hero Section (animasiyalar, statistika)
-- ✅ Mobil menyu
-- ✅ Əlaqə formu (mailto fallback və Formspree dəstəyi)
-- ✅ Lazy loading şəkillər
-- ✅ SEO optimallaşdırılmış metatags
-- ✅ Accessibility (a11y) dəstəyi
+- ✅ One-page site (all sections in one file)
+- ✅ Smooth scroll navigation with anchor links
+- ✅ Mobile-first responsive design
+- ✅ Sophisticated Hero Section (animations, statistics)
+- ✅ Mobile menu
+- ✅ Contact form with Telegram integration
+- ✅ SEO optimized meta tags
+- ✅ Accessibility (a11y) support
+- ✅ Partners slider with Swiper.js
 
-## 📝 Qeydlər
+## 📝 Notes
 
-- One-page sayt strukturunda bütün bölmələr `index.html` faylındadır
-- Anchor linklər (#home, #about, #services, #contact) ilə naviqasiya
-- CSS faylında custom rəng dəyişənləri var (`:root` bölməsində)
-- JavaScript faylında bütün interaktiv funksionallıq var
-- Şəkillər üçün Unsplash placeholder linkləri istifadə olunub (istəyə görə dəyişdirilə bilər)
+- One-page site structure with all sections in `index.html`
+- Navigation via anchor links (#home, #about, #services, #contact)
+- Custom color variables in CSS file (`:root` section)
+- All interactive functionality in JavaScript file
+- Unsplash placeholder images used (can be changed as needed)
 
-## 🔗 Linklər
+## 🔗 Links
 
 - [Tailwind CSS](https://tailwindcss.com)
-- [Formspree](https://formspree.io)
 - [Google Fonts - Inter](https://fonts.google.com/specimen/Inter)
+- [Swiper.js](https://swiperjs.com)
 
-## 📄 Lisenziya
+## 📄 License
 
-Bu proyekt istifadə üçün azaddır.
+This project is free to use.
 
 ---
 
-**Qeyd**: Saytı yayımlamazdan əvvəl bütün placeholder məlumatları (telefon, email, ünvan, şəkillər) öz real məlumatlarınızla əvəz etməyi unutmayın.
-
+**Note**: Before publishing the site, remember to replace all placeholder data (phone, email, address, images) with your actual information.

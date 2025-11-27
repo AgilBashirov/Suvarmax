@@ -1,9 +1,9 @@
 /* 
  * Suvarmax Custom Styles
- * Bu faylda Tailwind CSS-ə əlavə custom stillər var
+ * Custom styles extending Tailwind CSS
  */
 
-/* Rəng palitrası - yaşılımtıl əsas rəng */
+/* Color palette - green primary color */
 :root {
     --primary: #2d8659;
     --primary-dark: #1f5d3f;
@@ -13,12 +13,12 @@
     --gray-light: #e2e8f0;
 }
 
-/* Tailwind config üçün custom rənglər */
+/* Font family override */
 .font-sans {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Primary rəng üçün utility class */
+/* Primary color utility classes */
 .text-primary {
     color: var(--primary);
 }
@@ -47,44 +47,26 @@
     color: var(--primary-dark);
 }
 
-/* Smooth scroll */
+/* Smooth scroll behavior */
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
-/* Focus states */
+/* Focus state reset */
 *:focus {
     outline: none;
 }
 
-/* Lightbox styles */
-#lightbox {
-    display: none;
-}
-
-#lightbox.show {
-    display: flex;
-}
-
-/* Form validation styles */
-input:invalid,
-textarea:invalid {
+/* Form validation styles - only show after user interaction */
+input:not(:placeholder-shown):invalid,
+textarea:not(:placeholder-shown):invalid {
     border-color: #e53e3e;
 }
 
-input:valid,
-textarea:valid {
+input:not(:placeholder-shown):valid,
+textarea:not(:placeholder-shown):valid {
     border-color: #38a169;
-}
-
-/* Loading animation for images */
-img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-img[loading="lazy"].loaded {
-    opacity: 1;
 }
 
 /* Mobile menu animation */
@@ -92,16 +74,7 @@ img[loading="lazy"].loaded {
     transition: all 0.3s ease;
 }
 
-/* Project item hover effect */
-.project-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-item:hover {
-    transform: translateY(-5px);
-}
-
-/* Custom scrollbar (optional) */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -119,7 +92,7 @@ img[loading="lazy"].loaded {
     background: var(--primary-dark);
 }
 
-/* Hero Section Animations */
+/* Hero section fade-in animation */
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -135,28 +108,6 @@ img[loading="lazy"].loaded {
     animation: fade-in 0.8s ease-out;
 }
 
-/* Smooth scroll offset for sticky nav */
-html {
-    scroll-padding-top: 80px;
-}
-
-/* Leaflet map custom styles */
-.custom-marker {
-    background: transparent !important;
-    border: none !important;
-}
-
-.project-popup .leaflet-popup-content {
-    margin: 0;
-    padding: 0;
-}
-
-.project-popup .leaflet-popup-content-wrapper {
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
 /* Partners Swiper Styles */
 .partners-swiper {
     padding: 20px 60px !important;
@@ -166,7 +117,7 @@ html {
     height: auto;
 }
 
-/* Partner Tooltip Styles */
+/* Partner tooltip styles */
 .partner-card {
     position: relative;
 }
@@ -210,7 +161,7 @@ html {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Custom Navigation Buttons */
+/* Custom navigation buttons for Swiper */
 .partners-nav-next,
 .partners-nav-prev {
     width: 50px !important;
@@ -273,6 +224,16 @@ html {
     }
 }
 
+/* Notification progress bar animation */
+@keyframes notificationProgress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
 /* Print styles */
 @media print {
     nav,
@@ -281,4 +242,3 @@ html {
         display: none;
     }
 }
-

@@ -27,16 +27,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Swiper CSS -->
+    <!-- Swiper CSS for Partners Slider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body class="font-sans antialiased">
-    <!-- Navigation -->
+    <!-- Navigation Bar -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
+        <div class="container mx-auto px-4 py-1">
             <div class="flex items-center justify-between">
                 <a href="#home" class="flex items-center">
-                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 w-auto">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-20 w-auto">
                 </a>
                 <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,20 +56,20 @@
 
     <!-- Hero Section -->
     <section id="home" class="relative bg-gradient-to-br from-primary via-primary-dark to-primary overflow-hidden">
-        <!-- Background Pattern -->
+        <!-- Background Dot Pattern -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
         </div>
         
-        <!-- Animated Background Elements -->
+        <!-- Animated Background Blur Elements -->
         <div class="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
         
         <div class="relative container mx-auto px-4 py-24 md:py-32">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left Content -->
+                <!-- Hero Left Content -->
                 <div class="text-white space-y-8 animate-fade-in">
-                    <!-- Badge -->
+                    <!-- Hero Badge -->
                     <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -77,7 +77,7 @@
                         <span class="text-sm font-medium">Peşəkar Suvarma Həlləri</span>
                     </div>
                     
-                    <!-- Main Heading -->
+                    <!-- Hero Main Heading -->
                     <div class="space-y-4">
                         <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                             <span class="block">Peşəkar</span>
@@ -88,12 +88,12 @@
                         <div class="w-24 h-1 bg-gradient-to-r from-white to-transparent rounded-full"></div>
                     </div>
                     
-                    <!-- Description -->
+                    <!-- Hero Description -->
                     <p class="text-lg md:text-xl text-white/90 leading-relaxed max-w-xl">
                         Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə yüksək keyfiyyətli həllər təqdim edirik. Müasir texnologiyalar və təcrübəli komanda ilə.
                     </p>
                     
-                    <!-- Stats -->
+                    <!-- Hero Statistics -->
                     <div class="grid grid-cols-3 gap-6 pt-4">
                         <div>
                             <div class="text-3xl md:text-4xl font-bold text-white">500+</div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     
-                    <!-- CTA Buttons -->
+                    <!-- Call to Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-4">
                         <a href="#contact" class="group relative bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center overflow-hidden">
                             <span class="relative z-10">Layihə sorğusu göndər</span>
@@ -126,10 +126,10 @@
                     </div>
                 </div>
                 
-                <!-- Right Image -->
+                <!-- Hero Right Image -->
                 <div class="hidden md:block relative">
                     <div class="relative z-10">
-                        <!-- Main Image with Overlay -->
+                        <!-- Main Hero Image with Gradient Overlay -->
                         <div class="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                             <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop" 
                                  alt="Suvarma sistemi" 
@@ -137,7 +137,7 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-primary-dark/50 to-transparent"></div>
                         </div>
                         
-                        <!-- Floating Card 1 -->
+                        <!-- Floating Info Card 1 -->
                         <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center">
@@ -152,7 +152,7 @@
                             </div>
                         </div>
                         
-                        <!-- Floating Card 2 -->
+                        <!-- Floating Info Card 2 -->
                         <div class="absolute -top-6 -right-6 bg-white rounded-xl p-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center">
@@ -168,7 +168,7 @@
                         </div>
                     </div>
                     
-                    <!-- Decorative Elements -->
+                    <!-- Decorative Blur Elements -->
                     <div class="absolute top-1/2 -left-4 w-24 h-24 bg-white/10 rounded-full blur-2xl -z-10"></div>
                     <div class="absolute bottom-1/4 -right-4 w-32 h-32 bg-white/10 rounded-full blur-2xl -z-10"></div>
                 </div>
@@ -176,12 +176,12 @@
         </div>
     </section>
 
-    <!-- Services Preview -->
+    <!-- Services Section -->
     <section id="services" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Xidmətlərimiz</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
+                <!-- Service Card 1: Sales -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,7 +214,7 @@
                     </ul>
                 </div>
 
-                <!-- Service 2 -->
+                <!-- Service Card 2: Design -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,7 +247,7 @@
                     </ul>
                 </div>
 
-                <!-- Service 3 -->
+                <!-- Service Card 3: Installation -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -281,7 +281,7 @@
                     </ul>
                 </div>
 
-                <!-- Service 4 -->
+                <!-- Service Card 4: Service & Repair -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -315,7 +315,7 @@
                     </ul>
                 </div>
 
-                <!-- Service 5 -->
+                <!-- Service Card 5: Spare Parts -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -348,7 +348,7 @@
                     </ul>
                 </div>
 
-                <!-- Service 6 -->
+                <!-- Service Card 6: Consultation -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -385,7 +385,7 @@
     </section>
 
 
-    <!-- About Section -->
+    <!-- About Us Section -->
     <section id="about" class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
@@ -455,16 +455,16 @@
         </div>
     </section>
 
-    <!-- Partners Section -->
+    <!-- Partners Slider Section -->
     <section id="partners" class="py-16 bg-gray-50 overflow-hidden">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Partnyorlarımız</h2>
             <p class="text-center text-gray-600 mb-12">Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız</p>
             
-            <!-- Swiper Slider Container -->
+            <!-- Partners Swiper Slider -->
             <div class="swiper partners-swiper relative">
                 <div class="swiper-wrapper">
-                    <!-- LandPro -->
+                    <!-- Partner: LandPro -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="LandPro">
                             <a href="https://landpro.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -479,7 +479,7 @@
                         </div>
                     </div>
                     
-                    <!-- ParkLand -->
+                    <!-- Partner: ParkLand -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="ParkLand">
                             <a href="https://parkland.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -494,7 +494,7 @@
                         </div>
                     </div>
                     
-                    <!-- Green Garden -->
+                    <!-- Partner: Green Garden -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="Green Garden">
                             <a href="https://greengarden.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -509,7 +509,7 @@
                         </div>
                     </div>
                     
-                    <!-- LandPro (Copy) -->
+                    <!-- Partner: LandPro (Duplicate for slider loop) -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="LandPro">
                             <a href="https://landpro.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -524,7 +524,7 @@
                         </div>
                     </div>
                     
-                    <!-- ParkLand (Copy) -->
+                    <!-- Partner: ParkLand (Duplicate for slider loop) -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="ParkLand">
                             <a href="https://parkland.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -539,7 +539,7 @@
                         </div>
                     </div>
                     
-                    <!-- Green Garden (Copy) -->
+                    <!-- Partner: Green Garden (Duplicate for slider loop) -->
                     <div class="swiper-slide">
                         <div class="bg-primary rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full partner-card" data-partner-name="Green Garden">
                             <a href="https://greengarden.az" target="_blank" rel="noopener noreferrer" class="block h-full p-8 flex items-center justify-center min-h-[150px] relative">
@@ -555,19 +555,19 @@
                     </div>
                 </div>
                 
-                <!-- Navigation buttons -->
+                <!-- Swiper Navigation Buttons -->
                 <div class="swiper-button-next partners-nav-next"></div>
                 <div class="swiper-button-prev partners-nav-prev"></div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Form Section -->
     <section id="contact" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Bizimlə Əlaqə</h2>
             <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-                <!-- Contact Info -->
+                <!-- Contact Information -->
                 <div>
                     <h3 class="text-2xl font-bold text-gray-800 mb-8">Əlaqə Məlumatları</h3>
                     <div class="space-y-6">
@@ -614,22 +614,22 @@
                     <form id="contact-form" class="space-y-6">
                         <div>
                             <label for="name" class="block text-gray-700 font-medium mb-2">Ad Soyad *</label>
-                            <input type="text" id="name" name="name" required 
+                            <input type="text" id="name" name="name" required placeholder=" "
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
                         </div>
                         <div>
                             <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email"
+                            <input type="email" id="email" name="email" placeholder=" "
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
                         </div>
                         <div>
                             <label for="phone" class="block text-gray-700 font-medium mb-2">Telefon *</label>
-                            <input type="tel" id="phone" name="phone" required
+                            <input type="tel" id="phone" name="phone" required placeholder=" "
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition">
                         </div>
                         <div>
                             <label for="message" class="block text-gray-700 font-medium mb-2">Mesaj</label>
-                            <textarea id="message" name="message" rows="5"
+                            <textarea id="message" name="message" rows="5" placeholder=" "
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition resize-none"></textarea>
                         </div>
                         <button type="submit" 
@@ -642,7 +642,7 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- Call to Action Section -->
     <section class="py-16 bg-primary text-white">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl font-bold mb-4">Layihəniz üçün peşəkar həll axtarırsınız?</h2>
@@ -653,13 +653,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
                     <div class="mb-4">
-                        <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-10 w-auto">
+                        <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-28 w-auto block -ml-3">
                     </div>
                     <p class="text-gray-400">Peşəkar suvarma sistemləri təchizatçısı</p>
                 </div>
@@ -703,13 +703,14 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Suvarmax. Bütün hüquqlar qorunur.</p>
+                <p>&copy; <span id="current-year"></span> Suvarmax. Bütün hüquqlar qorunur.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Swiper JS -->
+    <!-- Swiper JS Library -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Main JavaScript -->
     <script src="assets/js/main.js"></script>
 </body>
 </html>
