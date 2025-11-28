@@ -110,117 +110,41 @@ textarea:not(:placeholder-shown):valid {
 
 /* Partners Swiper Styles */
 .partners-swiper {
-    padding: 20px 60px !important;
+    padding: 10px 0 !important;
 }
 
 .partners-swiper .swiper-slide {
     height: auto;
 }
 
-/* Partner tooltip styles */
-.partner-card {
-    position: relative;
+.partners-swiper .swiper-wrapper {
+    align-items: stretch;
 }
 
-.partner-tooltip {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+/* Partners pagination dots */
+.partners-pagination {
+    position: relative !important;
+    bottom: auto !important;
 }
 
-.partner-tooltip::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid rgba(0, 0, 0, 0.85);
-}
-
-.partner-card:hover .partner-tooltip {
+.partners-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: var(--gray-light);
     opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transition: all 0.3s ease;
 }
 
-/* Custom navigation buttons for Swiper */
-.partners-nav-next,
-.partners-nav-prev {
-    width: 50px !important;
-    height: 50px !important;
-    background-color: var(--primary) !important;
-    border-radius: 50% !important;
-    color: white !important;
-    margin-top: 0 !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    transition: all 0.3s ease !important;
-    opacity: 0.9 !important;
+.partners-pagination .swiper-pagination-bullet-active {
+    background-color: var(--primary);
+    width: 30px;
+    border-radius: 5px;
 }
 
-.partners-nav-next:hover,
-.partners-nav-prev:hover {
-    background-color: var(--primary-dark) !important;
-    opacity: 1 !important;
-    transform: translateY(-50%) scale(1.1) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
-}
-
-.partners-nav-next:after,
-.partners-nav-prev:after {
-    font-size: 20px !important;
-    font-weight: bold !important;
-}
-
-.partners-nav-next {
-    right: 10px !important;
-}
-
-.partners-nav-prev {
-    left: 10px !important;
-}
-
-/* Responsive adjustments */
+/* Responsive adjustments for partners */
 @media (max-width: 768px) {
     .partners-swiper {
-        padding: 20px 50px !important;
-    }
-    
-    .partners-nav-next,
-    .partners-nav-prev {
-        width: 40px !important;
-        height: 40px !important;
-    }
-    
-    .partners-nav-next:after,
-    .partners-nav-prev:after {
-        font-size: 16px !important;
-    }
-    
-    .partners-nav-next {
-        right: 5px !important;
-    }
-    
-    .partners-nav-prev {
-        left: 5px !important;
+        padding: 10px 0 !important;
     }
 }
 

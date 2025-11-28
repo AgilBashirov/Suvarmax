@@ -263,19 +263,26 @@ function initPartners() {
         slidesPerView: 1,
         spaceBetween: 24,
         loop: true,
+        loopAdditionalSlides: 2,
         autoplay: {
-            delay: 3000,
+            delay: 4000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
         },
-        speed: 800,
+        speed: 600,
+        grabCursor: true,
+        pagination: {
+            el: '.partners-pagination',
+            clickable: true,
+        },
         navigation: {
             nextEl: '.partners-nav-next',
             prevEl: '.partners-nav-prev',
         },
         breakpoints: {
-            640: {
+            480: {
                 slidesPerView: 2,
-                spaceBetween: 24,
+                spaceBetween: 20,
             },
             768: {
                 slidesPerView: 3,
@@ -283,6 +290,10 @@ function initPartners() {
             },
             1024: {
                 slidesPerView: 4,
+                spaceBetween: 24,
+            },
+            1280: {
+                slidesPerView: 5,
                 spaceBetween: 24,
             },
         },
