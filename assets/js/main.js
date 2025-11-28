@@ -10,7 +10,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initLazyLoading();
     initPartners();
+    initCurrentYear();
 });
+
+/**
+ * Footer-də cari ili göstərmə
+ */
+function initCurrentYear() {
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
 
 /**
  * Mobil menyu funksionallığı
