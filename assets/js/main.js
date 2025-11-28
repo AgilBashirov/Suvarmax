@@ -107,8 +107,72 @@ function initContactForm() {
     const TELEGRAM_BOT_TOKEN = '8554708256:AAGUJXtJjehvX4gvHMGphK6YI6L7zuQ6I1E'; // BotFather-dən aldığınız token
     const TELEGRAM_CHAT_ID = '5449848409'; // Mesajların göndəriləcəyi chat ID
     
+    // Xəta mesajlarını gizlətmə funksiyası
+    function clearErrors() {
+        const errorElements = contactForm.querySelectorAll('[id$="-error"]');
+        errorElements.forEach(error => {
+            error.textContent = '';
+            error.style.display = 'none';
+        });
+    }
+    
+    // Xəta mesajı göstərmə funksiyası
+    function showError(fieldId, message) {
+        const errorElement = document.getElementById(fieldId + '-error');
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        } else {
+            console.error('Error element tapılmadı:', fieldId + '-error');
+        }
+    }
+    
+    // Form validasiyası
+    function validateForm() {
+        let isValid = true;
+        clearErrors();
+        
+        // Ad Soyad validasiyası
+        const name = document.getElementById('name').value.trim();
+        if (!name) {
+            showError('name', 'Ad Soyad xanası mütləq doldurulmalıdır');
+            isValid = false;
+        }
+        
+        // Telefon validasiyası
+        const phone = document.getElementById('phone').value.trim();
+        if (!phone) {
+            showError('phone', 'Telefon xanası mütləq doldurulmalıdır');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+    
+    // Input sahələri üçün real-time xəta təmizləmə
+    const requiredFields = ['name', 'phone'];
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    const errorElement = document.getElementById(fieldId + '-error');
+                    if (errorElement) {
+                        errorElement.textContent = '';
+                        errorElement.style.display = 'none';
+                    }
+                }
+            });
+        }
+    });
+    
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        // Form validasiyası
+        if (!validateForm()) {
+            return;
+        }
         
         // Submit düyməsini deaktiv et
         const submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -152,6 +216,7 @@ function initContactForm() {
                 // Uğurlu göndərmə
                 showNotification('✅ Mesajınız uğurla göndərildi! Tezliklə sizinlə əlaqə saxlayacağıq.', 'success');
                 contactForm.reset();
+                clearErrors();
             } else {
                 // Xəta
                 console.error('Telegram API xətası:', data);

@@ -66,15 +66,15 @@ html {
     display: flex;
 }
 
-/* Form validation styles */
-input:invalid,
-textarea:invalid {
-    border-color: #e53e3e;
+/* Form validation styles - borders stay gray */
+input,
+textarea {
+    border-color: #d1d5db !important; /* border-gray-300 */
 }
 
-input:valid,
-textarea:valid {
-    border-color: #38a169;
+input:focus,
+textarea:focus {
+    border-color: transparent !important;
 }
 
 /* Loading animation for images */
@@ -270,6 +270,46 @@ html {
     
     .partners-nav-prev {
         left: 5px !important;
+    }
+}
+
+/* iPad Mini optimallaşdırması (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Navigation button optimallaşdırması */
+    nav a[href="#contact"] {
+        font-size: 0.875rem !important; /* text-sm */
+        padding-left: 0.75rem !important; /* px-3 */
+        padding-right: 0.75rem !important;
+        padding-top: 0.5rem !important; /* py-1.5 */
+        padding-bottom: 0.5rem !important;
+    }
+    
+    /* Hero section button optimallaşdırması */
+    section#home a[href="#contact"],
+    section#home a[href="#services"] {
+        font-size: 0.875rem !important; /* text-sm */
+        padding-left: 1rem !important; /* px-4 */
+        padding-right: 1rem !important;
+        padding-top: 0.75rem !important; /* py-3 */
+        padding-bottom: 0.75rem !important;
+    }
+    
+    /* Form submit button optimallaşdırması */
+    form#contact-form button[type="submit"] {
+        font-size: 0.875rem !important; /* text-sm */
+        padding-left: 1.5rem !important; /* px-6 */
+        padding-right: 1.5rem !important;
+        padding-top: 0.75rem !important; /* py-3 */
+        padding-bottom: 0.75rem !important;
+    }
+    
+    /* CTA section button optimallaşdırması */
+    section.bg-primary a.bg-white {
+        font-size: 0.875rem !important; /* text-sm */
+        padding-left: 1.5rem !important; /* px-6 */
+        padding-right: 1.5rem !important;
+        padding-top: 0.75rem !important; /* py-3 */
+        padding-bottom: 0.75rem !important;
     }
 }
 
