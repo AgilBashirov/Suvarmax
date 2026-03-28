@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initLightbox();
     initContactForm();
     initLazyLoading();
-    initPartners();
     initCurrentYear();
 });
 
@@ -105,18 +104,12 @@ function initLightbox() {
 }
 
 /**
- * Əlaqə formu funksionallığı
- * Telegram botuna mesaj göndərir
+ * Əlaqə formu — sorğu serverə göndərilir (/api/contact), Telegram token yalnız serverdə (admin panel).
  */
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
     
     if (!contactForm) return;
-    
-    // Telegram Bot konfiqurasiyası
-    // ⚠️ MÜHİM: Bu məlumatları öz bot token və chat ID-nizlə əvəz edin!
-    const TELEGRAM_BOT_TOKEN = '8554708256:AAGUJXtJjehvX4gvHMGphK6YI6L7zuQ6I1E'; // BotFather-dən aldığınız token
-    const TELEGRAM_CHAT_ID = '5449848409'; // Mesajların göndəriləcəyi chat ID
     
     // Xəta mesajlarını gizlətmə funksiyası
     function clearErrors() {
@@ -184,6 +177,14 @@ function initContactForm() {
         if (!validateForm()) {
             return;
         }
+
+        if (window.location.protocol === 'file:') {
+            showNotification(
+                '❌ Səhifəni fayl kimi (file://) açmısınız — /api/contact işləmir. Terminalda npm start edin və brauzerdə http://localhost:3000 (və ya göstərilən port) ünvanından açın.',
+                'error'
+            );
+            return;
+        }
         
         // Submit düyməsini deaktiv et
         const submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -199,42 +200,30 @@ function initContactForm() {
             message: document.getElementById('message').value.trim()
         };
         
-        // Telegram mesajını formatla
-        const telegramMessage = `🆕 *Yeni Sorğu - Suvarmax*\n\n` +
-            `👤 *Ad Soyad:* ${formData.name}\n` +
-            `📧 *Email:* ${formData.email || 'Göstərilməyib'}\n` +
-            `📱 *Telefon:* ${formData.phone}\n\n` +
-            `💬 *Mesaj:*\n${formData.message || 'Mesaj yoxdur'}\n\n` +
-            `🕐 *Tarix:* ${new Date().toLocaleString('az-AZ')}`;
-        
-        // Telegram Bot API-yə mesaj göndər
-        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        
-        fetch(telegramUrl, {
+        fetch('/api/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: telegramMessage,
-                parse_mode: 'Markdown'
-            })
+            body: JSON.stringify(formData)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                // Uğurlu göndərmə
+        .then(function (response) {
+            return response.json().then(function (data) {
+                return { ok: response.ok, status: response.status, data: data };
+            });
+        })
+        .then(function (result) {
+            if (result.ok && result.data && result.data.ok) {
                 showNotification('✅ Mesajınız uğurla göndərildi! Tezliklə sizinlə əlaqə saxlayacağıq.', 'success');
                 contactForm.reset();
                 clearErrors();
             } else {
-                // Xəta
-                console.error('Telegram API xətası:', data);
-                showNotification('❌ Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin və ya birbaşa telefon/email ilə əlaqə saxlayın.', 'error');
+                var msg = (result.data && result.data.error) || 'Xəta baş verdi. Birbaşa telefon və ya email ilə əlaqə saxlayın.';
+                console.error('Əlaqə formu:', result.status, result.data);
+                showNotification('❌ ' + msg, 'error');
             }
         })
-        .catch(error => {
+        .catch(function (error) {
             console.error('Network xətası:', error);
             showNotification('❌ Bağlantı xətası. İnternet bağlantınızı yoxlayın və yenidən cəhd edin.', 'error');
         })
@@ -287,25 +276,56 @@ function showNotification(message, type = 'success') {
 
 /**
  * Lazy loading funksionallığı
+ * API-dən sonra əlavə olunan şəkillər (məs. İşlərimiz səhifəsi) üçün MutationObserver
  */
 function initLazyLoading() {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
+    function markLoaded(img) {
+        img.classList.add('loaded');
+    }
+
+    function observeLazyImg(img, imageObserver) {
+        if (!img.matches || !img.matches('img[loading="lazy"]')) return;
+        if (img.classList.contains('loaded')) return;
+        if (imageObserver) {
+            imageObserver.observe(img);
+        } else {
+            markLoaded(img);
+        }
+    }
+
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.classList.add('loaded');
+                    markLoaded(img);
                     observer.unobserve(img);
                 }
             });
+        }, { rootMargin: '80px' });
+
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => observeLazyImg(img, imageObserver));
+
+        const mo = new MutationObserver(mutations => {
+            mutations.forEach(m => {
+                m.addedNodes.forEach(node => {
+                    if (node.nodeType !== 1) return;
+                    if (node.matches && node.matches('img[loading="lazy"]')) {
+                        observeLazyImg(node, imageObserver);
+                    }
+                    if (node.querySelectorAll) {
+                        node.querySelectorAll('img[loading="lazy"]').forEach(img => observeLazyImg(img, imageObserver));
+                    }
+                });
+            });
         });
-        
-        lazyImages.forEach(img => imageObserver.observe(img));
+        mo.observe(document.body, { childList: true, subtree: true });
     } else {
-        // Fallback: bütün şəkilləri dərhal yüklə
-        lazyImages.forEach(img => img.classList.add('loaded'));
+        document.querySelectorAll('img[loading="lazy"]').forEach(markLoaded);
+        const mo = new MutationObserver(() => {
+            document.querySelectorAll('img[loading="lazy"]:not(.loaded)').forEach(markLoaded);
+        });
+        mo.observe(document.body, { childList: true, subtree: true });
     }
 }
 
@@ -329,17 +349,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 /**
- * Partnyorlar slider funksionallığı (Swiper.js istifadə edir)
+ * Partnyorlar slider — site-content.js məzmunu yüklədikdən sonra çağırılır
  */
-function initPartners() {
-    const partnersSwiper = document.querySelector('.partners-swiper');
-    if (!partnersSwiper) return;
-    
-    // Swiper init
+window.initPartnersSwiper = function initPartnersSwiper() {
+    const partnersEl = document.querySelector('.partners-swiper');
+    const wrapper = document.getElementById('partners-swiper-wrapper');
+    if (!partnersEl || !wrapper || !wrapper.children.length) return;
+
+    if (window._partnersSwiperInstance) {
+        window._partnersSwiperInstance.destroy(true, true);
+        window._partnersSwiperInstance = null;
+    }
+
+    const slideCount = wrapper.children.length;
     const swiper = new Swiper('.partners-swiper', {
         slidesPerView: 1,
         spaceBetween: 24,
-        loop: true,
+        loop: slideCount >= 6,
         autoplay: {
             delay: 3000,
             disableOnInteraction: false,
@@ -364,20 +390,6 @@ function initPartners() {
             },
         },
     });
-    
-    // Logoların yüklənməsini yoxla
-    const partnerImages = document.querySelectorAll('#partners img');
-    
-    partnerImages.forEach(img => {
-        img.addEventListener('error', function() {
-            console.log('Logo yüklənmə xətası:', this.alt);
-        });
-        
-        img.addEventListener('load', function() {
-            console.log('Logo uğurla yükləndi:', this.alt);
-        });
-    });
-    
-    console.log('Partnyorlar Swiper slider aktivləşdirildi');
-}
+    window._partnersSwiperInstance = swiper;
+};
 

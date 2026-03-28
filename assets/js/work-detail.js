@@ -67,7 +67,7 @@
           slide.innerHTML =
             '<img src="' +
             escapeAttr(src) +
-            '" alt="" class="max-w-full max-h-full object-contain" loading="' +
+            '" alt="" class="max-w-full max-h-full object-contain loaded" loading="' +
             (i === 0 ? 'eager' : 'lazy') +
             '">';
           track.appendChild(slide);

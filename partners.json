@@ -1,20 +1,7 @@
 {
   "partners": [
-    {
-      "name": "LandPro",
-      "website": "https://landpro.az",
-      "logo": "https://landpro.az/images/logo.png"
-    },
-    {
-      "name": "ParkLand",
-      "website": "https://parkland.az",
-      "logo": "https://parkland.az/wp-content/uploads/2025/08/LOGO-long.png"
-    },
-    {
-      "name": "Green Garden",
-      "website": "https://greengarden.az",
-      "logo": "https://greengarden.az/image/catalog/web.png"
-    }
+    { "id": 1, "name": "LandPro", "url": "https://landpro.az" },
+    { "id": 2, "name": "ParkLand", "url": "https://parkland.az" },
+    { "id": 3, "name": "Green Garden", "url": "https://greengarden.az" }
   ]
 }
-

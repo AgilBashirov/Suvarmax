@@ -27,20 +27,15 @@ Mesajların göndəriləcəyi chat-in ID-sini tapmaq üçün:
 
 **Qeyd:** Qrup ID-ləri mənfi ola bilər (məsələn: `-1001234567890`)
 
-## 3. JavaScript Faylında Konfiqurasiya
+## 3. Admin paneldə konfiqurasiya
 
-`assets/js/main.js` faylını açın və aşağıdakı dəyişənləri dəyişdirin:
+1. Saytı işə salın: `npm start`
+2. Admin panelə daxil olun: `http://localhost:PORT/admin/login.html`
+3. **Telegram** səhifəsinə keçin (`admin/panel-telegram.html`)
+4. **Bot token** və **Chat ID** daxil edin (dəyərlər səhifədə olduğu kimi görünür)
+5. **Saxla** düyməsini basın — məlumatlar `data/site-data.json` faylında saxlanılır
 
-```javascript
-const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN'; // BotFather-dən aldığınız token
-const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID'; // Öz Chat ID-niz və ya qrup ID-si
-```
-
-**Nümunə:**
-```javascript
-const TELEGRAM_BOT_TOKEN = '123456789:ABCdefGHIjklMNOpqrsTUVwxyz';
-const TELEGRAM_CHAT_ID = '123456789'; // və ya qrup üçün: '-1001234567890'
-```
+Token və Chat ID **ictimai** `/api/site` cavabında göndərilmir; form sorğuları `POST /api/contact` ilə serverə düşür və Telegram oradan göndərilir. Server üçün **Node.js 18+** lazımdır (`fetch` API).
 
 ## 4. Test Etmək
 
@@ -53,16 +48,7 @@ const TELEGRAM_CHAT_ID = '123456789'; // və ya qrup üçün: '-1001234567890'
 
 ⚠️ **MÜHİM:** Bot Token və Chat ID-ni **heç vaxt** GitHub-a yükləməyin!
 
-### Təhlükəsiz variant (isteğe bağlı):
-
-Əgər saytınızı GitHub Pages-də host edirsinizsə, məlumatları gizlətmək üçün:
-
-1. **Environment variables** istifadə edin (ancaq bu GitHub Pages-də dəstəklənmir)
-2. **Backend proxy** yaradın (Node.js, Python və s.)
-3. **Netlify Functions** və ya **Vercel Functions** istifadə edin
-
-Ən sadə həll: Bot Token və Chat ID-ni birbaşa JavaScript-də saxlamaq (ancaq bu public olacaq). 
-Yalnız form məlumatlarını alacaq bot üçün bu qəbul edilə bilər, amma botunuzu məhdudlaşdırın ki, yalnız sizin Chat ID-nizə mesaj göndərsin.
+Bu layihədə token serverdə (`data/site-data.json`) saxlanır və forma `POST /api/contact` ilə işləyir — statik host (GitHub Pages) ilə yalnız front işləməz; Node server (`npm start`) lazımdır.
 
 ## 6. Bot Məhdudiyyətləri
 

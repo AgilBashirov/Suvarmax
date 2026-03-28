@@ -18,92 +18,69 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body class="font-sans antialiased bg-gray-50 min-h-screen">
-    <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-            <h1 class="text-xl font-bold text-gray-800">Suvarmax admin</h1>
-            <div class="flex items-center gap-4">
-                <span id="admin-user" class="text-sm text-gray-600"></span>
-                <a href="../works.html" class="text-sm text-primary hover:text-primary-dark">İşlərə bax</a>
-                <button type="button" id="btn-logout" class="text-sm text-gray-600 hover:text-gray-900">Çıxış</button>
+<body class="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="../index.html" class="flex items-center shrink-0" title="Sayta qayıt">
+                    <img src="../assets/images/logo.svg" alt="Suvarmax" class="h-12 md:h-20 w-auto object-contain">
+                </a>
+                <span class="text-gray-300 hidden sm:inline">|</span>
+                <span class="font-bold text-gray-800">Admin panel</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="admin-user" class="text-gray-600"></span>
+                <button type="button" id="btn-logout" class="text-gray-600 hover:text-gray-900">Çıxış</button>
             </div>
         </div>
+        <nav class="border-t border-gray-100 bg-gray-50/80">
+            <div class="container mx-auto px-4 py-2 flex flex-wrap gap-1">
+                <a href="panel.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Əsas</a>
+                <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
+                <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
+                <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əlaqə və sosial</a>
+                <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
+                <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
+            </div>
+        </nav>
     </header>
 
-    <main class="container mx-auto px-4 py-8 max-w-5xl">
-        <p id="panel-global-error" class="hidden mb-4 p-4 bg-red-50 text-red-700 rounded-lg text-sm"></p>
-        <p id="panel-global-ok" class="hidden mb-4 p-4 bg-green-50 text-green-800 rounded-lg text-sm"></p>
-
-        <section class="mb-12">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">İşlər</h2>
-
-            <div class="bg-white rounded-xl shadow border border-gray-100 p-6 mb-8">
-                <h3 class="font-medium text-gray-700 mb-4" id="work-form-title">Yeni iş əlavə et</h3>
-                <form id="work-form" class="space-y-4">
-                    <input type="hidden" id="work-edit-id" value="">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Başlıq</label>
-                        <input type="text" id="work-title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Qısa təsvir</label>
-                        <textarea id="work-desc" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Şəkillər (PNG, JPG, WebP, SVG)</label>
-                        <input type="file" id="work-files" accept="image/*" multiple class="block w-full text-sm text-gray-600">
-                        <button type="button" id="btn-upload" class="mt-2 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1.5 rounded-lg">Seçilənləri yüklə</button>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-700 mb-2">Cari şəkil yolları (sıra ilə)</p>
-                        <ul id="work-images-list" class="text-sm text-gray-600 space-y-1 border border-gray-100 rounded-lg p-3 min-h-[3rem] bg-gray-50"></ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <button type="submit" class="bg-primary text-white px-5 py-2 rounded-lg font-medium hover:bg-primary-dark">Saxla</button>
-                        <button type="button" id="btn-work-cancel" class="hidden px-5 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">Ləğv et</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="bg-white rounded-xl shadow border border-gray-100 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left">
-                        <thead class="bg-gray-50 text-gray-600 border-b border-gray-200">
-                            <tr>
-                                <th class="px-4 py-3 font-medium">ID</th>
-                                <th class="px-4 py-3 font-medium">Başlıq</th>
-                                <th class="px-4 py-3 font-medium">Şəkil sayı</th>
-                                <th class="px-4 py-3 font-medium w-40">Əməliyyat</th>
-                            </tr>
-                        </thead>
-                        <tbody id="works-table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Admin istifadəçilər</h2>
-            <div class="bg-white rounded-xl shadow border border-gray-100 p-6 mb-6">
-                <form id="admin-add-form" class="flex flex-wrap gap-3 items-end">
-                    <div class="flex-1 min-w-[140px]">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">İstifadəçi adı</label>
-                        <input type="text" id="new-admin-user" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
-                    </div>
-                    <div class="flex-1 min-w-[140px]">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Şifrə</label>
-                        <input type="password" id="new-admin-pass" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
-                    </div>
-                    <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-dark">Əlavə et</button>
-                </form>
-            </div>
-            <ul id="admins-list" class="bg-white rounded-xl shadow border border-gray-100 divide-y divide-gray-100"></ul>
-        </section>
+    <main class="flex-1 container mx-auto px-4 py-10 max-w-5xl">
+        <h1 class="text-xl font-semibold text-gray-800 mb-2">İdarəetmə menyusu</h1>
+        <p class="text-gray-600 text-sm mb-8">Bölməni seçin — hər biri ayrı səhifədədir.</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+            <a href="panel-works.html" class="block bg-white rounded-xl shadow border border-gray-100 p-6 hover:border-primary/40 hover:shadow-md transition">
+                <h2 class="font-semibold text-gray-800 text-lg mb-1">İşlər</h2>
+                <p class="text-sm text-gray-500">«İşlərimiz» siyahısı, şəkillər, redaktə və silmə.</p>
+            </a>
+            <a href="panel-partners.html" class="block bg-white rounded-xl shadow border border-gray-100 p-6 hover:border-primary/40 hover:shadow-md transition">
+                <h2 class="font-semibold text-gray-800 text-lg mb-1">Partnyorlar</h2>
+                <p class="text-sm text-gray-500">Bölmə başlıqları və partnyor adları/linkləri.</p>
+            </a>
+            <a href="panel-contact.html" class="block bg-white rounded-xl shadow border border-gray-100 p-6 hover:border-primary/40 hover:shadow-md transition">
+                <h2 class="font-semibold text-gray-800 text-lg mb-1">Əlaqə və sosial</h2>
+                <p class="text-sm text-gray-500">Telefon, email, ünvan, footer sosial ikonları.</p>
+            </a>
+            <a href="panel-telegram.html" class="block bg-white rounded-xl shadow border border-gray-100 p-6 hover:border-primary/40 hover:shadow-md transition">
+                <h2 class="font-semibold text-gray-800 text-lg mb-1">Telegram bot</h2>
+                <p class="text-sm text-gray-500">Əlaqə formu üçün bot token və Chat ID.</p>
+            </a>
+            <a href="panel-admins.html" class="block bg-white rounded-xl shadow border border-gray-100 p-6 hover:border-primary/40 hover:shadow-md transition">
+                <h2 class="font-semibold text-gray-800 text-lg mb-1">İstifadəçilər</h2>
+                <p class="text-sm text-gray-500">Admin hesabları, şifrə yeniləmə.</p>
+            </a>
+        </div>
     </main>
 
-    <script src="admin-panel.js"></script>
+    <script src="admin-common.js"></script>
+    <script>
+        AdminCommon.requireAdmin(document.getElementById('admin-user'));
+        AdminCommon.bindLogout(document.getElementById('btn-logout'));
+    </script>
 </body>
 </html>

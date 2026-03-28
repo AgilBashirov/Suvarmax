@@ -24,31 +24,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="font-sans antialiased bg-gray-50">
+<body class="font-sans antialiased min-h-screen flex flex-col">
+    <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html#home" class="flex items-center">
-                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 w-auto">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 md:h-20 w-auto object-contain">
                 </a>
-                <button id="mobile-menu-btn" type="button" class="md:hidden text-gray-700 focus:outline-none" aria-label="Menyu">
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
                 <div id="mobile-menu" class="hidden md:flex md:items-center md:space-x-6">
-                    <a href="index.html#home" class="text-gray-700 hover:text-primary transition">Ana Səhifə</a>
-                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition">Haqqımızda</a>
-                    <a href="index.html#services" class="text-gray-700 hover:text-primary transition">Xidmətlər</a>
-                    <a href="works.html" class="text-primary font-medium hover:text-primary-dark transition">İşlərimiz</a>
-                    <a href="index.html#partners" class="text-gray-700 hover:text-primary transition">Partnyorlar</a>
-                    <a href="index.html#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition">Əlaqə</a>
+                    <a href="index.html#home" class="text-primary font-medium hover:text-primary-dark transition text-lg">Ana Səhifə</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition text-lg">Haqqımızda</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-primary transition text-lg">Xidmətlər</a>
+                    <a href="index.html#partners" class="text-gray-700 hover:text-primary transition text-lg">Partnyorlar</a>
+                    <a href="works.html" class="text-primary font-medium hover:text-primary-dark transition text-lg">İşlərimiz</a>
+                    <a href="index.html#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition text-lg font-semibold">Əlaqə</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-12 md:py-16">
+    <main class="flex-1 w-full container mx-auto px-4 py-12 md:py-16">
         <header class="mb-10 text-center md:text-left">
             <h1 class="text-3xl md:text-4xl font-bold text-gray-800">İşlərimiz</h1>
             <p class="mt-2 text-gray-600 max-w-2xl">Həyata keçirdiyimiz layihələrdən nümunələr.</p>
@@ -58,16 +59,58 @@
         <div id="works-error" class="hidden text-center text-red-600 py-16"></div>
         <div id="works-empty" class="hidden text-center text-gray-500 py-16">Hələ heç bir iş əlavə edilməyib.</div>
         <div id="works-grid" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+        <nav id="works-pagination" class="hidden mt-12 mb-4 flex flex-col items-center gap-3" aria-label="Səhifələmə"></nav>
     </main>
 
-    <footer class="bg-gray-800 text-white py-12 mt-auto">
-        <div class="container mx-auto px-4 text-center text-gray-400">
-            <a href="index.html#home" class="hover:text-white transition">Ana səhifəyə qayıt</a>
-            <p class="mt-4 text-sm">&copy; 2024 Suvarmax</p>
+    <!-- Footer (ana səhifə ilə eyni struktur; əlaqə/sosial /api/site) -->
+    <footer class="bg-gray-800 text-white py-12 shrink-0">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="flex flex-col">
+                    <div class="mb-4 flex items-start">
+                        <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-24 md:h-28 w-auto max-w-full object-contain">
+                    </div>
+                    <p class="text-gray-400 text-sm mt-auto">Peşəkar suvarma sistemləri təchizatçısı</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Səhifələr</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="index.html#home" class="hover:text-white transition">Ana Səhifə</a></li>
+                        <li><a href="index.html#about" class="hover:text-white transition">Haqqımızda</a></li>
+                        <li><a href="index.html#services" class="hover:text-white transition">Xidmətlər</a></li>
+                        <li><a href="index.html#partners" class="hover:text-white transition">Partnyorlar</a></li>
+                        <li><a href="works.html" class="hover:text-white transition">İşlərimiz</a></li>
+                        <li><a href="index.html#contact" class="hover:text-white transition">Əlaqə</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Əlaqə</h3>
+                    <ul id="site-footer-contact" class="space-y-2 text-gray-400">
+                        <li>Telefon: <a id="site-footer-phone" href="tel:+994556485658" class="hover:text-white transition">+994 55 648 56 58</a></li>
+                        <li>Email: <a id="site-footer-email" href="mailto:info@suvarmax.az" class="hover:text-white transition">info@suvarmax.az</a></li>
+                        <li>Ünvan: <span id="site-footer-address">Bakı, Azərbaycan</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Sosial şəbəkələr</h3>
+                    <div id="site-footer-social" class="flex flex-wrap gap-4"></div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; <span id="current-year"></span> Suvarmax. Bütün hüquqlar qorunur.</p>
+            </div>
         </div>
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/site-content.js"></script>
     <script src="assets/js/works-list.js"></script>
+    <script>
+        (function () {
+            const yearElement = document.getElementById('current-year');
+            if (yearElement) yearElement.textContent = new Date().getFullYear();
+        })();
+    </script>
 </body>
 </html>

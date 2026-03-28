@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Əlaqə və sosial — Admin — Suvarmax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2d8659',
+                        'primary-dark': '#1f5d3f',
+                        'primary-light': '#e8f5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="../index.html" class="flex items-center shrink-0" title="Sayta qayıt">
+                    <img src="../assets/images/logo.svg" alt="Suvarmax" class="h-12 md:h-20 w-auto object-contain">
+                </a>
+                <span class="text-gray-300 hidden sm:inline">|</span>
+                <a href="panel.html" class="text-sm text-gray-600 hover:text-primary">← Admin əsas</a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="admin-user" class="text-gray-600"></span>
+                <button type="button" id="btn-logout" class="text-gray-600 hover:text-gray-900">Çıxış</button>
+            </div>
+        </div>
+        <nav class="border-t border-gray-100 bg-gray-50/80">
+            <div class="container mx-auto px-4 py-2 flex flex-wrap gap-1">
+                <a href="panel.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əsas</a>
+                <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
+                <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
+                <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Əlaqə və sosial</a>
+                <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
+                <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 container mx-auto px-4 py-8 max-w-5xl">
+        <section>
+            <h1 class="text-lg font-semibold text-gray-800 mb-4">Əlaqə və sosial şəbəkələr</h1>
+            <div class="bg-white rounded-xl shadow border border-gray-100 p-6 space-y-6">
+                <div>
+                    <h2 class="font-medium text-gray-800 mb-3">Əlaqə (telefon, email, ünvan)</h2>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Telefon (tel: link üçün)</label>
+                            <input type="text" id="adm-site-phone-tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Telefon (ekranda mətn)</label>
+                            <input type="text" id="adm-site-phone-label" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-600 mb-1">Email</label>
+                            <input type="email" id="adm-site-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs text-gray-600 mb-1">Ünvan</label>
+                            <input type="text" id="adm-site-address" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="font-medium text-gray-800">Sosial şəbəkələr (footer)</h2>
+                        <button type="button" id="adm-site-add-social" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1.5 rounded-lg">+ Sosial</button>
+                    </div>
+                    <div class="text-xs text-gray-600 mb-3 p-3 rounded-lg bg-gray-50 border border-gray-200 space-y-2">
+                        <p class="font-medium text-gray-700">İkon haradan?</p>
+                        <p>
+                            Yeni brend ikonları (Facebook, Instagram, YouTube və s.) üçün ən rahat mənbə
+                            <a href="https://simpleicons.org/" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">Simple Icons</a>
+                            vebsaytıdır — SVG yükləyib rəngi redaktə edə və ya birbaşa layihəyə əlavə edə bilərsiniz (MIT lisenziyası).
+                            Ümumi UI ikonları üçün
+                            <a href="https://heroicons.com/" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">Heroicons</a>
+                            da istifadə oluna bilər.
+                        </p>
+                        <p>Layihədə hazır nümunə fayllar <span class="font-mono text-gray-800">assets/images/social/</span> qovluğundadır. İkon yolu sahəsinə yazın və ya «İkon yüklə» ilə həmin qovluğa yükləyin.</p>
+                        <ul class="list-disc list-inside font-mono text-[11px] text-gray-800 space-y-0.5 break-all">
+                            <li>assets/images/social/facebook.svg</li>
+                            <li>assets/images/social/instagram.svg</li>
+                            <li>assets/images/social/linkedin.svg</li>
+                        </ul>
+                        <p class="text-gray-500">
+                            <strong>SVG yükləyəndə</strong> server faylı avtomatik footer rənginə gətirir: <span class="font-mono">#e5e7eb</span>.
+                            <strong>PNG</strong> rəngi dəyişmir — ehtiyac varsa əvvəlcə SVG istifadə edin.
+                            Sosial sətirini silib «Əlaqəni saxla» dedikdə, həmin ikonun yerli faylı
+                            <span class="font-mono">assets/images/social/</span> qovluğundan da silinir (standart
+                            <span class="font-mono">facebook.svg</span>, <span class="font-mono">instagram.svg</span>, <span class="font-mono">linkedin.svg</span> toxunulmur).
+                        </p>
+                    </div>
+                    <div id="admin-site-social-list"></div>
+                </div>
+                <button type="button" id="admin-save-site" class="bg-primary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-primary-dark">Əlaqəni saxla</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin-common.js"></script>
+    <script src="admin-contact.js"></script>
+</body>
+</html>

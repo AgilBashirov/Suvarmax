@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram bot — Admin — Suvarmax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2d8659',
+                        'primary-dark': '#1f5d3f',
+                        'primary-light': '#e8f5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="../index.html" class="flex items-center shrink-0" title="Sayta qayıt">
+                    <img src="../assets/images/logo.svg" alt="Suvarmax" class="h-12 md:h-20 w-auto object-contain">
+                </a>
+                <span class="text-gray-300 hidden sm:inline">|</span>
+                <a href="panel.html" class="text-sm text-gray-600 hover:text-primary">← Admin əsas</a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="admin-user" class="text-gray-600"></span>
+                <button type="button" id="btn-logout" class="text-gray-600 hover:text-gray-900">Çıxış</button>
+            </div>
+        </div>
+        <nav class="border-t border-gray-100 bg-gray-50/80">
+            <div class="container mx-auto px-4 py-2 flex flex-wrap gap-1">
+                <a href="panel.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əsas</a>
+                <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
+                <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
+                <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əlaqə və sosial</a>
+                <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Telegram</a>
+                <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 container mx-auto px-4 py-8 max-w-3xl">
+        <section>
+            <h1 class="text-lg font-semibold text-gray-800 mb-1">Telegram bot</h1>
+            <p class="text-sm text-gray-600 mb-6">Ana səhifə əlaqə formundan gələn sorğular bu parametrlərlə göndərilir. Bot token defolt olaraq gizlidir — görmək və ya dəyişmək üçün «Göstər»ə basın.</p>
+            <div class="bg-white rounded-xl shadow border border-gray-100 p-6 space-y-5">
+                <div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <label class="block text-sm font-medium text-gray-700" for="adm-tg-token">Bot token</label>
+                        <button type="button" id="adm-tg-toggle-token" class="text-xs text-primary hover:text-primary-dark font-medium">Göstər</button>
+                    </div>
+                    <input type="password" id="adm-tg-token" autocomplete="off" spellcheck="false"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono break-all"
+                        placeholder="BotFather-dən alınan token">
+                    <p class="text-xs text-gray-500 mt-1">«Göstər» tokenı açır, «Gizlət» yenidən ulduzlarla gizlədir. Saxla düyməsi həmişə daxil etdiyiniz dəyəri yazır.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="adm-tg-chat-id">Chat ID</label>
+                    <input type="text" id="adm-tg-chat-id" autocomplete="off" spellcheck="false"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono"
+                        placeholder="Şəxsi ID və ya qrup üçün mənfi ID">
+                </div>
+                <p class="text-xs text-gray-500 border-t border-gray-100 pt-4">Bu məlumatlar ictimai <span class="font-mono">/api/site</span> cavabında yoxdur. Ətraflı: layihədə <span class="font-mono">TELEGRAM_SETUP.md</span>.</p>
+                <button type="button" id="admin-save-telegram" class="bg-primary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-primary-dark">Saxla</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin-common.js"></script>
+    <script src="admin-telegram.js"></script>
+</body>
+</html>

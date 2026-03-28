@@ -77,14 +77,12 @@ Axtarın və dəyişdirin:
 
 ### Telegram Bot Quraşdırması
 
-Form məlumatları Telegram botuna göndərilir. Quraşdırma üçün:
+Form məlumatları Telegram botuna server vasitəsilə göndərilir. Token yalnız `data/site-data.json`-da (admin paneldən) saxlanır, brauzerdə açıq qalmır.
 
-1. `TELEGRAM_SETUP.md` faylına baxın - ətraflı təlimatlar var
-2. Telegram-da [@BotFather](https://t.me/botfather) ilə bot yaradın
-3. Bot Token və Chat ID-ni əldə edin
-4. `assets/js/main.js` faylında `TELEGRAM_BOT_TOKEN` və `TELEGRAM_CHAT_ID` dəyişənlərini dəyişdirin
+1. `TELEGRAM_SETUP.md` — BotFather və Chat ID təlimatı
+2. Admin panel → **Telegram** səhifəsində token və Chat ID yazıb saxlayın
 
-**Qeyd:** Bot Token və Chat ID-ni GitHub-a yükləməmək üçün diqqətli olun. Production üçün backend proxy istifadə etmək tövsiyə olunur.
+**Qeyd:** `site-data.json` faylını ictimai repozitoriyaya token ilə commit etməyin; production-da faylı `.gitignore`-da saxlamaq və ya mühit dəyişənləri ilə idarə etmək daha təhlükəsizdir.
 
 
 ## 🎨 Dizayn
