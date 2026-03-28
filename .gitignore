@@ -17,4 +17,6 @@ desktop.ini
 *.tmp
 *.temp
 
+# Dependencies
+node_modules/
 
