@@ -1,0 +1,18 @@
+{
+  "works": [
+    {
+      "id": 1,
+      "title": "Nümunə layihə",
+      "description": "Bu nümunə işdir. Admin paneldən redaktə edin və ya silin. Şəkilləri assets/images qovluğuna yükləyə bilərsiniz.",
+      "images": [
+        "assets/images/logo.svg"
+      ]
+    }
+  ],
+  "admins": [
+    {
+      "username": "admin",
+      "password": "admin123"
+    }
+  ]
+}

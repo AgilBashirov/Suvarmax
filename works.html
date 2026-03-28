@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Suvarmax — görülən işlər və layihələr.">
+    <title>İşlərimiz — Suvarmax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2d8659',
+                        'primary-dark': '#1f5d3f',
+                        'primary-light': '#e8f5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html#home" class="flex items-center">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 w-auto">
+                </a>
+                <button id="mobile-menu-btn" type="button" class="md:hidden text-gray-700 focus:outline-none" aria-label="Menyu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <div id="mobile-menu" class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="index.html#home" class="text-gray-700 hover:text-primary transition">Ana Səhifə</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition">Haqqımızda</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-primary transition">Xidmətlər</a>
+                    <a href="works.html" class="text-primary font-medium hover:text-primary-dark transition">İşlərimiz</a>
+                    <a href="index.html#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition">Əlaqə</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-12 md:py-16">
+        <header class="mb-10 text-center md:text-left">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">İşlərimiz</h1>
+            <p class="mt-2 text-gray-600 max-w-2xl">Həyata keçirdiyimiz layihələrdən nümunələr.</p>
+        </header>
+
+        <div id="works-loading" class="text-center text-gray-500 py-16">Yüklənir…</div>
+        <div id="works-error" class="hidden text-center text-red-600 py-16"></div>
+        <div id="works-empty" class="hidden text-center text-gray-500 py-16">Hələ heç bir iş əlavə edilməyib.</div>
+        <div id="works-grid" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-12 mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <a href="index.html#home" class="hover:text-white transition">Ana səhifəyə qayıt</a>
+            <p class="mt-4 text-sm">&copy; 2024 Suvarmax</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/works-list.js"></script>
+</body>
+</html>
