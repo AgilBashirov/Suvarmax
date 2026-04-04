@@ -2,7 +2,7 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="description" content="Suvarmax - Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri. Bakı, Azərbaycan." data-i18n-meta="meta.metaDescription">
     <meta name="keywords" content="suvarma sistemləri, suvarma, layihələndirmə, quraşdırma, servis, Bakı, Azərbaycan" data-i18n-meta="meta.metaKeywords">
     <meta property="og:title" content="Suvarmax - Peşəkar Suvarma Sistemləri" data-i18n-meta="meta.ogTitle">
@@ -13,14 +13,23 @@
     <script>
         tailwind.config = {
             theme: {
+                /* md: 740px — iPad Mini portret (744px) və dar tablet üçün */
+                screens: {
+                    xs: '480px',
+                    sm: '640px',
+                    md: '740px',
+                    lg: '1024px',
+                    xl: '1280px',
+                    '2xl': '1536px',
+                },
                 extend: {
                     colors: {
                         primary: '#2d8659',
                         'primary-dark': '#1f5d3f',
                         'primary-light': '#e8f5e9',
-                    }
-                }
-            }
+                    },
+                },
+            },
         }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,27 +42,27 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased min-h-screen overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <a href="#home" class="flex items-center">
-                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 md:h-20 w-auto object-contain">
+    <nav class="bg-white shadow-md sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
+        <div class="container mx-auto px-4 sm:px-5 py-3 sm:py-4">
+            <div class="flex items-center justify-between gap-3 relative">
+                <a href="#home" class="flex items-center shrink-0 min-h-[44px]">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-10 sm:h-12 md:h-20 w-auto max-h-[44px] sm:max-h-none object-contain">
                 </a>
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="button" id="mobile-menu-btn" class="md:hidden touch-target flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-50 active:bg-gray-100 -mr-1" aria-controls="mobile-menu" aria-expanded="false" aria-label="Menyunu aç/bağla">
+                    <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <div id="mobile-menu" class="hidden md:flex md:flex-wrap md:items-center md:gap-4">
-                    <a href="#home" class="text-primary font-medium hover:text-primary-dark transition text-lg" data-i18n="nav.home">Ana Səhifə</a>
-                    <a href="#about" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.about">Haqqımızda</a>
-                    <a href="#services" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.services">Xidmətlər</a>
-                    <a href="#partners" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.partners">Partnyorlar</a>
-                    <a href="works.html" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.works">İşlərimiz</a>
-                    <a href="#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition text-lg font-semibold" data-i18n="nav.contact">Əlaqə</a>
-                    <div class="flex items-center border-l border-gray-200 pl-4 ml-2">
+                <div id="mobile-menu" class="hidden md:flex md:flex-wrap md:items-center md:gap-3 lg:gap-4">
+                    <a href="#home" class="text-primary font-medium hover:text-primary-dark transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.home">Ana Səhifə</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.about">Haqqımızda</a>
+                    <a href="#services" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.services">Xidmətlər</a>
+                    <a href="#partners" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.partners">Partnyorlar</a>
+                    <a href="works.html" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.works">İşlərimiz</a>
+                    <a href="#contact" class="bg-primary text-white px-4 py-3 md:py-2 rounded-lg hover:bg-primary-dark transition text-base md:text-lg font-semibold text-center md:text-left" data-i18n="nav.contact">Əlaqə</a>
+                    <div class="flex items-center w-full md:w-auto justify-start pt-4 mt-1 border-t border-gray-200 md:border-t-0 md:pt-0 md:mt-0 md:border-l md:pl-4 md:ml-2">
                         <div class="lang-switch" role="group" aria-label="Dil">
                             <button type="button" data-lang-set="az">AZ</button>
                             <button type="button" data-lang-set="ru">RU</button>
@@ -76,10 +85,10 @@
         <div class="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
         
-        <div class="relative container mx-auto px-4 py-24 md:py-32">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="relative container mx-auto px-4 sm:px-5 py-16 sm:py-20 md:py-28 lg:py-32">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <!-- Left Content -->
-                <div class="text-white space-y-8 animate-fade-in">
+                <div class="text-white space-y-6 sm:space-y-8 animate-fade-in">
                     <!-- Badge -->
                     <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +99,7 @@
                     
                     <!-- Main Heading -->
                     <div class="space-y-4">
-                        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                        <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] sm:leading-tight">
                             <span class="block" data-i18n="hero.headingLine1">Peşəkar</span>
                             <span class="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-i18n="hero.headingLine2">
                                 Suvarma Sistemləri
@@ -100,33 +109,33 @@
                     </div>
                     
                     <!-- Description -->
-                    <p class="text-lg md:text-xl text-white/90 leading-relaxed max-w-xl" data-i18n="hero.description">
+                    <p class="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-xl" data-i18n="hero.description">
                         Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə yüksək keyfiyyətli həllər təqdim edirik. Müasir texnologiyalar və təcrübəli komanda ilə.
                     </p>
                     
                     <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6 pt-4">
+                    <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-2 sm:pt-4">
                         <div>
-                            <div class="text-3xl md:text-4xl font-bold text-white" data-i18n="hero.stat1Value">500+</div>
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat1Value">500+</div>
                             <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat1Label">Layihə</div>
                         </div>
                         <div>
-                            <div class="text-3xl md:text-4xl font-bold text-white" data-i18n="hero.stat2Value">15+</div>
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat2Value">15+</div>
                             <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat2Label">İl Təcrübə</div>
                         </div>
                         <div>
-                            <div class="text-3xl md:text-4xl font-bold text-white" data-i18n="hero.stat3Value">98%</div>
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat3Value">99%</div>
                             <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat3Label">Məmnuniyyət</div>
                         </div>
                     </div>
                     
                     <!-- CTA Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                        <a href="#contact" class="group relative bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center overflow-hidden">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
+                        <a href="#contact" class="group relative bg-white text-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 sm:transform sm:hover:scale-105 shadow-lg hover:shadow-xl text-center overflow-hidden min-h-[48px] flex items-center justify-center">
                             <span class="relative z-10" data-i18n="hero.ctaPrimary">Layihə sorğusu göndər</span>
                             <div class="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-0 group-hover:opacity-10 transition-opacity"></div>
                         </a>
-                        <a href="#services" class="group bg-transparent border-2 border-white/30 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 transform hover:scale-105 text-center">
+                        <a href="#services" class="group bg-transparent border-2 border-white/30 backdrop-blur-sm text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 sm:transform sm:hover:scale-105 text-center min-h-[48px] flex items-center justify-center">
                             <span class="flex items-center justify-center gap-2">
                                 <span data-i18n="hero.ctaSecondary">Xidmətlərimiz</span>
                                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -188,18 +197,18 @@
     </section>
 
     <!-- Services Preview -->
-    <section id="services" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-i18n="services.sectionTitle">Xidmətlərimiz</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section id="services" class="py-12 sm:py-14 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-5">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12" data-i18n="services.sectionTitle">Xidmətlərimiz</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.0.title">Suvarma Sistemlərinin Satışı</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.0.title">Suvarma Sistemlərinin Satışı</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.0.body">
                         Yüksək keyfiyyətli suvarma avadanlıqlarının geniş çeşidini təqdim edirik. Drip suvarma, sprinkler sistemləri, mərkəzi pivot sistemləri və digər müasir suvarma texnologiyaları.
                     </p>
@@ -226,13 +235,13 @@
                 </div>
 
                 <!-- Service 2 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.1.title">Layihələndirmə</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.1.title">Layihələndirmə</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.1.body">
                         Peşəkar mühəndislərimiz sizin sahəniz üçün optimal suvarma sistemini layihələndirir. Torpaq analizi, su ehtiyatlarının qiymətləndirilməsi və effektiv suvarma planının hazırlanması.
                     </p>
@@ -259,14 +268,14 @@
                 </div>
 
                 <!-- Service 3 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.2.title">Quraşdırma</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.2.title">Quraşdırma</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.2.body">
                         Təcrübəli quraşdırma komandamız suvarma sistemlərinin peşəkar quraşdırılmasını və işə salınmasını təmin edir. Bütün işlər vaxtında və keyfiyyətli şəkildə həyata keçirilir.
                     </p>
@@ -293,14 +302,14 @@
                 </div>
 
                 <!-- Service 4 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.3.title">Servis & Təmir</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.3.title">Servis & Təmir</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.3.body">
                         Suvarma sistemlərinizin düzgün işləməsi üçün müntəzəm servis və təmir xidmətləri təqdim edirik. Problemlərin tez həlli və sistemin uzunmüddətli işləməsi.
                     </p>
@@ -327,13 +336,13 @@
                 </div>
 
                 <!-- Service 5 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.4.title">Ehtiyat Hissələri</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.4.title">Ehtiyat Hissələri</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.4.body">
                         Orijinal və uyğun ehtiyat hissələrinin geniş çeşidini təqdim edirik. Sistemlərinizin fasiləsiz işləməsi üçün lazım olan bütün komponentlər.
                     </p>
@@ -360,13 +369,13 @@
                 </div>
 
                 <!-- Service 6 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="services.cards.5.title">Konsultasiya</h3>
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="services.cards.5.title">Konsultasiya</h3>
                     <p class="text-gray-600 leading-relaxed mb-4" data-i18n="services.cards.5.body">
                         Suvarma sistemləri ilə bağlı pulsuz konsultasiya xidmətləri. Sizin sahəniz üçün ən yaxşı həlli seçməkdə kömək edirik.
                     </p>
@@ -397,38 +406,38 @@
 
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
+    <section id="about" class="py-12 sm:py-14 md:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-5">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-i18n="about.sectionTitle">Haqqımızda</h2>
-                <div class="mb-12">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6" data-i18n="about.companyHeading">Şirkətimiz haqqında</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-4" data-i18n="about.companyP1">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12" data-i18n="about.sectionTitle">Haqqımızda</h2>
+                <div class="mb-10 sm:mb-12">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6" data-i18n="about.companyHeading">Şirkətimiz haqqında</h3>
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4" data-i18n="about.companyP1">
                         Suvarmax, Azərbaycanda suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə məşğul olan aparıcı şirkətdir. Biz müştərilərimizə yüksək keyfiyyətli məhsul və xidmət təqdim etməklə, müasir suvarma texnologiyalarını Azərbaycan bazarına gətiririk.
                     </p>
-                    <p class="text-lg text-gray-600 leading-relaxed" data-i18n="about.companyP2">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed" data-i18n="about.companyP2">
                         Təcrübəli komandamız və geniş məhsul çeşidimizlə, həm kiçik bağçalar, həm də böyük kənd təsərrüfatı sahələri üçün optimal həllər təklif edirik.
                     </p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <div class="bg-gray-50 p-6 rounded-lg">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="about.missionTitle">Missiyamız</h3>
+                <div class="grid md:grid-cols-2 gap-5 sm:gap-8 mb-10 sm:mb-12">
+                    <div class="bg-gray-50 p-5 sm:p-6 rounded-lg">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="about.missionTitle">Missiyamız</h3>
                         <p class="text-gray-600 leading-relaxed" data-i18n="about.missionText">
                             Su ehtiyatlarının səmərəli istifadəsini təmin etmək və müştərilərimizə ən yaxşı suvarma həllərini təqdim etmək. Keyfiyyət, etibarlılıq və müştəri məmnuniyyəti bizim əsas prioritetlərimizdir.
                         </p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-lg">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-i18n="about.visionTitle">Vizyonumuz</h3>
+                    <div class="bg-gray-50 p-5 sm:p-6 rounded-lg">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="about.visionTitle">Vizyonumuz</h3>
                         <p class="text-gray-600 leading-relaxed" data-i18n="about.visionText">
                             Azərbaycanda suvarma sistemləri sahəsində aparıcı şirkət olmaq və müasir texnologiyalar vasitəsilə kənd təsərrüfatının inkişafına töhfə vermək.
                         </p>
                     </div>
                 </div>
 
-                <div class="mb-12">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6" data-i18n="about.teamHeading">Komandamız</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-6" data-i18n="about.teamP1">
+                <div class="mb-10 sm:mb-12">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6" data-i18n="about.teamHeading">Komandamız</h3>
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6" data-i18n="about.teamP1">
                         Suvarmax komandası təcrübəli mütəxəssislərdən ibarətdir. Bizim mühəndislərimiz, texniklərimiz və satış məsləhətçilərimiz müştərilərimizə ən yaxşı xidməti təqdim etmək üçün daim öz bilik və bacarıqlarını təkmilləşdirirlər.
                     </p>
                     <div class="grid md:grid-cols-3 gap-6">
@@ -467,10 +476,10 @@
     </section>
 
     <!-- Partners Section (məzmun /api/site + site-content.js) -->
-    <section id="partners" class="py-16 bg-gray-50 overflow-hidden">
-        <div class="container mx-auto px-4">
-            <h2 id="site-partners-title" class="text-3xl font-bold text-center text-gray-800 mb-4">Partnyorlarımız</h2>
-            <p id="site-partners-subtitle" class="text-center text-gray-600 mb-12">Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız</p>
+    <section id="partners" class="py-12 sm:py-14 md:py-16 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-5">
+            <h2 id="site-partners-title" class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-3 sm:mb-4">Partnyorlarımız</h2>
+            <p id="site-partners-subtitle" class="text-center text-gray-600 text-sm sm:text-base mb-8 sm:mb-12 px-1">Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız</p>
             <div class="swiper partners-swiper relative">
                 <div class="swiper-wrapper" id="partners-swiper-wrapper"></div>
                 <div class="swiper-button-next partners-nav-next"></div>
@@ -480,13 +489,13 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12" data-i18n="contactSection.sectionTitle">Bizimlə Əlaqə</h2>
-            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    <section id="contact" class="py-12 sm:py-14 md:py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-5">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12" data-i18n="contactSection.sectionTitle">Bizimlə Əlaqə</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
                 <!-- Contact Info -->
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-8" data-i18n="contactSection.infoHeading">Əlaqə Məlumatları</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 sm:mb-8" data-i18n="contactSection.infoHeading">Əlaqə Məlumatları</h3>
                     <div class="space-y-6">
                         <div class="flex items-start">
                             <div class="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
@@ -527,7 +536,7 @@
 
                 <!-- Contact Form -->
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-8" data-i18n="contactSection.formHeading">Mesaj Göndərin</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 sm:mb-8" data-i18n="contactSection.formHeading">Mesaj Göndərin</h3>
                     <form id="contact-form" class="space-y-6" novalidate>
                         <div>
                             <label for="name" class="block text-gray-700 font-medium mb-2" data-i18n="contactSection.labelName">Ad Soyad *</label>
@@ -564,23 +573,23 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-primary text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-4" data-i18n="cta.title">Layihəniz üçün peşəkar həll axtarırsınız?</h2>
-            <p class="text-xl mb-8 text-white/90" data-i18n="cta.subtitle">Bizimlə əlaqə saxlayın və pulsuz konsultasiya əldə edin</p>
-            <a href="#contact" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block" data-i18n="cta.button">
+    <section class="py-12 sm:py-14 md:py-16 bg-primary text-white pb-[max(3rem,env(safe-area-inset-bottom))]">
+        <div class="container mx-auto px-4 sm:px-5 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 px-1" data-i18n="cta.title">Layihəniz üçün peşəkar həll axtarırsınız?</h2>
+            <p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-white/90 px-1" data-i18n="cta.subtitle">Bizimlə əlaqə saxlayın və pulsuz konsultasiya əldə edin</p>
+            <a href="#contact" class="bg-white text-primary px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-semibold hover:bg-gray-100 transition inline-flex items-center justify-center min-h-[48px]" data-i18n="cta.button">
                 Bizimlə əlaqə
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="flex flex-col">
+    <footer class="bg-gray-800 text-white py-10 sm:py-12 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+        <div class="container mx-auto px-4 sm:px-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+                <div class="flex flex-col sm:col-span-2 lg:col-span-1">
                     <div class="mb-4 flex items-start">
-                        <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-24 md:h-28 w-auto max-w-full object-contain">
+                        <img src="assets/images/logo-footer.svg" alt="Suvarmax Logo" class="h-20 sm:h-24 md:h-28 w-auto max-w-full object-contain">
                     </div>
                     <p class="text-gray-400 text-sm mt-auto" data-i18n="footer.tagline">Peşəkar suvarma sistemləri təchizatçısı</p>
                 </div>
