@@ -20,6 +20,12 @@
     }
   }
 
+  /** Deploydan sonra brauzerin köhnə JSON keşindən hero/stat və s. qayıtmasının qarşısı */
+  function withNoCacheParam(url) {
+    var sep = url.indexOf('?') >= 0 ? '&' : '?';
+    return url + sep + 'nocache=' + String(Date.now());
+  }
+
   function isIndexPage() {
     var p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
     return p === '/' || p.endsWith('/index.html');
@@ -39,7 +45,7 @@
   window.__SUMAX_BOOTSTRAP_HOME = null;
   try {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', jsonUrl(), false);
+    xhr.open('GET', withNoCacheParam(jsonUrl()), false);
     xhr.send(null);
     if (xhr.status >= 200 && xhr.status < 300 && xhr.responseText) {
       var all = JSON.parse(xhr.responseText);
@@ -47,7 +53,7 @@
       if (shell && isIndexPage()) {
         try {
           var xb = new XMLHttpRequest();
-          xb.open('GET', homeBlocksUrl(), false);
+          xb.open('GET', withNoCacheParam(homeBlocksUrl()), false);
           xb.send(null);
           if (xb.status >= 200 && xb.status < 300 && xb.responseText) {
             var blocks = JSON.parse(xb.responseText);

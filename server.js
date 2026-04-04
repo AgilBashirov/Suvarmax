@@ -29,11 +29,24 @@ try {
 }
 
 /** Admin-də redaktə olunmur: meta, nav, hero, düymələr, footer, işlər səhifəsi və s. — yalnız services/about DB-də */
-let STATIC_HOME_BY_LOCALE = {};
+let staticHomeByLocaleCache = {};
 try {
-  STATIC_HOME_BY_LOCALE = JSON.parse(fs.readFileSync(STATIC_HOME_BY_LOCALE_PATH, 'utf8'));
+  staticHomeByLocaleCache = JSON.parse(fs.readFileSync(STATIC_HOME_BY_LOCALE_PATH, 'utf8'));
 } catch (e) {
-  console.warn('static-home-by-locale.json oxunmadı:', e.message);
+  console.warn('static-home-by-locale.json ilkin oxunmadı:', e.message);
+}
+
+/** Hər sorğuda diskdən oxunur — fayl yenilənəndə Node restart olmadan hero/stat və s. düzəlsin */
+function loadStaticHomeByLocale() {
+  try {
+    const data = JSON.parse(fs.readFileSync(STATIC_HOME_BY_LOCALE_PATH, 'utf8'));
+    staticHomeByLocaleCache = data;
+    return data;
+  } catch (e) {
+    return staticHomeByLocaleCache && typeof staticHomeByLocaleCache === 'object'
+      ? staticHomeByLocaleCache
+      : {};
+  }
 }
 
 const JWT_SECRET = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'suvarmax-dev-jwt-deyisin';
@@ -344,7 +357,7 @@ function mergeHomeServicesAboutForPublic(norm, lang) {
 
 function mergeHomeForPublic(norm, lang) {
   const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
-  const byLoc = STATIC_HOME_BY_LOCALE && typeof STATIC_HOME_BY_LOCALE === 'object' ? STATIC_HOME_BY_LOCALE : {};
+  const byLoc = loadStaticHomeByLocale();
   const shellSrc = byLoc[L] || byLoc[DEFAULT_LOCALE] || {};
   const shell = JSON.parse(JSON.stringify(shellSrc));
   const sa = mergeHomeServicesAboutForPublic(norm, L);
@@ -362,7 +375,7 @@ function pickStr(tr, az, defVal, maxLen) {
 /** Partnyor bölmə başlığı/alt başlığı — data/static-home-by-locale.json */
 function staticPartnersHeadings(lang) {
   const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
-  const byLoc = STATIC_HOME_BY_LOCALE && typeof STATIC_HOME_BY_LOCALE === 'object' ? STATIC_HOME_BY_LOCALE : {};
+  const byLoc = loadStaticHomeByLocale();
   const shell = byLoc[L] || byLoc[DEFAULT_LOCALE] || {};
   const ps = shell.partnersSection && typeof shell.partnersSection === 'object' ? shell.partnersSection : {};
   const title = String(ps.title != null ? ps.title : '').trim().slice(0, 200);
