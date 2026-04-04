@@ -2,21 +2,29 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="description" content="Suvarmax — iş detalları" data-i18n-meta="workDetailPage.metaDescription">
     <title>İş detalı — Suvarmax</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
+                screens: {
+                    xs: '480px',
+                    sm: '640px',
+                    md: '740px',
+                    lg: '1024px',
+                    xl: '1280px',
+                    '2xl': '1536px',
+                },
                 extend: {
                     colors: {
                         primary: '#2d8659',
                         'primary-dark': '#1f5d3f',
                         'primary-light': '#e8f5e9',
-                    }
-                }
-            }
+                    },
+                },
+            },
         }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,27 +35,27 @@
     <script src="assets/js/i18n-home.js"></script>
     <script src="assets/js/i18n-boot.js"></script>
 </head>
-<body class="font-sans antialiased min-h-screen flex flex-col">
+<body class="font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <a href="index.html#home" class="flex items-center">
-                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 md:h-20 w-auto object-contain">
+    <nav class="bg-white shadow-md sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
+        <div class="container mx-auto px-4 sm:px-5 py-3 sm:py-4">
+            <div class="flex items-center justify-between gap-3 relative">
+                <a href="index.html#home" class="flex items-center shrink-0 min-h-[44px]">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-10 sm:h-12 md:h-20 w-auto max-h-[44px] sm:max-h-none object-contain">
                 </a>
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="button" id="mobile-menu-btn" class="md:hidden touch-target flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-50 active:bg-gray-100 -mr-1" aria-controls="mobile-menu" aria-expanded="false" aria-label="Menyunu aç/bağla">
+                    <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <div id="mobile-menu" class="hidden md:flex md:flex-wrap md:items-center md:gap-4">
-                    <a href="index.html#home" class="text-primary font-medium hover:text-primary-dark transition text-lg" data-i18n="nav.home">Ana Səhifə</a>
-                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.about">Haqqımızda</a>
-                    <a href="index.html#services" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.services">Xidmətlər</a>
-                    <a href="index.html#partners" class="text-gray-700 hover:text-primary transition text-lg" data-i18n="nav.partners">Partnyorlar</a>
-                    <a href="works.html" class="text-primary font-medium hover:text-primary-dark transition text-lg" data-i18n="nav.works">İşlərimiz</a>
-                    <a href="index.html#contact" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition text-lg font-semibold" data-i18n="nav.contact">Əlaqə</a>
-                    <div class="flex items-center border-l border-gray-200 pl-4 ml-2">
+                <div id="mobile-menu" class="hidden md:flex md:flex-wrap md:items-center md:gap-3 lg:gap-4">
+                    <a href="index.html#home" class="text-primary font-medium hover:text-primary-dark transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.home">Ana Səhifə</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.about">Haqqımızda</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.services">Xidmətlər</a>
+                    <a href="index.html#partners" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.partners">Partnyorlar</a>
+                    <a href="works.html" class="text-primary font-medium hover:text-primary-dark transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.works">İşlərimiz</a>
+                    <a href="index.html#contact" class="bg-primary text-white px-4 py-3 md:py-2 rounded-lg hover:bg-primary-dark transition text-base md:text-lg font-semibold text-center md:text-left" data-i18n="nav.contact">Əlaqə</a>
+                    <div class="flex items-center w-full md:w-auto justify-start pt-4 mt-1 border-t border-gray-200 md:border-t-0 md:pt-0 md:mt-0 md:border-l md:pl-4 md:ml-2">
                         <div class="lang-switch" role="group" aria-label="Dil">
                             <button type="button" data-lang-set="az">AZ</button>
                             <button type="button" data-lang-set="ru">RU</button>
@@ -59,16 +67,16 @@
         </div>
     </nav>
 
-    <main class="flex-1 w-full container mx-auto px-4 py-12 md:py-16 max-w-4xl">
-        <p class="mb-6">
-            <a href="works.html" id="i18n-detail-back" class="text-primary hover:text-primary-dark font-medium">&larr; Bütün işlər</a>
+    <main class="flex-1 w-full container mx-auto px-4 sm:px-5 py-10 sm:py-12 md:py-16 max-w-4xl w-full min-w-0">
+        <p class="mb-5 sm:mb-6">
+            <a href="works.html" id="i18n-detail-back" class="text-primary hover:text-primary-dark font-medium inline-flex items-center min-h-[44px] py-1">&larr; Bütün işlər</a>
         </p>
 
         <div id="detail-loading" class="text-center text-gray-500 py-16">Yüklənir…</div>
         <div id="detail-error" class="hidden text-center text-red-600 py-16"></div>
 
         <article id="detail-content" class="hidden">
-            <h1 id="detail-title" class="text-3xl md:text-4xl font-bold text-gray-800 mb-8"></h1>
+            <h1 id="detail-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 sm:mb-8 break-words"></h1>
 
             <div id="detail-single-image" class="hidden mb-8 rounded-xl overflow-hidden shadow-lg bg-white"></div>
 
@@ -91,19 +99,19 @@
                 <div id="slider-dots" class="flex justify-center gap-2 py-4 bg-white"></div>
             </div>
 
-            <div class="prose prose-lg max-w-none">
-                <p id="detail-description" class="text-gray-700 leading-relaxed whitespace-pre-wrap"></p>
+            <div class="max-w-none">
+                <p id="detail-description" class="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed whitespace-pre-wrap"></p>
             </div>
         </article>
     </main>
 
     <!-- Footer (ana səhifə ilə eyni struktur; əlaqə/sosial /api/site) -->
-    <footer class="bg-gray-800 text-white py-12 mt-12 shrink-0">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="flex flex-col">
+    <footer class="bg-gray-800 text-white py-10 sm:py-12 mt-8 sm:mt-12 shrink-0 pb-[max(2.5rem,env(safe-area-inset-bottom))]">
+        <div class="container mx-auto px-4 sm:px-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+                <div class="flex flex-col sm:col-span-2 lg:col-span-1">
                     <div class="mb-4 flex items-start">
-                        <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-24 md:h-28 w-auto max-w-full object-contain">
+                        <img src="assets/images/logo-footer.svg" alt="Suvarmax Logo" class="h-20 sm:h-24 md:h-28 w-auto max-w-full object-contain">
                     </div>
                     <p class="text-gray-400 text-sm mt-auto" data-i18n="footer.tagline">Peşəkar suvarma sistemləri təchizatçısı</p>
                 </div>

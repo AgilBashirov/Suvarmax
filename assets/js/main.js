@@ -42,24 +42,92 @@ function initCurrentYear() {
     }
 }
 
+/** Mobil menyuda əlavə olunub-silinən siniflər (yalnız md-dən kiçik ekranlar) */
+var SUMAX_MOBILE_MENU_PANEL_CLASSES = [
+    'flex',
+    'flex-col',
+    'absolute',
+    'top-full',
+    'left-0',
+    'right-0',
+    'w-full',
+    'bg-white',
+    'shadow-lg',
+    'p-4',
+    'space-y-1',
+    'z-40',
+    'border-b',
+    'border-gray-100',
+    'max-h-[min(72vh,calc(100dvh-4.5rem))]',
+    'overflow-y-auto',
+    'overscroll-y-contain',
+    'pb-[max(1rem,env(safe-area-inset-bottom))]',
+];
+
+function closeMobileMenu(btn, menu) {
+    var b = btn || document.getElementById('mobile-menu-btn');
+    var m = menu || document.getElementById('mobile-menu');
+    if (!m) return;
+    m.classList.add('hidden');
+    for (var i = 0; i < SUMAX_MOBILE_MENU_PANEL_CLASSES.length; i++) {
+        m.classList.remove(SUMAX_MOBILE_MENU_PANEL_CLASSES[i]);
+    }
+    if (b) b.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+}
+
+function openMobileMenu(btn, menu) {
+    var b = btn || document.getElementById('mobile-menu-btn');
+    var m = menu || document.getElementById('mobile-menu');
+    if (!m || !b) return;
+    m.classList.remove('hidden');
+    for (var j = 0; j < SUMAX_MOBILE_MENU_PANEL_CLASSES.length; j++) {
+        m.classList.add(SUMAX_MOBILE_MENU_PANEL_CLASSES[j]);
+    }
+    b.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+}
+
 /**
  * Mobil menyu funksionallığı
  */
 function initMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-            // Mobil menyu açıldıqda flex layout istifadə et
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'right-0', 'bg-white', 'shadow-lg', 'p-4', 'space-y-4');
-            } else {
-                mobileMenu.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'right-0', 'bg-white', 'shadow-lg', 'p-4', 'space-y-4');
-            }
-        });
+    var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    var mobileMenu = document.getElementById('mobile-menu');
+    if (!mobileMenuBtn || !mobileMenu) return;
+
+    mobileMenuBtn.addEventListener('click', function () {
+        if (mobileMenu.classList.contains('hidden')) {
+            openMobileMenu(mobileMenuBtn, mobileMenu);
+        } else {
+            closeMobileMenu(mobileMenuBtn, mobileMenu);
+        }
+    });
+
+    mobileMenu.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href]');
+        if (a && mobileMenu.contains(a)) {
+            closeMobileMenu(mobileMenuBtn, mobileMenu);
+        }
+    });
+
+    var mql = window.matchMedia('(min-width: 740px)');
+    function onViewportChange() {
+        if (mql.matches) {
+            closeMobileMenu(mobileMenuBtn, mobileMenu);
+        }
     }
+    if (mql.addEventListener) {
+        mql.addEventListener('change', onViewportChange);
+    } else if (mql.addListener) {
+        mql.addListener(onViewportChange);
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (mobileMenu.classList.contains('hidden')) return;
+        closeMobileMenu(mobileMenuBtn, mobileMenu);
+    });
 }
 
 /**
@@ -397,9 +465,9 @@ window.initPartnersSwiper = function initPartnersSwiper() {
                 slidesPerView: 2,
                 spaceBetween: 24,
             },
-            768: {
+            740: {
                 slidesPerView: 3,
-                spaceBetween: 24,
+                spaceBetween: 20,
             },
             1024: {
                 slidesPerView: 4,

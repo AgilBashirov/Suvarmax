@@ -89,7 +89,7 @@
       };
       wrap.appendChild(img);
       const body = document.createElement('div');
-      body.className = 'p-5';
+      body.className = 'p-4 sm:p-5';
       const h2 = document.createElement('h2');
       h2.className = 'text-lg font-semibold text-gray-800';
       h2.textContent = w.title || '';

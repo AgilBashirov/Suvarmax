@@ -47,9 +47,18 @@
     color: var(--primary-dark);
 }
 
-/* Smooth scroll */
+/* Smooth scroll, mobil brauzerdə mətn ölçüsünün təsadüfi böyüməsinin qarşısı */
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+@media (min-width: 740px) {
+    html {
+        scroll-padding-top: 5rem;
+    }
 }
 
 /* Focus states */
@@ -160,8 +169,10 @@ img[loading="lazy"].loaded {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.project-item:hover {
-    transform: translateY(-5px);
+@media (hover: hover) and (pointer: fine) {
+    .project-item:hover {
+        transform: translateY(-5px);
+    }
 }
 
 /* İş kartları (İşlərimiz səhifəsi) */
@@ -169,8 +180,10 @@ img[loading="lazy"].loaded {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.work-card:hover {
-    transform: translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+    .work-card:hover {
+        transform: translateY(-4px);
+    }
 }
 
 /* İş detalı — şəkil slider */
@@ -243,7 +256,7 @@ img[loading="lazy"].loaded {
     transform: scale(0.92);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 739px) {
     .work-slider-arrow {
         width: 1.75rem;
         height: 1.75rem;
@@ -288,9 +301,12 @@ img[loading="lazy"].loaded {
     animation: fade-in 0.8s ease-out;
 }
 
-/* Smooth scroll offset for sticky nav */
-html {
-    scroll-padding-top: 80px;
+/* Minimum toxunma hədəfi (nav düyməsi üçün HTML-də touch-target sinifi) */
+.touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+    box-sizing: border-box;
 }
 
 /* Leaflet map custom styles */
@@ -327,8 +343,10 @@ html {
     transition: transform 0.25s ease;
 }
 
-.partner-card:hover .partner-card-name {
-    transform: scale(1.03);
+@media (hover: hover) and (pointer: fine) {
+    .partner-card:hover .partner-card-name {
+        transform: scale(1.03);
+    }
 }
 
 /* Custom Navigation Buttons */
@@ -369,9 +387,9 @@ html {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 739px) {
     .partners-swiper {
-        padding: 20px 50px !important;
+        padding: 16px 44px !important;
     }
     
     .partners-nav-next,
@@ -394,43 +412,92 @@ html {
     }
 }
 
-/* iPad Mini optimallaşdırması (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-    /* Navigation button optimallaşdırması */
-    nav a[href="#contact"] {
-        font-size: 0.875rem !important; /* text-sm */
-        padding-left: 0.75rem !important; /* px-3 */
-        padding-right: 0.75rem !important;
-        padding-top: 0.5rem !important; /* py-1.5 */
-        padding-bottom: 0.5rem !important;
+@media (max-width: 380px) {
+    .partners-swiper {
+        padding: 12px 40px !important;
     }
-    
-    /* Hero section button optimallaşdırması */
+
+    .partners-nav-next,
+    .partners-nav-prev {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+/*
+ * iPad Mini / iPad Air portret və orta enli tablet (740px – 1024px).
+ * Eni 1024+ olan albom (məs. iPad Air landscape) tam geniş düzülüş alır.
+ */
+@media (min-width: 740px) and (max-width: 1024px) {
+    /* Nav: sıx linklər, logo nisbətən kiçik — çox sətir sarılmasının qarşısı */
+    nav .container #mobile-menu {
+        column-gap: 0.5rem !important;
+        row-gap: 0.35rem !important;
+    }
+
+    nav .container #mobile-menu > a[href] {
+        font-size: 0.8125rem !important;
+        line-height: 1.2 !important;
+    }
+
+    nav .container .flex.items-center.justify-between > a[href] img {
+        max-height: 3.25rem !important;
+        height: auto !important;
+    }
+
+    /* Əlaqə düyməsi (nav) */
+    nav a[href="#contact"],
+    nav a[href="index.html#contact"] {
+        font-size: 0.8125rem !important;
+        padding-left: 0.65rem !important;
+        padding-right: 0.65rem !important;
+        padding-top: 0.45rem !important;
+        padding-bottom: 0.45rem !important;
+    }
+
+    /* Hero CTA */
     section#home a[href="#contact"],
     section#home a[href="#services"] {
-        font-size: 0.875rem !important; /* text-sm */
-        padding-left: 1rem !important; /* px-4 */
+        font-size: 0.875rem !important;
+        padding-left: 1rem !important;
         padding-right: 1rem !important;
-        padding-top: 0.75rem !important; /* py-3 */
+        padding-top: 0.75rem !important;
         padding-bottom: 0.75rem !important;
     }
-    
-    /* Form submit button optimallaşdırması */
+
     form#contact-form button[type="submit"] {
-        font-size: 0.875rem !important; /* text-sm */
-        padding-left: 1.5rem !important; /* px-6 */
+        font-size: 0.875rem !important;
+        padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
-        padding-top: 0.75rem !important; /* py-3 */
+        padding-top: 0.75rem !important;
         padding-bottom: 0.75rem !important;
     }
-    
-    /* CTA section button optimallaşdırması */
+
     section.bg-primary a.bg-white {
-        font-size: 0.875rem !important; /* text-sm */
-        padding-left: 1.5rem !important; /* px-6 */
+        font-size: 0.875rem !important;
+        padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
-        padding-top: 0.75rem !important; /* py-3 */
+        padding-top: 0.75rem !important;
         padding-bottom: 0.75rem !important;
+    }
+
+    /* Partnyor swiper — tablet portret üçün bir az daha çox hava */
+    .partners-swiper {
+        padding: 18px 52px !important;
+    }
+}
+
+/*
+ * iPad Air portret (~820px) və 1025–1180px arası albom: nav bir az böyüsün,
+ * amma hələ sıx qalsın.
+ */
+@media (min-width: 1025px) and (max-width: 1180px) {
+    nav .container #mobile-menu {
+        column-gap: 0.625rem !important;
+    }
+
+    nav .container #mobile-menu > a[href] {
+        font-size: 0.9375rem !important;
     }
 }
 
