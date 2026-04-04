@@ -16,6 +16,7 @@ desktop.ini
 # Temporary files
 *.tmp
 *.temp
+.cursor-debug-server.pid
 
 # Dependencies
 node_modules/

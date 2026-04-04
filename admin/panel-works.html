@@ -53,59 +53,34 @@
 
     <main class="flex-1 container mx-auto px-4 py-8 max-w-5xl">
         <section>
-            <h1 class="text-lg font-semibold text-gray-800 mb-4">İşlər</h1>
-
-            <div class="bg-white rounded-xl shadow border border-gray-100 p-6 mb-8">
-                <h2 class="font-medium text-gray-700 mb-4" id="work-form-title">Yeni iş əlavə et</h2>
-                <form id="work-form" class="space-y-4">
-                    <input type="hidden" id="work-edit-id" value="">
-                    <div class="flex flex-wrap items-center gap-4">
-                        <label class="text-sm font-medium text-gray-700 flex items-center gap-2">
-                            Dil
-                            <select id="work-edit-locale" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                                <option value="az">AZ</option>
-                                <option value="ru">RU</option>
-                                <option value="en">EN</option>
-                            </select>
-                        </label>
-                        <button type="button" id="btn-remove-work-locale" class="hidden text-sm text-red-600 border border-red-200 hover:bg-red-50 px-3 py-2 rounded-lg">
-                            Bu dilin tərcüməsini sil
-                        </button>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Başlıq (seçilmiş dil)</label>
-                        <input type="text" id="work-title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Qısa təsvir</label>
-                        <textarea id="work-desc" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Şəkillər (PNG, JPG, WebP, SVG)</label>
-                        <input type="file" id="work-files" accept="image/*" multiple class="block w-full text-sm text-gray-600">
-                        <button type="button" id="btn-upload" class="mt-2 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1.5 rounded-lg">Seçilənləri yüklə</button>
-                    </div>
-                    <div>
-                        <p class="text-sm font-medium text-gray-700 mb-1">Şəkillərin sırası</p>
-                        <p class="text-xs text-gray-500 mb-2">Birinci sıradakı şəkil «İşlərimiz» siyahısında kartda göstərilir. ↑ ↓ ilə prioriteti dəyişin.</p>
-                        <ul id="work-images-list" class="text-sm text-gray-600 space-y-1 border border-gray-100 rounded-lg p-3 min-h-[3rem] bg-gray-50"></ul>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <button type="submit" class="bg-primary text-white px-5 py-2 rounded-lg font-medium hover:bg-primary-dark">Saxla</button>
-                        <button type="button" id="btn-work-cancel" class="hidden px-5 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">Ləğv et</button>
-                    </div>
-                </form>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <h1 class="text-lg font-semibold text-gray-800">İşlər</h1>
+                <button type="button" id="btn-new-work" class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark shrink-0">
+                    Yeni iş
+                </button>
             </div>
 
-            <div class="bg-white rounded-xl shadow border border-gray-100 overflow-hidden">
+            <div id="works-loading" class="hidden bg-white rounded-xl shadow border border-gray-100 p-8 text-center text-sm text-gray-500 mb-6">
+                Yüklənir…
+            </div>
+
+            <div id="works-empty" class="hidden bg-white rounded-xl shadow border border-gray-100 p-10 text-center text-gray-600 mb-6">
+                <p class="font-medium text-gray-800 mb-1">Hələ iş yoxdur</p>
+                <p class="text-sm mb-4">«Yeni iş» ilə birinci layihəni əlavə edin.</p>
+                <a href="panel-works-edit.html" class="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark">Yeni iş əlavə et</a>
+            </div>
+
+            <div id="works-table-wrap" class="bg-white rounded-xl shadow border border-gray-100 overflow-hidden hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
                         <thead class="bg-gray-50 text-gray-600 border-b border-gray-200">
                             <tr>
-                                <th class="px-4 py-3 font-medium">ID</th>
-                                <th class="px-4 py-3 font-medium">Başlıq</th>
-                                <th class="px-4 py-3 font-medium">Şəkil sayı</th>
-                                <th class="px-4 py-3 font-medium w-40">Əməliyyat</th>
+                                <th class="px-3 py-3 font-medium w-16" scope="col"></th>
+                                <th class="px-4 py-3 font-medium" scope="col">ID</th>
+                                <th class="px-4 py-3 font-medium" scope="col">Başlıq</th>
+                                <th class="px-4 py-3 font-medium" scope="col">Dillər</th>
+                                <th class="px-4 py-3 font-medium" scope="col">Şəkil</th>
+                                <th class="px-4 py-3 font-medium w-44" scope="col">Əməliyyat</th>
                             </tr>
                         </thead>
                         <tbody id="works-table-body"></tbody>
@@ -116,6 +91,7 @@
     </main>
 
     <script src="admin-common.js"></script>
+    <script src="admin-works-shared.js"></script>
     <script src="admin-works.js"></script>
 </body>
 </html>

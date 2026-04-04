@@ -1039,15 +1039,21 @@ app.put('/api/admin/works/:id', requireAdmin, (req, res) => {
     if (idx === -1) return res.status(404).json({ ok: false, error: 'Tapılmadı' });
     let row = normalizeWorkStorage(data.works[idx]);
     if (i18nBody && typeof i18nBody === 'object') {
-      row.i18n = {};
+      /** Yalnız göndərilən açarlar yenilənir; göndərilməyən dillər saxlanır (tərcüməni yenidən əlavə etmək üçün) */
+      const merged = { ...(row.i18n || {}) };
       for (const loc of LOCALES) {
+        if (!Object.prototype.hasOwnProperty.call(i18nBody, loc)) continue;
         const b = i18nBody[loc];
-        if (b && typeof b === 'object') {
-          const t = String(b.title || '').trim().slice(0, 500);
-          const d = String(b.description || '').trim().slice(0, 20000);
-          if (t || d) row.i18n[loc] = { title: t, description: d };
+        if (!b || typeof b !== 'object') {
+          delete merged[loc];
+          continue;
         }
+        const t = String(b.title || '').trim().slice(0, 500);
+        const d = String(b.description || '').trim().slice(0, 20000);
+        if (t || d) merged[loc] = { title: t, description: d };
+        else delete merged[loc];
       }
+      row.i18n = merged;
     } else if (title != null || description != null) {
       row.i18n = { ...row.i18n };
       const prevBlock = row.i18n[locale] || {};
@@ -1067,12 +1073,12 @@ app.put('/api/admin/works/:id', requireAdmin, (req, res) => {
       removedPaths = oldImages.filter((p) => !imgs.includes(p));
       row.images = imgs;
     }
-    data.works[idx] = row;
+    data.works[idx] = normalizeWorkStorage(row);
     writeData(data);
     for (const p of removedPaths) {
       tryDeleteOrphanWorkImage(data, p);
     }
-    res.json({ ok: true, work: row });
+    res.json({ ok: true, work: data.works[idx] });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Yenilənmədi' });
   }
@@ -1096,9 +1102,9 @@ app.delete('/api/admin/works/:id/locale/:locale', requireAdmin, (req, res) => {
     if (row.i18n[loc]) {
       delete row.i18n[loc];
     }
-    data.works[idx] = row;
+    data.works[idx] = normalizeWorkStorage(row);
     writeData(data);
-    res.json({ ok: true, work: row });
+    res.json({ ok: true, work: data.works[idx] });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Silinmədi' });
   }
