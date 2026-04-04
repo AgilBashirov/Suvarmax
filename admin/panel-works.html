@@ -44,6 +44,7 @@
                 <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">İşlər</a>
                 <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
                 <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əlaqə və sosial</a>
+                <a href="panel-home.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Xidmət və Haqqımızda</a>
                 <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
                 <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
             </div>
@@ -58,8 +59,21 @@
                 <h2 class="font-medium text-gray-700 mb-4" id="work-form-title">Yeni iş əlavə et</h2>
                 <form id="work-form" class="space-y-4">
                     <input type="hidden" id="work-edit-id" value="">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <label class="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            Dil
+                            <select id="work-edit-locale" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                <option value="az">AZ</option>
+                                <option value="ru">RU</option>
+                                <option value="en">EN</option>
+                            </select>
+                        </label>
+                        <button type="button" id="btn-remove-work-locale" class="hidden text-sm text-red-600 border border-red-200 hover:bg-red-50 px-3 py-2 rounded-lg">
+                            Bu dilin tərcüməsini sil
+                        </button>
+                    </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Başlıq</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Başlıq (seçilmiş dil)</label>
                         <input type="text" id="work-title" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary outline-none">
                     </div>
                     <div>

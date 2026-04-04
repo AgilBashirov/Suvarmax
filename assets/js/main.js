@@ -3,6 +3,26 @@
  * Mobil menyu, lightbox və form funksionallığı
  */
 
+var SUMAX_CF = {
+    errName: 'Ad Soyad xanası mütləq doldurulmalıdır',
+    errPhone: 'Telefon xanası mütləq doldurulmalıdır',
+    errFileProtocol:
+        'Səhifəni fayl kimi (file://) açmısınız — /api/contact işləmir. Terminalda npm start edin və brauzerdə http://localhost:3000 (və ya göstərilən port) ünvanından açın.',
+    okSent: 'Mesajınız uğurla göndərildi! Tezliklə sizinlə əlaqə saxlayacağıq.',
+    errSubmit: 'Xəta baş verdi. Birbaşa telefon və ya email ilə əlaqə saxlayın.',
+    errNetwork: 'Bağlantı xətası. İnternet bağlantınızı yoxlayın və yenidən cəhd edin.',
+    sending: 'Göndərilir...',
+};
+
+document.addEventListener('suvarmax:home-i18n', function (ev) {
+    var cf = ev.detail && ev.detail.home && ev.detail.home.contactForm;
+    if (cf && typeof cf === 'object') {
+        for (var k in cf) {
+            if (Object.prototype.hasOwnProperty.call(cf, k)) SUMAX_CF[k] = cf[k];
+        }
+    }
+});
+
 // DOM yükləndikdən sonra
 document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
@@ -139,14 +159,14 @@ function initContactForm() {
         // Ad Soyad validasiyası
         const name = document.getElementById('name').value.trim();
         if (!name) {
-            showError('name', 'Ad Soyad xanası mütləq doldurulmalıdır');
+            showError('name', SUMAX_CF.errName || 'Ad Soyad xanası mütləq doldurulmalıdır');
             isValid = false;
         }
         
         // Telefon validasiyası
         const phone = document.getElementById('phone').value.trim();
         if (!phone) {
-            showError('phone', 'Telefon xanası mütləq doldurulmalıdır');
+            showError('phone', SUMAX_CF.errPhone || 'Telefon xanası mütləq doldurulmalıdır');
             isValid = false;
         }
         
@@ -179,10 +199,7 @@ function initContactForm() {
         }
 
         if (window.location.protocol === 'file:') {
-            showNotification(
-                '❌ Səhifəni fayl kimi (file://) açmısınız — /api/contact işləmir. Terminalda npm start edin və brauzerdə http://localhost:3000 (və ya göstərilən port) ünvanından açın.',
-                'error'
-            );
+            showNotification('❌ ' + (SUMAX_CF.errFileProtocol || 'file:// xətası'), 'error');
             return;
         }
         
@@ -190,7 +207,7 @@ function initContactForm() {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Göndərilir...';
+        submitBtn.textContent = SUMAX_CF.sending || 'Göndərilir...';
         
         // Form məlumatlarını topla
         const formData = {
@@ -214,18 +231,18 @@ function initContactForm() {
         })
         .then(function (result) {
             if (result.ok && result.data && result.data.ok) {
-                showNotification('✅ Mesajınız uğurla göndərildi! Tezliklə sizinlə əlaqə saxlayacağıq.', 'success');
+                showNotification('✅ ' + (SUMAX_CF.okSent || 'Mesaj göndərildi.'), 'success');
                 contactForm.reset();
                 clearErrors();
             } else {
-                var msg = (result.data && result.data.error) || 'Xəta baş verdi. Birbaşa telefon və ya email ilə əlaqə saxlayın.';
+                var msg = (result.data && result.data.error) || SUMAX_CF.errSubmit || 'Xəta baş verdi.';
                 console.error('Əlaqə formu:', result.status, result.data);
                 showNotification('❌ ' + msg, 'error');
             }
         })
         .catch(function (error) {
             console.error('Network xətası:', error);
-            showNotification('❌ Bağlantı xətası. İnternet bağlantınızı yoxlayın və yenidən cəhd edin.', 'error');
+            showNotification('❌ ' + (SUMAX_CF.errNetwork || 'Bağlantı xətası'), 'error');
         })
         .finally(() => {
             // Submit düyməsini yenidən aktivləşdir

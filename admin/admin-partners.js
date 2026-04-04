@@ -8,6 +8,9 @@
     dismissAdminToasts,
   } = window.AdminCommon;
 
+  /** Partnyor siyahısı yalnız bu dil dilimində (ictimai saytda hər lang üçün eyni) */
+  const PARTNERS_LOCALE = 'az';
+
   let siteFull = null;
   let siteDraft = null;
 
@@ -29,8 +32,6 @@
   }
 
   function collectPartnersPage() {
-    const partnersTitle = document.getElementById('adm-site-partners-title').value.trim();
-    const partnersSubtitle = document.getElementById('adm-site-partners-subtitle').value.trim();
     const partners = [];
     document.querySelectorAll('.adm-site-partner').forEach((row) => {
       partners.push({
@@ -39,11 +40,24 @@
         url: row.querySelector('.adm-p-url').value.trim() || '#',
       });
     });
-    return { partnersTitle, partnersSubtitle, partners };
+    return { partners };
   }
 
   function syncDraftFromDom() {
     Object.assign(siteDraft, collectPartnersPage());
+  }
+
+  function persistPartnersToAz() {
+    if (!siteFull || !siteFull.locales) return;
+    syncDraftFromDom();
+    siteFull.locales[PARTNERS_LOCALE] = siteFull.locales[PARTNERS_LOCALE] || {};
+    siteFull.locales[PARTNERS_LOCALE].partners = siteDraft.partners;
+  }
+
+  function loadDraftFromAz() {
+    const slice = (siteFull && siteFull.locales && siteFull.locales[PARTNERS_LOCALE]) || {};
+    siteDraft = { partners: normalizePartnersFromApi(slice.partners || []) };
+    renderPartnersForm();
   }
 
   function buildPartnerRow(p) {
@@ -127,8 +141,6 @@
 
   function renderPartnersForm() {
     if (!siteDraft) return;
-    document.getElementById('adm-site-partners-title').value = siteDraft.partnersTitle || '';
-    document.getElementById('adm-site-partners-subtitle').value = siteDraft.partnersSubtitle || '';
     const plist = document.getElementById('admin-site-partners-list');
     if (!plist) return;
     plist.innerHTML = '';
@@ -166,22 +178,20 @@
       .then((data) => {
         hideGlobals();
         siteFull = data.site ? JSON.parse(JSON.stringify(data.site)) : {};
-        siteDraft = JSON.parse(JSON.stringify(siteFull));
-        if (!Array.isArray(siteDraft.partners)) siteDraft.partners = [];
-        siteDraft.partners = normalizePartnersFromApi(siteDraft.partners);
-        renderPartnersForm();
+        if (!siteFull.locales || typeof siteFull.locales !== 'object') {
+          siteFull.locales = { az: {}, ru: {}, en: {} };
+        }
+        ['az', 'ru', 'en'].forEach((loc) => {
+          if (!siteFull.locales[loc]) siteFull.locales[loc] = {};
+        });
+        loadDraftFromAz();
       })
       .catch(() => {
         showErr(
           'Məlumat yüklənmədi. Layihə qovluğunda «npm start» ilə serveri işə salın və admin/login.html vasitəsilə daxil olun (səhifəni brauzerdə http://localhost:PORT/admin/... ünvanından açın).'
         );
-        siteFull = {};
-        siteDraft = {
-          partnersTitle: '',
-          partnersSubtitle: '',
-          partners: [],
-        };
-        renderPartnersForm();
+        siteFull = { locales: { az: {}, ru: {}, en: {} }, telegramBotToken: '', telegramChatId: '' };
+        loadDraftFromAz();
       });
   }
 
@@ -203,13 +213,8 @@
 
   document.getElementById('admin-save-site').addEventListener('click', () => {
     hideGlobals();
-    const patch = collectPartnersPage();
-    const site = {
-      ...siteFull,
-      partnersTitle: patch.partnersTitle,
-      partnersSubtitle: patch.partnersSubtitle,
-      partners: patch.partners,
-    };
+    persistPartnersToAz();
+    const site = JSON.parse(JSON.stringify(siteFull));
     const saveBtn = document.getElementById('admin-save-site');
     runWithButtonBusy(saveBtn, 'Saxlanır…', () =>
       fetch('/api/admin/site', {
@@ -230,10 +235,8 @@
           }
           showOk('Dəyişiklik saxlanıldı.');
           siteFull = d.site ? JSON.parse(JSON.stringify(d.site)) : siteFull;
-          siteDraft = JSON.parse(JSON.stringify(siteFull));
-          if (!Array.isArray(siteDraft.partners)) siteDraft.partners = [];
-          siteDraft.partners = normalizePartnersFromApi(siteDraft.partners);
-          renderPartnersForm();
+          if (!siteFull.locales) siteFull.locales = { az: {}, ru: {}, en: {} };
+          loadDraftFromAz();
         })
         .catch(() => showErr('Şəbəkə xətası'))
     );

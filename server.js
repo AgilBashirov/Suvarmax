@@ -15,6 +15,26 @@ const path = require('path');
 const ROOT = __dirname;
 const DATA_PATH = path.join(ROOT, 'data', 'site-data.json');
 const IMAGES_DIR = path.join(ROOT, 'assets', 'images');
+const DEFAULT_PAGES_HOME_PATH = path.join(ROOT, 'data', 'default-pages-home.json');
+const STATIC_HOME_BY_LOCALE_PATH = path.join(ROOT, 'data', 'static-home-by-locale.json');
+
+const LOCALES = ['az', 'ru', 'en'];
+const DEFAULT_LOCALE = 'az';
+
+let DEFAULT_PAGES_HOME = {};
+try {
+  DEFAULT_PAGES_HOME = JSON.parse(fs.readFileSync(DEFAULT_PAGES_HOME_PATH, 'utf8'));
+} catch (e) {
+  console.warn('default-pages-home.json oxunmadı:', e.message);
+}
+
+/** Admin-də redaktə olunmur: meta, nav, hero, düymələr, footer, işlər səhifəsi və s. — yalnız services/about DB-də */
+let STATIC_HOME_BY_LOCALE = {};
+try {
+  STATIC_HOME_BY_LOCALE = JSON.parse(fs.readFileSync(STATIC_HOME_BY_LOCALE_PATH, 'utf8'));
+} catch (e) {
+  console.warn('static-home-by-locale.json oxunmadı:', e.message);
+}
 
 const JWT_SECRET = process.env.JWT_SECRET || process.env.SESSION_SECRET || 'suvarmax-dev-jwt-deyisin';
 const JWT_EXPIRES = '12h';
@@ -22,8 +42,12 @@ const JWT_MAX_AGE_MS = 12 * 60 * 60 * 1000;
 const COOKIE_NAME = 'suvarmax_admin';
 
 function readData() {
-  const raw = fs.readFileSync(DATA_PATH, 'utf8');
-  return JSON.parse(raw);
+  const raw = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  const { data, changed } = upgradeDatabaseIfNeeded(raw);
+  if (changed) {
+    writeData(data);
+  }
+  return data;
 }
 
 function writeData(data) {
@@ -179,7 +203,7 @@ function tryDeleteOrphanSocialIcon(relPath) {
 
 const DEFAULT_SITE = {
   partnersTitle: 'Partnyorlarımız',
-  partnersSubtitle: 'Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız',
+  partnersSubtitle: 'Bizimlə əməkdaşlıq edən etibarlı brendlər və təchizatçılar',
   partners: [
     { id: 1, name: 'LandPro', url: 'https://landpro.az' },
     { id: 2, name: 'ParkLand', url: 'https://parkland.az' },
@@ -201,10 +225,181 @@ const DEFAULT_SITE = {
     },
     { id: 3, name: 'LinkedIn', url: 'https://www.linkedin.com/', icon: 'assets/images/social/linkedin.svg' },
   ],
-  /** Admin paneldə doldurulur; ictimai /api/site-də göndərilmir */
-  telegramBotToken: '',
-  telegramChatId: '',
 };
+
+function upgradeDatabaseIfNeeded(data) {
+  let changed = false;
+  const d = data;
+  if (!Array.isArray(d.works)) d.works = [];
+  d.works = d.works.map((w) => {
+    if (!w || typeof w !== 'object') return w;
+    const w2 = { ...w };
+    const hasLegacy = w2.title != null || w2.description != null;
+    if (hasLegacy) {
+      w2.i18n = w2.i18n && typeof w2.i18n === 'object' ? { ...w2.i18n } : {};
+      if (!w2.i18n[DEFAULT_LOCALE]) {
+        w2.i18n[DEFAULT_LOCALE] = {
+          title: String(w2.title != null ? w2.title : '').trim(),
+          description: String(w2.description != null ? w2.description : '').trim(),
+        };
+      }
+      delete w2.title;
+      delete w2.description;
+      changed = true;
+    }
+    return w2;
+  });
+
+  const site = d.site;
+  if (site && typeof site === 'object' && (!site.locales || typeof site.locales !== 'object')) {
+    const legacy = { ...site };
+    d.site = {
+      telegramBotToken: String(legacy.telegramBotToken || '').trim().slice(0, 220),
+      telegramChatId: String(legacy.telegramChatId || '').trim().slice(0, 50),
+      locales: {
+        az: {
+          partnersTitle: legacy.partnersTitle,
+          partnersSubtitle: legacy.partnersSubtitle,
+          partners: legacy.partners,
+          contact: legacy.contact,
+          social: legacy.social,
+          pages: legacy.pages && typeof legacy.pages === 'object' ? legacy.pages : { home: {} },
+        },
+        ru: { pages: { home: {} } },
+        en: { pages: { home: {} } },
+      },
+    };
+    changed = true;
+  }
+  return { data: d, changed };
+}
+
+function normalizeLocaleParam(s) {
+  const x = String(s || '')
+    .toLowerCase()
+    .trim()
+    .slice(0, 5);
+  return LOCALES.includes(x) ? x : null;
+}
+
+function parseLangFromReq(req) {
+  const q = normalizeLocaleParam(req.query && req.query.lang);
+  if (q) return q;
+  const hdr = req.headers && req.headers['accept-language'];
+  if (hdr) {
+    const first = String(hdr)
+      .split(',')[0]
+      .split('-')[0]
+      .toLowerCase()
+      .trim();
+    if (LOCALES.includes(first)) return first;
+  }
+  return DEFAULT_LOCALE;
+}
+
+function mergeHomeLayer(left, right) {
+  if (!right || typeof right !== 'object') return left;
+  if (Array.isArray(right)) {
+    if (!right.length) return left;
+    if (!Array.isArray(left)) return right;
+    return right.map((r, i) => {
+      if (r && typeof r === 'object' && !Array.isArray(r) && left[i] && typeof left[i] === 'object') {
+        return mergeHomeLayer(left[i], r);
+      }
+      const rs = r != null ? String(r).trim() : '';
+      return rs !== '' ? r : left[i];
+    });
+  }
+  const out = { ...left };
+  for (const k of Object.keys(right)) {
+    const rv = right[k];
+    const lv = left[k];
+    if (rv && typeof rv === 'object' && !Array.isArray(rv)) {
+      out[k] = mergeHomeLayer(lv && typeof lv === 'object' ? lv : {}, rv);
+    } else {
+      const rs = rv != null ? String(rv).trim() : '';
+      if (rs !== '') out[k] = rv;
+      else if (lv !== undefined) out[k] = lv;
+    }
+  }
+  return out;
+}
+
+function mergeHomeServicesAboutForPublic(norm, lang) {
+  const defRoot = DEFAULT_PAGES_HOME && typeof DEFAULT_PAGES_HOME === 'object' ? DEFAULT_PAGES_HOME : {};
+  const azH = (norm.locales.az.pages && norm.locales.az.pages.home) || {};
+  const locSlice = norm.locales[lang] || norm.locales[DEFAULT_LOCALE];
+  const locH = (locSlice.pages && locSlice.pages.home) || {};
+  const defS = defRoot.services && typeof defRoot.services === 'object' ? defRoot.services : {};
+  const defA = defRoot.about && typeof defRoot.about === 'object' ? defRoot.about : {};
+  const azS = azH.services && typeof azH.services === 'object' ? azH.services : {};
+  const azA = azH.about && typeof azH.about === 'object' ? azH.about : {};
+  const locS = locH.services && typeof locH.services === 'object' ? locH.services : {};
+  const locA = locH.about && typeof locH.about === 'object' ? locH.about : {};
+  return {
+    services: mergeHomeLayer(mergeHomeLayer(defS, azS), locS),
+    about: mergeHomeLayer(mergeHomeLayer(defA, azA), locA),
+  };
+}
+
+function mergeHomeForPublic(norm, lang) {
+  const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
+  const byLoc = STATIC_HOME_BY_LOCALE && typeof STATIC_HOME_BY_LOCALE === 'object' ? STATIC_HOME_BY_LOCALE : {};
+  const shellSrc = byLoc[L] || byLoc[DEFAULT_LOCALE] || {};
+  const shell = JSON.parse(JSON.stringify(shellSrc));
+  const sa = mergeHomeServicesAboutForPublic(norm, L);
+  return { ...shell, ...sa };
+}
+
+function pickStr(tr, az, defVal, maxLen) {
+  const t = String(tr || '').trim();
+  if (t) return t.slice(0, maxLen);
+  const a = String(az || '').trim();
+  if (a) return a.slice(0, maxLen);
+  return String(defVal || '').slice(0, maxLen);
+}
+
+/** Partnyor bölmə başlığı/alt başlığı — data/static-home-by-locale.json */
+function staticPartnersHeadings(lang) {
+  const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
+  const byLoc = STATIC_HOME_BY_LOCALE && typeof STATIC_HOME_BY_LOCALE === 'object' ? STATIC_HOME_BY_LOCALE : {};
+  const shell = byLoc[L] || byLoc[DEFAULT_LOCALE] || {};
+  const ps = shell.partnersSection && typeof shell.partnersSection === 'object' ? shell.partnersSection : {};
+  const title = String(ps.title != null ? ps.title : '').trim().slice(0, 200);
+  const subtitle = String(ps.subtitle != null ? ps.subtitle : '').trim().slice(0, 500);
+  return {
+    partnersTitle: title || DEFAULT_SITE.partnersTitle,
+    partnersSubtitle: subtitle || DEFAULT_SITE.partnersSubtitle,
+  };
+}
+
+function resolvePublicLocaleSlice(norm, lang) {
+  const az = norm.locales.az || {};
+  const tr = norm.locales[lang] || az;
+  const defP = JSON.parse(JSON.stringify(DEFAULT_SITE.partners));
+  const defS = JSON.parse(JSON.stringify(DEFAULT_SITE.social));
+  /** Partnyor siyahısı dillərə görə ayrılmır — yalnız AZ dilindəki slice */
+  const partners = az.partners && az.partners.length ? az.partners : defP;
+  /** Sosial footer siyahısı dillərə görə ayrılmır — yalnız AZ dilindəki slice */
+  const social = az.social && az.social.length ? az.social : defS;
+  const cTr = tr.contact || {};
+  const cAz = az.contact || {};
+  const cDef = DEFAULT_SITE.contact;
+  const ph = staticPartnersHeadings(lang);
+  return {
+    partnersTitle: ph.partnersTitle,
+    partnersSubtitle: ph.partnersSubtitle,
+    partners,
+    contact: {
+      phoneTel: pickStr(cTr.phoneTel, cAz.phoneTel, cDef.phoneTel, 40),
+      phoneLabel: pickStr(cTr.phoneLabel, cAz.phoneLabel, cDef.phoneLabel, 80),
+      email: pickStr(cTr.email, cAz.email, cDef.email, 120),
+      address: pickStr(cTr.address, cAz.address, cDef.address, 300),
+    },
+    social,
+    pages: { home: mergeHomeForPublic(norm, lang) },
+  };
+}
 
 function sanitizePartnersList(arr) {
   if (!Array.isArray(arr)) return [];
@@ -215,6 +410,15 @@ function sanitizePartnersList(arr) {
       url: String(p.url || '').trim().slice(0, 500) || '#',
     }))
     .filter((p) => p.name);
+}
+
+/** Yalnız admin-dən idarə olunan bölmələr saxlanılır; qalanı data/static-home-by-locale.json-dadır */
+function pickEditableHomeFromSlice(home) {
+  if (!home || typeof home !== 'object') return {};
+  const out = {};
+  if (home.services && typeof home.services === 'object') out.services = home.services;
+  if (home.about && typeof home.about === 'object') out.about = home.about;
+  return out;
 }
 
 function sanitizeSocialList(arr) {
@@ -229,66 +433,204 @@ function sanitizeSocialList(arr) {
     .filter((p) => p.name && p.icon);
 }
 
-function getSite(data) {
-  const s = data && data.site;
-  if (!s || typeof s !== 'object') {
-    return JSON.parse(JSON.stringify(DEFAULT_SITE));
-  }
-  const partners = Array.isArray(s.partners) ? sanitizePartnersList(s.partners) : null;
-  const social = Array.isArray(s.social) ? sanitizeSocialList(s.social) : null;
+function sanitizeLocaleSlice(slice) {
+  const s = slice && typeof slice === 'object' ? slice : {};
+  const partners = sanitizePartnersList(s.partners || []);
+  const social = sanitizeSocialList(s.social || []);
   const contact = { ...DEFAULT_SITE.contact, ...(s.contact && typeof s.contact === 'object' ? s.contact : {}) };
+  const pages = s.pages && typeof s.pages === 'object' ? s.pages : {};
+  const homeRaw = pages.home && typeof pages.home === 'object' ? pages.home : {};
+  const home = pickEditableHomeFromSlice(homeRaw);
   return {
-    partnersTitle: String(s.partnersTitle || DEFAULT_SITE.partnersTitle).slice(0, 200),
-    partnersSubtitle: String(s.partnersSubtitle || DEFAULT_SITE.partnersSubtitle).slice(0, 500),
-    partners: partners && partners.length ? partners : JSON.parse(JSON.stringify(DEFAULT_SITE.partners)),
+    /** Başlıqlar statik fayldadır; bazada saxlanmır */
+    partnersTitle: '',
+    partnersSubtitle: '',
+    partners,
     contact: {
       phoneTel: String(contact.phoneTel || '').slice(0, 40),
       phoneLabel: String(contact.phoneLabel || '').slice(0, 80),
       email: String(contact.email || '').slice(0, 120),
       address: String(contact.address || '').slice(0, 300),
     },
-    social: social && social.length ? social : JSON.parse(JSON.stringify(DEFAULT_SITE.social)),
+    social,
+    pages: { home },
+  };
+}
+
+function normalizeSiteStorage(raw) {
+  if (!raw || typeof raw !== 'object') {
+    return {
+      telegramBotToken: '',
+      telegramChatId: '',
+      locales: Object.fromEntries(LOCALES.map((loc) => [loc, sanitizeLocaleSlice({})])),
+    };
+  }
+  const telegramBotToken = String(raw.telegramBotToken || '').trim().slice(0, 220);
+  const telegramChatId = String(raw.telegramChatId || '').trim().slice(0, 50);
+  const locRaw = raw.locales && typeof raw.locales === 'object' ? raw.locales : null;
+  const locales = {};
+  if (!locRaw) {
+    const legacy = { ...raw };
+    const azSlice = {
+      partnersTitle: legacy.partnersTitle,
+      partnersSubtitle: legacy.partnersSubtitle,
+      partners: legacy.partners,
+      contact: legacy.contact,
+      social: legacy.social,
+      pages: legacy.pages && typeof legacy.pages === 'object' ? legacy.pages : { home: {} },
+    };
+    for (const loc of LOCALES) {
+      locales[loc] = sanitizeLocaleSlice(loc === DEFAULT_LOCALE ? azSlice : {});
+    }
+  } else {
+    for (const loc of LOCALES) {
+      locales[loc] = sanitizeLocaleSlice(locRaw[loc] || {});
+    }
+  }
+  return { telegramBotToken, telegramChatId, locales };
+}
+
+function deepMergeLocaleSlices(base, over) {
+  const a = base && typeof base === 'object' ? base : {};
+  const b = over && typeof over === 'object' ? over : {};
+  const out = { ...a, ...b };
+  if (b.contact && typeof b.contact === 'object') {
+    out.contact = { ...(a.contact || {}), ...b.contact };
+  }
+  if (b.pages && typeof b.pages === 'object') {
+    const ah = a.pages && a.pages.home && typeof a.pages.home === 'object' ? a.pages.home : {};
+    const bh = b.pages.home && typeof b.pages.home === 'object' ? b.pages.home : {};
+    out.pages = { ...(a.pages || {}), ...b.pages, home: mergeHomeLayer(ah, bh) };
+  } else if (a.pages) {
+    out.pages = { ...a.pages };
+  }
+  if (b.partners !== undefined) out.partners = b.partners;
+  if (b.social !== undefined) out.social = b.social;
+  if (b.partnersTitle !== undefined) out.partnersTitle = b.partnersTitle;
+  if (b.partnersSubtitle !== undefined) out.partnersSubtitle = b.partnersSubtitle;
+  return out;
+}
+
+function extractLegacyFlatSiteSlice(s) {
+  if (!s || typeof s !== 'object') return {};
+  return {
+    partnersTitle: s.partnersTitle,
+    partnersSubtitle: s.partnersSubtitle,
+    partners: s.partners,
+    contact: s.contact,
+    social: s.social,
+    pages: s.pages,
   };
 }
 
 function buildSiteFromPayload(s, previousSite = {}) {
   if (!s || typeof s !== 'object') return null;
-  const partners = sanitizePartnersList(s.partners || []);
-  const social = sanitizeSocialList(s.social || []);
-  const c = s.contact || {};
-  const prev = previousSite && typeof previousSite === 'object' ? previousSite : {};
+  const prev = normalizeSiteStorage(previousSite);
   const tokenIn = s.telegramBotToken !== undefined ? s.telegramBotToken : prev.telegramBotToken;
   const chatIn = s.telegramChatId !== undefined ? s.telegramChatId : prev.telegramChatId;
+  const incomingLocales = s.locales && typeof s.locales === 'object' ? s.locales : null;
+  const locales = {};
+  for (const loc of LOCALES) {
+    if (incomingLocales) {
+      const merged = deepMergeLocaleSlices(prev.locales[loc], incomingLocales[loc] || {});
+      locales[loc] = sanitizeLocaleSlice(merged);
+    } else {
+      if (loc === DEFAULT_LOCALE) {
+        const legacySlice = extractLegacyFlatSiteSlice(s);
+        locales[loc] = sanitizeLocaleSlice(deepMergeLocaleSlices(prev.locales[loc], legacySlice));
+      } else {
+        locales[loc] = prev.locales[loc];
+      }
+    }
+  }
   return {
-    partnersTitle: String(s.partnersTitle || DEFAULT_SITE.partnersTitle).slice(0, 200),
-    partnersSubtitle: String(s.partnersSubtitle || DEFAULT_SITE.partnersSubtitle).slice(0, 500),
-    partners,
-    contact: {
-      phoneTel: String(c.phoneTel || DEFAULT_SITE.contact.phoneTel).slice(0, 40),
-      phoneLabel: String(c.phoneLabel || DEFAULT_SITE.contact.phoneLabel).slice(0, 80),
-      email: String(c.email || DEFAULT_SITE.contact.email).slice(0, 120),
-      address: String(c.address || DEFAULT_SITE.contact.address).slice(0, 300),
-    },
-    social,
     telegramBotToken: String(tokenIn || '').trim().slice(0, 220),
     telegramChatId: String(chatIn || '').trim().slice(0, 50),
+    locales,
   };
 }
 
-function allLocalSiteMediaPaths(site) {
+function allLocalSiteMediaPathsMultilingual(siteSt) {
   const set = new Set();
-  (site.social || []).forEach((x) => {
-    if (x.icon && !/^https?:\/\//i.test(x.icon)) set.add(x.icon);
-  });
+  const norm = normalizeSiteStorage(siteSt);
+  for (const loc of LOCALES) {
+    const sl = norm.locales[loc].social || [];
+    sl.forEach((x) => {
+      if (x.icon && !/^https?:\/\//i.test(x.icon)) set.add(x.icon);
+    });
+  }
   return set;
 }
 
-function deleteRemovedSiteMedia(oldSite, newSite) {
-  const oldP = allLocalSiteMediaPaths(oldSite);
-  const newP = allLocalSiteMediaPaths(newSite);
+function deleteRemovedSiteMedia(oldRaw, newSiteObj) {
+  const oldP = allLocalSiteMediaPathsMultilingual(oldRaw);
+  const newP = allLocalSiteMediaPathsMultilingual(newSiteObj);
   oldP.forEach((p) => {
     if (!newP.has(p)) tryDeleteOrphanSocialIcon(p);
   });
+}
+
+function getPublicSiteForLang(data, lang) {
+  const norm = normalizeSiteStorage((data && data.site) || {});
+  const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
+  return resolvePublicLocaleSlice(norm, L);
+}
+
+function getSiteForAdmin(data) {
+  return normalizeSiteStorage((data && data.site) || {});
+}
+
+function normalizeWorkStorage(w) {
+  if (!w || typeof w !== 'object') return { id: 0, images: [], i18n: {} };
+  const i18n = {};
+  const raw = w.i18n && typeof w.i18n === 'object' ? w.i18n : {};
+  for (const loc of LOCALES) {
+    const b = raw[loc];
+    if (b && typeof b === 'object') {
+      const title = String(b.title || '').trim().slice(0, 500);
+      const description = String(b.description || '').trim().slice(0, 20000);
+      if (title || description) {
+        i18n[loc] = { title, description };
+      }
+    }
+  }
+  if ((w.title != null || w.description != null) && !i18n[DEFAULT_LOCALE]) {
+    i18n[DEFAULT_LOCALE] = {
+      title: String(w.title != null ? w.title : '').trim().slice(0, 500),
+      description: String(w.description != null ? w.description : '').trim().slice(0, 20000),
+    };
+  }
+  return {
+    id: Number(w.id) || 0,
+    images: Array.isArray(w.images) ? w.images.filter(Boolean) : [],
+    i18n,
+  };
+}
+
+function workPublicView(w, lang) {
+  const n = normalizeWorkStorage(w);
+  const order = [lang, DEFAULT_LOCALE, ...LOCALES.filter((l) => l !== lang && l !== DEFAULT_LOCALE)];
+  let title = '';
+  let description = '';
+  for (const loc of order) {
+    const block = n.i18n[loc];
+    if (block && String(block.title || '').trim()) {
+      title = String(block.title).trim();
+      description = String(block.description || '').trim();
+      break;
+    }
+  }
+  if (!title) {
+    for (const loc of LOCALES) {
+      const block = n.i18n[loc];
+      if (block && String(block.title || '').trim()) {
+        title = String(block.title).trim();
+        description = String(block.description || '').trim();
+        break;
+      }
+    }
+  }
+  return { id: n.id, images: n.images, title, description };
 }
 
 function parseAdminFromRequest(req) {
@@ -372,25 +714,17 @@ const app = express();
 app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
 
-/** İctimai: partnyor, əlaqə, sosial (Telegram token/chat ID daxil deyil) */
+/** İctimai: partnyor, əlaqə, sosial, pages.home (?lang=az|ru|en) */
 app.get('/api/site', (req, res) => {
   try {
+    const lang = parseLangFromReq(req);
     const data = readData();
-    res.json({ site: getSite(data) });
+    res.set('Cache-Control', 'no-store, must-revalidate');
+    res.json({ site: getPublicSiteForLang(data, lang), lang });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Oxunmadı' });
   }
 });
-
-function getSiteForAdmin(data) {
-  const base = getSite(data);
-  const raw = (data && data.site) || {};
-  return {
-    ...base,
-    telegramBotToken: String(raw.telegramBotToken || ''),
-    telegramChatId: String(raw.telegramChatId || ''),
-  };
-}
 
 /** Telegram Bot API cavabından qısa xəta mətni (diaqnostika üçün) */
 function telegramErrorHint(tgJson) {
@@ -506,9 +840,10 @@ app.post('/api/admin/telegram-test', requireAdmin, async (req, res) => {
   }
 });
 
-/** İctimai: işlər (səhifələmə: ?page=1&limit=9) */
+/** İctimai: işlər (səhifələmə: ?page=1&limit=9&lang=) */
 app.get('/api/works', (req, res) => {
   try {
+    const lang = parseLangFromReq(req);
     const data = readData();
     const all = data.works || [];
     const total = all.length;
@@ -519,9 +854,12 @@ app.get('/api/works', (req, res) => {
       page = totalPages;
     }
     const start = (page - 1) * limit;
-    const works = all.slice(start, start + limit);
+    const slice = all.slice(start, start + limit);
+    const works = slice.map((w) => workPublicView(w, lang));
+    res.set('Cache-Control', 'no-store, must-revalidate');
     res.json({
       works,
+      lang,
       pagination: {
         page,
         limit,
@@ -536,11 +874,13 @@ app.get('/api/works', (req, res) => {
 
 app.get('/api/works/:id', (req, res) => {
   try {
+    const lang = parseLangFromReq(req);
     const id = Number(req.params.id);
     const data = readData();
-    const work = (data.works || []).find((w) => Number(w.id) === id);
-    if (!work) return res.status(404).json({ ok: false, error: 'Tapılmadı' });
-    res.json({ work });
+    const workRaw = (data.works || []).find((w) => Number(w.id) === id);
+    if (!workRaw) return res.status(404).json({ ok: false, error: 'Tapılmadı' });
+    res.set('Cache-Control', 'no-store, must-revalidate');
+    res.json({ work: workPublicView(workRaw, lang), lang });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Xəta' });
   }
@@ -626,9 +966,8 @@ app.put('/api/admin/site', requireAdmin, (req, res) => {
     if (!newSite) {
       return res.status(400).json({ ok: false, error: 'site obyekti tələb olunur' });
     }
-    const oldSite = getSite(data);
     data.site = newSite;
-    deleteRemovedSiteMedia(oldSite, newSite);
+    deleteRemovedSiteMedia(previousRaw, newSite);
     writeData(data);
     res.json({ ok: true, site: newSite });
   } catch (e) {
@@ -661,7 +1000,9 @@ app.post('/api/admin/upload', requireAdmin, upload.array('files', 20), (req, res
 
 app.post('/api/admin/works', requireAdmin, (req, res) => {
   try {
-    const { title, description, images } = req.body || {};
+    const body = req.body || {};
+    const locale = normalizeLocaleParam(body.locale) || DEFAULT_LOCALE;
+    const { title, description, images } = body;
     if (!title || !String(title).trim()) {
       return res.status(400).json({ ok: false, error: 'Başlıq tələb olunur' });
     }
@@ -672,14 +1013,15 @@ app.post('/api/admin/works', requireAdmin, (req, res) => {
     const data = readData();
     data.works = data.works || [];
     const id = nextWorkId(data.works);
-    data.works.push({
-      id,
+    const i18n = {};
+    i18n[locale] = {
       title: String(title).trim(),
       description: String(description || '').trim(),
-      images: imgs,
-    });
+    };
+    const row = { id, images: imgs, i18n };
+    data.works.push(row);
     writeData(data);
-    res.json({ ok: true, work: data.works[data.works.length - 1] });
+    res.json({ ok: true, work: row });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Yaradılmadı' });
   }
@@ -688,30 +1030,77 @@ app.post('/api/admin/works', requireAdmin, (req, res) => {
 app.put('/api/admin/works/:id', requireAdmin, (req, res) => {
   try {
     const id = Number(req.params.id);
-    const { title, description, images } = req.body || {};
+    const body = req.body || {};
+    const locale = normalizeLocaleParam(body.locale) || DEFAULT_LOCALE;
+    const { title, description, images, i18n: i18nBody } = body;
     const data = readData();
     data.works = data.works || [];
     const idx = data.works.findIndex((w) => Number(w.id) === id);
     if (idx === -1) return res.status(404).json({ ok: false, error: 'Tapılmadı' });
-    if (title != null) data.works[idx].title = String(title).trim();
-    if (description != null) data.works[idx].description = String(description).trim();
+    let row = normalizeWorkStorage(data.works[idx]);
+    if (i18nBody && typeof i18nBody === 'object') {
+      row.i18n = {};
+      for (const loc of LOCALES) {
+        const b = i18nBody[loc];
+        if (b && typeof b === 'object') {
+          const t = String(b.title || '').trim().slice(0, 500);
+          const d = String(b.description || '').trim().slice(0, 20000);
+          if (t || d) row.i18n[loc] = { title: t, description: d };
+        }
+      }
+    } else if (title != null || description != null) {
+      row.i18n = { ...row.i18n };
+      const prevBlock = row.i18n[locale] || {};
+      row.i18n[locale] = {
+        title: title != null ? String(title).trim() : String(prevBlock.title || '').trim(),
+        description:
+          description != null ? String(description).trim() : String(prevBlock.description || '').trim(),
+      };
+    }
     let removedPaths = [];
     if (images != null) {
       const imgs = Array.isArray(images) ? images.filter(Boolean) : [];
       if (!imgs.length) {
         return res.status(400).json({ ok: false, error: 'Ən azı bir şəkil qalmalıdır' });
       }
-      const oldImages = data.works[idx].images || [];
+      const oldImages = row.images || [];
       removedPaths = oldImages.filter((p) => !imgs.includes(p));
-      data.works[idx].images = imgs;
+      row.images = imgs;
     }
+    data.works[idx] = row;
     writeData(data);
     for (const p of removedPaths) {
       tryDeleteOrphanWorkImage(data, p);
     }
-    res.json({ ok: true, work: data.works[idx] });
+    res.json({ ok: true, work: row });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Yenilənmədi' });
+  }
+});
+
+app.delete('/api/admin/works/:id/locale/:locale', requireAdmin, (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const loc = normalizeLocaleParam(req.params.locale);
+    if (!loc) {
+      return res.status(400).json({ ok: false, error: 'Yanlış dil kodu' });
+    }
+    if (loc === DEFAULT_LOCALE) {
+      return res.status(400).json({ ok: false, error: 'Əsas dil (AZ) tərcüməsi silinə bilməz' });
+    }
+    const data = readData();
+    data.works = data.works || [];
+    const idx = data.works.findIndex((w) => Number(w.id) === id);
+    if (idx === -1) return res.status(404).json({ ok: false, error: 'Tapılmadı' });
+    const row = normalizeWorkStorage(data.works[idx]);
+    if (row.i18n[loc]) {
+      delete row.i18n[loc];
+    }
+    data.works[idx] = row;
+    writeData(data);
+    res.json({ ok: true, work: row });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: 'Silinmədi' });
   }
 });
 

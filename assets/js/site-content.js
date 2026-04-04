@@ -7,7 +7,7 @@
   /** Express işləmədikdə (404 / şəbəkə) göstəriləcək nümunə məzmun */
   var SITE_OFFLINE_FALLBACK = {
     partnersTitle: 'Partnyorlarımız',
-    partnersSubtitle: 'Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız',
+    partnersSubtitle: 'Bizimlə əməkdaşlıq edən etibarlı brendlər və təchizatçılar',
     partners: [
       { id: 1, name: 'LandPro', url: 'https://landpro.az' },
       { id: 2, name: 'ParkLand', url: 'https://parkland.az' },
@@ -125,20 +125,102 @@
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    fetch('/api/site')
+  function resolveRequestLang(ev) {
+    if (ev && ev.detail && ev.detail.lang) {
+      var x = String(ev.detail.lang)
+        .toLowerCase()
+        .trim();
+      if (x === 'az' || x === 'ru' || x === 'en') return x;
+    }
+    if (window.SuvarmaxLang && window.SuvarmaxLang.getLang) {
+      return window.SuvarmaxLang.getLang();
+    }
+    return 'az';
+  }
+
+  function siteApiUrlForLang(lang) {
+    return '/api/site?lang=' + encodeURIComponent(lang || 'az');
+  }
+
+  function applyHomeIfPresent(site) {
+    var home = site && site.pages && site.pages.home;
+    if (!home || typeof window.applyHomePageFromData !== 'function') return;
+    window.applyHomePageFromData(home);
+    if (typeof window.applyWorksPageLabels === 'function') {
+      var path = (window.location.pathname || '').replace(/\\/g, '/');
+      if (path.indexOf('works.html') !== -1 && home.worksPage) {
+        window.applyWorksPageLabels(home.worksPage);
+      }
+    }
+    if (typeof window.applyWorkDetailLabels === 'function') {
+      var p = (window.location.pathname || '').replace(/\\/g, '/');
+      if (p.indexOf('work-detail.html') !== -1 && home.workDetailPage) {
+        window.applyWorkDetailLabels(home.workDetailPage);
+      }
+    }
+  }
+
+  function loadPublicSite(ev) {
+    var lang = resolveRequestLang(ev);
+    fetch(siteApiUrlForLang(lang), { cache: 'no-store' })
       .then(function (r) {
         if (!r.ok) throw new Error('site');
         return r.json();
       })
       .then(function (data) {
         applySite(data.site);
+        applyHomeIfPresent(data.site);
+        if (window.SuvarmaxLang && window.SuvarmaxLang.patchDocumentLinks) {
+          window.SuvarmaxLang.patchDocumentLinks();
+        }
       })
       .catch(function () {
         console.warn(
           '[Suvarmax] /api/site əlçatan deyil — partnyor/əlaqə üçün layihə qovluğunda "npm start" işə salın (Express). İndi müvəqqəti məzmun göstərilir.'
         );
         applySite(SITE_OFFLINE_FALLBACK);
+        var L = lang;
+        Promise.all([
+          fetch('/data/static-home-by-locale.json', { cache: 'no-store' }).then(function (r) {
+            return r.ok ? r.json() : Promise.reject();
+          }),
+          fetch('/data/default-pages-home.json', { cache: 'no-store' }).then(function (r) {
+            return r.ok ? r.json() : Promise.reject();
+          }),
+        ])
+          .then(function (pair) {
+            var shell = pair[0][L] || pair[0].az;
+            var def = pair[1] || {};
+            var home = Object.assign({}, shell, {
+              services: def.services,
+              about: def.about,
+            });
+            if (typeof window.applyHomePageFromData === 'function') {
+              window.applyHomePageFromData(home);
+            }
+            var pathOff = (window.location.pathname || '').replace(/\\/g, '/');
+            if (
+              pathOff.indexOf('works.html') !== -1 &&
+              typeof window.applyWorksPageLabels === 'function' &&
+              home.worksPage
+            ) {
+              window.applyWorksPageLabels(home.worksPage);
+            }
+            var ps = shell.partnersSection;
+            if (ps && typeof ps === 'object') {
+              var pt = document.getElementById('site-partners-title');
+              var psub = document.getElementById('site-partners-subtitle');
+              if (pt && ps.title != null) pt.textContent = String(ps.title);
+              if (psub && ps.subtitle != null) psub.textContent = String(ps.subtitle);
+            }
+          })
+          .catch(function () {});
       });
+  }
+
+  document.addEventListener('DOMContentLoaded', loadPublicSite);
+  window.addEventListener('suvarmax:lang-changed', loadPublicSite);
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) loadPublicSite();
   });
 })();

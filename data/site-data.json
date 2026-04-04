@@ -2,26 +2,48 @@
   "works": [
     {
       "id": 1,
-      "title": "Nümunə layihə",
-      "description": "Bu nümunə işdir. Admin paneldən redaktə edin və ya silin. Şəkilləri assets/images qovluğuna yükləyə bilərsiniz.",
       "images": [
         "assets/images/logo.svg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Nümunə layihə",
+          "description": "Bu nümunə işdir. Admin paneldən redaktə edin və ya silin. Şəkilləri assets/images qovluğuna yükləyə bilərsiniz."
+        },
+        "ru": {
+          "title": "Пример проекта",
+          "description": "Примерная работа в портфолио. Отредактируйте или удалите в админ-панели; изображения можно загрузить в папку assets/images."
+        },
+        "en": {
+          "title": "Sample project",
+          "description": "This is a sample portfolio item. Edit or delete it in the admin panel; you can upload images to the assets/images folder."
+        }
+      }
     },
     {
       "id": 2,
-      "title": "Salam",
-      "description": "dvnvklsvbklbsfbsbvkjsvjshdjhsdv",
       "images": [
         "assets/images/1774697220582-pZ4AAOSwKb5noiRg.jpeg",
         "assets/images/1774697227009-pZ4AAOSwKb5noiRg.jpeg",
         "assets/images/1774697236921-Gemini_Generated_Image_1aaqef1aaqef1aaq.png"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "İstiqlal istixana kompleksi",
+          "description": "Damcı suvarma və avtomatik idarəetmə ilə istixana kompleksinin suvarılması və monitorinqi."
+        },
+        "ru": {
+          "title": "Тепличный комплекс «Истиглал»",
+          "description": "Орошение и мониторинг тепличного комплекса: капельный полив и автоматическое управление."
+        },
+        "en": {
+          "title": "Istiglal greenhouse complex",
+          "description": "Irrigation and monitoring for a greenhouse complex using drip systems and automation."
+        }
+      }
     },
     {
       "id": 3,
-      "title": "TEST",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sollicitudin enim ex, id porttitor lectus consequat nec. Sed scelerisque risus non suscipit pulvinar. Donec a mauris ligula. Etiam rhoncus efficitur porta. Nullam tristique, sem id ultrices tincidunt, ex nisi aliquam orci, in consectetur orci quam tincidunt nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean leo libero, condimentum rhoncus placerat a, fringilla aliquet mauris. Integer non metus quis ante egestas malesuada in eget massa. Suspendisse faucibus lorem vel diam ultricies lobortis. Nunc maximus convallis commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur sit amet elementum sem, viverra elementum massa.\n\nNam id pulvinar nunc. Fusce quam ante, eleifend a magna vitae, scelerisque euismod sem. Etiam lacinia, diam vitae ultricies ornare, libero tortor dictum quam, et mattis nibh lorem et odio. Proin orci augue, hendrerit vitae diam pulvinar, laoreet rhoncus ligula. Phasellus ultrices id nisl ac sollicitudin. Duis suscipit luctus felis nec hendrerit. Sed aliquam dolor et neque dapibus eleifend. Phasellus euismod mattis orci, viverra semper felis. Nullam nec diam eu tortor imperdiet vehicula et ornare leo. Phasellus rhoncus scelerisque urna luctus tempor. Phasellus feugiat nisi a mollis pellentesque.\n\nProin quis luctus massa, et luctus erat. Cras laoreet facilisis tellus a molestie. Suspendisse tincidunt, metus vel mattis semper, nulla nisi dapibus odio, a viverra neque nunc vitae turpis. Aenean pulvinar orci vitae lectus sodales vulputate. Fusce convallis ipsum massa, eu bibendum elit tincidunt ac. Maecenas convallis laoreet posuere. Phasellus faucibus malesuada nulla. Pellentesque commodo, metus sed rhoncus consectetur, quam dolor tempor leo, vel sagittis metus eros ac tortor. Morbi semper sit amet neque ut porta. Nullam aliquet vitae enim in pellentesque. Nulla tempus urna eros, non accumsan orci tincidunt ac.\n\nVivamus tristique dolor at venenatis suscipit. Aenean vehicula fringilla leo vel egestas. Aenean aliquam finibus felis. Donec sodales urna lacus, sit amet auctor dui maximus eu. Etiam odio magna, posuere eu varius at, elementum ac massa. Nunc eros odio, faucibus ac gravida sed, pulvinar quis sem. Mauris sit amet justo felis. Nullam ac metus auctor, viverra turpis ac, rhoncus nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.\n\nPhasellus at ultricies turpis. Integer sit amet elit arcu. Sed libero libero, vulputate vel tristique eget, tempor non tellus. Suspendisse lobortis nulla sit amet arcu laoreet, id venenatis nulla feugiat. Aliquam a aliquet ligula. Fusce bibendum nec justo in rhoncus. Suspendisse semper tempor ante nec scelerisque.",
       "images": [
         "assets/images/1774698573031-o34AAOSwBR1noiRg.jpeg",
         "assets/images/1774698573018-DdIAAOSwje1noiRg.jpeg",
@@ -32,63 +54,161 @@
         "assets/images/1774698573044-_DQAAOSwTvxnoiRg.jpeg",
         "assets/images/1774698573064-aQkAAOSw-GJnoiRf.jpeg",
         "assets/images/1774698573075-Gemini_Generated_Image_1aaqef1aaqef1aaq.png"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Geniş aqro sahə — pivot suvarma",
+          "description": "Təxminən 500 hektar sahədə mərkəzi pivot suvarma sisteminin layihələndirilməsi və quraşdırılması; quyu, nasos stansiyaları və şəbəkənin inteqrasiyası."
+        },
+        "ru": {
+          "title": "Крупное поле — pivot-орошение",
+          "description": "Проектирование и монтаж центральных pivot-систем на площади порядка 500 га; скважины, насосные станции и интеграция сети."
+        },
+        "en": {
+          "title": "Large farm field — pivot irrigation",
+          "description": "Design and installation of centre-pivot irrigation across roughly 500 ha; wells, pump stations and network integration."
+        }
+      }
     },
     {
       "id": 4,
-      "title": "vnnvn",
-      "description": "vnnvnvn",
       "images": [
         "assets/images/1774699462963-pZ4AAOSwKb5noiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Bağ üçün damcı suvarma",
+          "description": "Meyvə bağı üçün damcı şəbəkə, filtrasiya və gübrələmə ilə inteqrasiya."
+        },
+        "ru": {
+          "title": "Капельный полив сада",
+          "description": "Сеть капельного орошения с фильтрацией и связью с внесением удобрений."
+        },
+        "en": {
+          "title": "Orchard drip irrigation",
+          "description": "Drip network with filtration integrated with fertigation."
+        }
+      }
     },
     {
       "id": 5,
-      "title": "ngnn",
-      "description": "gngn",
       "images": [
         "assets/images/1774699472140-_DQAAOSwTvxnoiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Yaşıllaşdırma sprinkler sistemi",
+          "description": "Həyətyanı və otlaq zonaları üçün yağışlılanma (sprinkler) quraşdırılması."
+        },
+        "ru": {
+          "title": "Спринклерное озеленение",
+          "description": "Дождевание для газонов и ландшафтных зон."
+        },
+        "en": {
+          "title": "Landscaping sprinkler system",
+          "description": "Sprinkler installation for lawns and landscaped areas."
+        }
+      }
     },
     {
       "id": 6,
-      "title": "gngngngngn",
-      "description": "fsffsfsf",
       "images": [
         "assets/images/1774699483364-DdIAAOSwje1noiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Filtrasiya və nasos stansiyası",
+          "description": "Disk filtrasiya, təzyiq tənzimləməsi və nasos stansiyasının yenidənqurulması."
+        },
+        "ru": {
+          "title": "Фильтрация и насосная станция",
+          "description": "Дисковая фильтрация, регулирование давления и модернизация насосной станции."
+        },
+        "en": {
+          "title": "Filtration & pump station",
+          "description": "Disc filtration, pressure control and pump station upgrade."
+        }
+      }
     },
     {
       "id": 7,
-      "title": "fbfbfbfb",
-      "description": "hmm",
       "images": [
         "assets/images/1774699494907-aQkAAOSw-GJnoiRf.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Damcı xətlər və zona klapanları",
+          "description": "Əkin sxeminə uyğun ön damcı xətləri və avtomatik zona idarəetməsi."
+        },
+        "ru": {
+          "title": "Капельные линии и зоны",
+          "description": "Раскладка капельных линий и зонирование клапанов под культуру."
+        },
+        "en": {
+          "title": "Drip lines & valve zones",
+          "description": "Drip layout and valve zoning matched to crop plan."
+        }
+      }
     },
     {
       "id": 8,
-      "title": "hmjh,l,",
-      "description": ",j,",
       "images": [
         "assets/images/1774699503491-DdIAAOSwje1noiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Bağ mikrosuvarması",
+          "description": "Mikrosprinkler və damcı kombinasiyası ilə bağların suvarılması."
+        },
+        "ru": {
+          "title": "Микроорошение садов",
+          "description": "Сочетание микроспринклеров и капельного полива."
+        },
+        "en": {
+          "title": "Garden micro-irrigation",
+          "description": "Micro-sprinklers combined with drip irrigation."
+        }
+      }
     },
     {
       "id": 9,
-      "title": "hmhmhmhm",
-      "description": "hmhmhm",
       "images": [
         "assets/images/1774699517057-lpcAAOSwMoBnoiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Su anbarı və magistral xətlər",
+          "description": "Su anbarı, PVC/PE magistral və sahə paylayıcıları."
+        },
+        "ru": {
+          "title": "Резервуар и магистрали",
+          "description": "Резервуар, магистрали ПВХ/ПЭ и полевые распределители."
+        },
+        "en": {
+          "title": "Reservoir & mainlines",
+          "description": "Water reservoir, PVC/PE mains and field distribution."
+        }
+      }
     },
     {
       "id": 10,
-      "title": "fnxdd",
-      "description": "zdsnbf",
       "images": [
         "assets/images/1774699532923-cE8AAOSwKzlnoiRg.jpeg"
-      ]
+      ],
+      "i18n": {
+        "az": {
+          "title": "Avtomatika və sensor monitorinq",
+          "description": "Nəm və axın sensorları, avtomatik idarəetmə və uzaqdan izləmə."
+        },
+        "ru": {
+          "title": "Автоматика и мониторинг",
+          "description": "Датчики влажности и расхода, автоматика и удалённый мониторинг."
+        },
+        "en": {
+          "title": "Automation & sensor monitoring",
+          "description": "Moisture and flow sensors with automation and remote monitoring."
+        }
+      }
     }
   ],
   "admins": [
@@ -98,67 +218,252 @@
     }
   ],
   "site": {
-    "partnersTitle": "Partnyorlarımız",
-    "partnersSubtitle": "Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız",
-    "partners": [
-      {
-        "id": 1,
-        "name": "LandPro",
-        "url": "https://landpro.az"
-      },
-      {
-        "id": 2,
-        "name": "ParkLand",
-        "url": "https://parkland.az"
-      },
-      {
-        "id": 3,
-        "name": "Green Garden",
-        "url": "https://greengarden.az"
-      },
-      {
-        "id": 4,
-        "name": "LandPro",
-        "url": "https://landpro.az"
-      },
-      {
-        "id": 5,
-        "name": "ParkLand",
-        "url": "https://parkland.az"
-      },
-      {
-        "id": 6,
-        "name": "Green Garden",
-        "url": "https://greengarden.az"
-      }
-    ],
-    "contact": {
-      "phoneTel": "+994556485658",
-      "phoneLabel": "+994 55 648 56 58",
-      "email": "info@suvarmax.com",
-      "address": "Bakı, Azərbaycan"
-    },
-    "social": [
-      {
-        "id": 1,
-        "name": "Facebook",
-        "url": "https://www.facebook.com/",
-        "icon": "assets/images/social/facebook.svg"
-      },
-      {
-        "id": 2,
-        "name": "Instagram",
-        "url": "https://www.instagram.com/suvarmax",
-        "icon": "assets/images/social/instagram.svg"
-      },
-      {
-        "id": 3,
-        "name": "LinkedIn",
-        "url": "https://www.linkedin.com/",
-        "icon": "assets/images/social/linkedin.svg"
-      }
-    ],
     "telegramBotToken": "8554708256:AAGUJXtJjehvX4gvHMGphK6YI6L7zuQ6I1E",
-    "telegramChatId": "-1003825193367"
+    "telegramChatId": "-1003825193367",
+    "locales": {
+      "az": {
+        "partnersTitle": "Partnyorlarımız",
+        "partnersSubtitle": "Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız",
+        "partners": [
+          {
+            "id": 1,
+            "name": "LandPro",
+            "url": "https://landpro.az"
+          },
+          {
+            "id": 2,
+            "name": "ParkLand",
+            "url": "https://parkland.az"
+          },
+          {
+            "id": 3,
+            "name": "Green Garden",
+            "url": "https://greengarden.az"
+          },
+          {
+            "id": 4,
+            "name": "LandPro",
+            "url": "https://landpro.az"
+          },
+          {
+            "id": 5,
+            "name": "ParkLand",
+            "url": "https://parkland.az"
+          },
+          {
+            "id": 6,
+            "name": "Green Garden",
+            "url": "https://greengarden.az"
+          }
+        ],
+        "contact": {
+          "phoneTel": "+994556485658",
+          "phoneLabel": "+994 55 648 56 58",
+          "email": "info@suvarmax.com",
+          "address": "Bakı, Azərbaycan"
+        },
+        "social": [
+          {
+            "id": 1,
+            "name": "Facebook",
+            "url": "https://www.facebook.com/",
+            "icon": "assets/images/social/facebook.svg"
+          },
+          {
+            "id": 2,
+            "name": "Instagram",
+            "url": "https://www.instagram.com/suvarmax",
+            "icon": "assets/images/social/instagram.svg"
+          },
+          {
+            "id": 3,
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/",
+            "icon": "assets/images/social/linkedin.svg"
+          }
+        ],
+        "pages": {
+          "home": {}
+        }
+      },
+      "ru": {
+        "contact": {
+          "phoneTel": "+994556485658",
+          "phoneLabel": "+994 55 648 56 58",
+          "email": "info@suvarmax.com",
+          "address": "Баку, Азербайджан"
+        },
+        "pages": {
+          "home": {
+            "services": {
+              "sectionTitle": "Наши услуги",
+              "cards": [
+                {
+                  "title": "Продажа систем орошения",
+                  "body": "Широкий выбор качественного оборудования: капельный полив, дождевание, центральные pivot-системы и другие современные технологии.",
+                  "bullets": [
+                    "Капельные системы",
+                    "Спринклеры и дождеватели",
+                    "Центральные pivot-системы"
+                  ]
+                },
+                {
+                  "title": "Проектирование",
+                  "body": "Инженеры подберут оптимальную схему орошения для вашего участка: анализ почвы и воды, расчёт режимов и рабочая документация.",
+                  "bullets": [
+                    "Анализ почвы и воды",
+                    "Техническое проектирование",
+                    "Консультации"
+                  ]
+                },
+                {
+                  "title": "Монтаж",
+                  "body": "Профессиональный монтаж и пусконаладка. Соблюдаем сроки и стандарты качества на всех этапах работ.",
+                  "bullets": [
+                    "Монтаж «под ключ»",
+                    "Пусконаладка и тесты",
+                    "Инструктаж персонала"
+                  ]
+                },
+                {
+                  "title": "Сервис и ремонт",
+                  "body": "Регулярное обслуживание и оперативный ремонт для бесперебойной работы ваших систем орошения.",
+                  "bullets": [
+                    "Плановое ТО",
+                    "Аварийный ремонт",
+                    "Диагностика"
+                  ]
+                },
+                {
+                  "title": "Запчасти",
+                  "body": "Оригинальные и совместимые комплектующие, чтобы система работала без простоев.",
+                  "bullets": [
+                    "Оригинальные запчасти",
+                    "Широкий ассортимент",
+                    "Быстрая поставка"
+                  ]
+                },
+                {
+                  "title": "Консультации",
+                  "body": "Бесплатные консультации по подбору оборудования и схемы орошения под ваши задачи.",
+                  "bullets": [
+                    "Первичная консультация",
+                    "Техподдержка",
+                    "Планирование проекта"
+                  ]
+                }
+              ]
+            },
+            "about": {
+              "sectionTitle": "О компании",
+              "companyHeading": "О нашей компании",
+              "companyP1": "Suvarmax — ведущий поставщик в Азербайджане: продажа, проектирование, монтаж и сервис систем орошения. Мы предлагаем качественное оборудование и услуги и выводим на рынок современные технологии орошения.",
+              "companyP2": "Благодаря опытной команде и широкому ассортименту мы подбираем решения как для небольших садов и участков, так и для крупных сельхозплощадей.",
+              "missionTitle": "Миссия",
+              "missionText": "Эффективно использовать водные ресурсы и предлагать клиентам лучшие решения в орошении. Качество, надёжность и удовлетворённость заказчиков — наши приоритеты.",
+              "visionTitle": "Видение",
+              "visionText": "Быть лидером в сфере систем орошения в Азербайджане и способствовать развитию агросектора за счёт современных технологий.",
+              "teamHeading": "Команда",
+              "teamP1": "В Suvarmax работают опытные инженеры, монтажники и специалисты по продажам; мы постоянно повышаем квалификацию, чтобы обеспечивать высокий уровень сервиса.",
+              "role1Title": "Проектный отдел",
+              "role1Sub": "Инженеры-проектировщики",
+              "role2Title": "Монтаж",
+              "role2Sub": "Опытные монтажники",
+              "role3Title": "Сервис",
+              "role3Sub": "Сервисные специалисты"
+            }
+          }
+        }
+      },
+      "en": {
+        "contact": {
+          "phoneTel": "+994556485658",
+          "phoneLabel": "+994 55 648 56 58",
+          "email": "info@suvarmax.com",
+          "address": "Baku, Azerbaijan"
+        },
+        "pages": {
+          "home": {
+            "services": {
+              "sectionTitle": "Our services",
+              "cards": [
+                {
+                  "title": "Irrigation equipment sales",
+                  "body": "A wide range of quality products: drip irrigation, sprinklers, centre-pivot systems and other modern irrigation technologies.",
+                  "bullets": [
+                    "Drip irrigation systems",
+                    "Sprinkler systems",
+                    "Centre-pivot systems"
+                  ]
+                },
+                {
+                  "title": "Engineering & design",
+                  "body": "Our engineers design the right irrigation layout for your site: soil and water assessment, hydraulic planning and technical documentation.",
+                  "bullets": [
+                    "Soil and water analysis",
+                    "Technical design",
+                    "Consulting"
+                  ]
+                },
+                {
+                  "title": "Installation",
+                  "body": "Professional installation and commissioning. We deliver on time and to a high standard of workmanship.",
+                  "bullets": [
+                    "Professional installation",
+                    "Commissioning & testing",
+                    "Operator training"
+                  ]
+                },
+                {
+                  "title": "Service & repair",
+                  "body": "Planned maintenance and fast repairs to keep your irrigation systems running reliably.",
+                  "bullets": [
+                    "Scheduled maintenance",
+                    "Breakdown repair",
+                    "Diagnostics"
+                  ]
+                },
+                {
+                  "title": "Spare parts",
+                  "body": "Original and compatible components so your systems stay operational without long downtime.",
+                  "bullets": [
+                    "Genuine spare parts",
+                    "Broad product range",
+                    "Fast supply"
+                  ]
+                },
+                {
+                  "title": "Consulting",
+                  "body": "Free initial advice on equipment selection and irrigation concepts tailored to your plot or farm.",
+                  "bullets": [
+                    "Free consultation",
+                    "Technical support",
+                    "Project planning"
+                  ]
+                }
+              ]
+            },
+            "about": {
+              "sectionTitle": "About us",
+              "companyHeading": "About our company",
+              "companyP1": "Suvarmax is a leading provider in Azerbaijan for sales, design, installation and service of irrigation systems. We supply quality products and services and bring modern irrigation technology to the local market.",
+              "companyP2": "With an experienced team and a broad portfolio, we deliver optimal solutions for small gardens as well as large agricultural areas.",
+              "missionTitle": "Our mission",
+              "missionText": "To use water resources efficiently and deliver the best irrigation solutions to our clients. Quality, reliability and customer satisfaction are our priorities.",
+              "visionTitle": "Our vision",
+              "visionText": "To be a leading irrigation company in Azerbaijan and support agricultural development through modern technology.",
+              "teamHeading": "Our team",
+              "teamP1": "The Suvarmax team includes skilled engineers, technicians and sales advisors who continuously develop their expertise to serve clients at the highest level.",
+              "role1Title": "Project team",
+              "role1Sub": "Professional engineers",
+              "role2Title": "Installation team",
+              "role2Sub": "Experienced technicians",
+              "role3Title": "Service team",
+              "role3Sub": "Service specialists"
+            }
+          }
+        }
+      }
+    }
   }
 }

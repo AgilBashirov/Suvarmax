@@ -8,8 +8,12 @@
     dismissAdminToasts,
   } = window.AdminCommon;
 
+  const LOCALES = ['az', 'ru', 'en'];
+  /** Sosial siyahısı həmişə AZ dilimində saxlanılır; telefon/email/ünvan — seçilmiş dilə görə */
+  const SOCIAL_LOCALE = 'az';
   let siteFull = null;
   let siteDraft = null;
+  let activeLocale = 'az';
 
   function showErr(msg) {
     showAdminToast(msg, 'error');
@@ -49,6 +53,30 @@
 
   function syncDraftFromDom() {
     Object.assign(siteDraft, collectContactPage());
+  }
+
+  function persistFromDomToFull() {
+    if (!siteFull || !siteFull.locales) return;
+    syncDraftFromDom();
+    const contact = { ...(siteDraft.contact || {}) };
+    const social = siteDraft.social ? siteDraft.social.slice() : [];
+    siteFull.locales[activeLocale] = siteFull.locales[activeLocale] || {};
+    siteFull.locales[activeLocale].contact = contact;
+    siteFull.locales[SOCIAL_LOCALE] = siteFull.locales[SOCIAL_LOCALE] || {};
+    siteFull.locales[SOCIAL_LOCALE].social = social;
+  }
+
+  function loadDraftForLocale(loc) {
+    const sliceLoc = (siteFull && siteFull.locales && siteFull.locales[loc]) || {};
+    const sliceAz = (siteFull && siteFull.locales && siteFull.locales[SOCIAL_LOCALE]) || {};
+    siteDraft = {
+      contact: JSON.parse(JSON.stringify(sliceLoc.contact || {})),
+      social: JSON.parse(JSON.stringify(Array.isArray(sliceAz.social) ? sliceAz.social : [])),
+    };
+    activeLocale = loc;
+    const sel = document.getElementById('admin-edit-locale');
+    if (sel) sel.value = loc;
+    renderContactForm();
   }
 
   function setLogoPreview(img, path) {
@@ -131,7 +159,7 @@
             inp.value = d.path || '';
             setLogoPreview(im, inp.value.trim());
             fileInp.value = '';
-            showOk('Dəyişiklik saxlanıldı.');
+            showOk('İkon yükləndi.');
           })
           .catch(() => showErr('Şəbəkə xətası'))
       );
@@ -232,10 +260,13 @@
       .then((data) => {
         hideGlobals();
         siteFull = data.site ? JSON.parse(JSON.stringify(data.site)) : {};
-        siteDraft = JSON.parse(JSON.stringify(siteFull));
-        if (!siteDraft.contact) siteDraft.contact = {};
-        if (!Array.isArray(siteDraft.social)) siteDraft.social = [];
-        renderContactForm();
+        if (!siteFull.locales || typeof siteFull.locales !== 'object') {
+          siteFull.locales = { az: {}, ru: {}, en: {} };
+        }
+        LOCALES.forEach((loc) => {
+          if (!siteFull.locales[loc]) siteFull.locales[loc] = { contact: {}, social: [] };
+        });
+        loadDraftForLocale(activeLocale);
       });
   }
 
@@ -244,6 +275,16 @@
     bindLogout(document.getElementById('btn-logout'));
     loadSite();
   });
+
+  const localeSel = document.getElementById('admin-edit-locale');
+  if (localeSel) {
+    localeSel.addEventListener('change', () => {
+      const next = localeSel.value;
+      if (!LOCALES.includes(next)) return;
+      persistFromDomToFull();
+      loadDraftForLocale(next);
+    });
+  }
 
   document.getElementById('adm-site-add-social').addEventListener('click', () => {
     syncDraftFromDom();
@@ -258,12 +299,8 @@
 
   document.getElementById('admin-save-site').addEventListener('click', () => {
     hideGlobals();
-    const patch = collectContactPage();
-    const site = {
-      ...siteFull,
-      contact: patch.contact,
-      social: patch.social,
-    };
+    persistFromDomToFull();
+    const site = JSON.parse(JSON.stringify(siteFull));
     const saveBtn = document.getElementById('admin-save-site');
     runWithButtonBusy(saveBtn, 'Saxlanır…', () =>
       fetch('/api/admin/site', {
@@ -284,8 +321,8 @@
           }
           showOk('Dəyişiklik saxlanıldı.');
           siteFull = d.site ? JSON.parse(JSON.stringify(d.site)) : siteFull;
-          siteDraft = JSON.parse(JSON.stringify(siteFull));
-          renderContactForm();
+          if (!siteFull.locales) siteFull.locales = { az: {}, ru: {}, en: {} };
+          loadDraftForLocale(activeLocale);
         })
         .catch(() => showErr('Şəbəkə xətası'))
     );

@@ -1,0 +1,55 @@
+{
+  "services": {
+    "sectionTitle": "Xidmətlərimiz",
+    "cards": [
+      {
+        "title": "Suvarma Sistemlərinin Satışı",
+        "body": "Yüksək keyfiyyətli suvarma avadanlıqlarının geniş çeşidini təqdim edirik. Drip suvarma, sprinkler sistemləri, mərkəzi pivot sistemləri və digər müasir suvarma texnologiyaları.",
+        "bullets": ["Drip suvarma sistemləri", "Sprinkler sistemləri", "Mərkəzi pivot sistemləri"]
+      },
+      {
+        "title": "Layihələndirmə",
+        "body": "Peşəkar mühəndislərimiz sizin sahəniz üçün optimal suvarma sistemini layihələndirir. Torpaq analizi, su ehtiyatlarının qiymətləndirilməsi və effektiv suvarma planının hazırlanması.",
+        "bullets": ["Torpaq və su analizi", "Texniki layihələndirmə", "Konsultasiya xidmətləri"]
+      },
+      {
+        "title": "Quraşdırma",
+        "body": "Təcrübəli quraşdırma komandamız suvarma sistemlərinin peşəkar quraşdırılmasını və işə salınmasını təmin edir. Bütün işlər vaxtında və keyfiyyətli şəkildə həyata keçirilir.",
+        "bullets": ["Peşəkar quraşdırma", "İşə salma və test", "İstifadə təlimatı"]
+      },
+      {
+        "title": "Servis & Təmir",
+        "body": "Suvarma sistemlərinizin düzgün işləməsi üçün müntəzəm servis və təmir xidmətləri təqdim edirik. Problemlərin tez həlli və sistemin uzunmüddətli işləməsi.",
+        "bullets": ["Müntəzəm texniki xidmət", "Qəza təmiri", "Diagnostika və yoxlama"]
+      },
+      {
+        "title": "Ehtiyat Hissələri",
+        "body": "Orijinal və uyğun ehtiyat hissələrinin geniş çeşidini təqdim edirik. Sistemlərinizin fasiləsiz işləməsi üçün lazım olan bütün komponentlər.",
+        "bullets": ["Orijinal ehtiyat hissələri", "Geniş məhsul çeşidi", "Sürətli çatdırılma"]
+      },
+      {
+        "title": "Konsultasiya",
+        "body": "Suvarma sistemləri ilə bağlı pulsuz konsultasiya xidmətləri. Sizin sahəniz üçün ən yaxşı həlli seçməkdə kömək edirik.",
+        "bullets": ["Pulsuz konsultasiya", "Texniki dəstək", "Layihə planlaşdırması"]
+      }
+    ]
+  },
+  "about": {
+    "sectionTitle": "Haqqımızda",
+    "companyHeading": "Şirkətimiz haqqında",
+    "companyP1": "Suvarmax, Azərbaycanda suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə məşğul olan aparıcı şirkətdir. Biz müştərilərimizə yüksək keyfiyyətli məhsul və xidmət təqdim etməklə, müasir suvarma texnologiyalarını Azərbaycan bazarına gətiririk.",
+    "companyP2": "Təcrübəli komandamız və geniş məhsul çeşidimizlə, həm kiçik bağçalar, həm də böyük kənd təsərrüfatı sahələri üçün optimal həllər təklif edirik.",
+    "missionTitle": "Missiyamız",
+    "missionText": "Su ehtiyatlarının səmərəli istifadəsini təmin etmək və müştərilərimizə ən yaxşı suvarma həllərini təqdim etmək. Keyfiyyət, etibarlılıq və müştəri məmnuniyyəti bizim əsas prioritetlərimizdir.",
+    "visionTitle": "Vizyonumuz",
+    "visionText": "Azərbaycanda suvarma sistemləri sahəsində aparıcı şirkət olmaq və müasir texnologiyalar vasitəsilə kənd təsərrüfatının inkişafına töhfə vermək.",
+    "teamHeading": "Komandamız",
+    "teamP1": "Suvarmax komandası təcrübəli mütəxəssislərdən ibarətdir. Bizim mühəndislərimiz, texniklərimiz və satış məsləhətçilərimiz müştərilərimizə ən yaxşı xidməti təqdim etmək üçün daim öz bilik və bacarıqlarını təkmilləşdirirlər.",
+    "role1Title": "Layihə Komandası",
+    "role1Sub": "Peşəkar mühəndislər",
+    "role2Title": "Quraşdırma Komandası",
+    "role2Sub": "Təcrübəli texniklər",
+    "role3Title": "Servis Komandası",
+    "role3Sub": "Peşəkar servis mütəxəssisləri"
+  }
+}

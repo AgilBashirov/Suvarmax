@@ -9,6 +9,9 @@
     dismissAdminToasts,
   } = window.AdminCommon;
 
+  const LOCALES = ['az', 'ru', 'en'];
+  const DEFAULT_LOCALE = 'az';
+
   const workForm = document.getElementById('work-form');
   const workFormTitle = document.getElementById('work-form-title');
   const workEditId = document.getElementById('work-edit-id');
@@ -19,8 +22,12 @@
   const btnUpload = document.getElementById('btn-upload');
   const btnWorkCancel = document.getElementById('btn-work-cancel');
   const worksTableBody = document.getElementById('works-table-body');
+  const workLocaleSel = document.getElementById('work-edit-locale');
+  const btnRemoveLocale = document.getElementById('btn-remove-work-locale');
 
   let imagePaths = [];
+  /** @type {object|null} redaktə zamanı tam iş obyekti (i18n daxil) */
+  let editBuffer = null;
 
   function showErr(msg) {
     showAdminToast(msg, 'error');
@@ -32,6 +39,69 @@
 
   function hideGlobals() {
     dismissAdminToasts();
+  }
+
+  function workDisplayTitle(w) {
+    const order = [DEFAULT_LOCALE, 'ru', 'en'];
+    const i18n = (w && w.i18n) || {};
+    for (let i = 0; i < order.length; i++) {
+      const b = i18n[order[i]];
+      if (b && String(b.title || '').trim()) return String(b.title).trim();
+    }
+    return '(başlıqsız)';
+  }
+
+  function normalizeWorkFromApi(w) {
+    const i18n = {};
+    LOCALES.forEach((loc) => {
+      const b = w.i18n && w.i18n[loc];
+      if (b && typeof b === 'object') {
+        i18n[loc] = {
+          title: String(b.title || '').trim(),
+          description: String(b.description || '').trim(),
+        };
+      }
+    });
+    if ((w.title != null || w.description != null) && !i18n[DEFAULT_LOCALE]) {
+      i18n[DEFAULT_LOCALE] = {
+        title: String(w.title != null ? w.title : '').trim(),
+        description: String(w.description != null ? w.description : '').trim(),
+      };
+    }
+    return {
+      id: Number(w.id),
+      images: Array.isArray(w.images) ? w.images.slice() : [],
+      i18n,
+    };
+  }
+
+  function getFormLocale() {
+    return workLocaleSel && workLocaleSel.value ? workLocaleSel.value : DEFAULT_LOCALE;
+  }
+
+  function flushFormToBuffer() {
+    if (!editBuffer) return;
+    const loc = getFormLocale();
+    editBuffer.i18n = editBuffer.i18n || {};
+    editBuffer.i18n[loc] = {
+      title: workTitle.value.trim(),
+      description: workDesc.value.trim(),
+    };
+  }
+
+  function fillFormFromBuffer() {
+    if (!editBuffer) return;
+    const loc = getFormLocale();
+    const b = (editBuffer.i18n && editBuffer.i18n[loc]) || {};
+    workTitle.value = b.title || '';
+    workDesc.value = b.description || '';
+  }
+
+  function updateRemoveLocaleButton() {
+    if (!btnRemoveLocale) return;
+    const loc = getFormLocale();
+    const editing = !!editBuffer && !!workEditId.value.trim();
+    btnRemoveLocale.classList.toggle('hidden', !editing || loc === DEFAULT_LOCALE);
   }
 
   function moveImage(index, delta) {
@@ -111,19 +181,24 @@
     workDesc.value = '';
     workFiles.value = '';
     imagePaths = [];
+    editBuffer = null;
+    if (workLocaleSel) workLocaleSel.value = DEFAULT_LOCALE;
     btnWorkCancel.classList.add('hidden');
     renderImageList();
+    updateRemoveLocaleButton();
   }
 
   function startEdit(work) {
-    workEditId.value = String(work.id);
-    workFormTitle.textContent = 'İşi redaktə et (ID: ' + work.id + ')';
-    workTitle.value = work.title || '';
-    workDesc.value = work.description || '';
-    imagePaths = Array.isArray(work.images) ? work.images.slice() : [];
+    editBuffer = normalizeWorkFromApi(work);
+    workEditId.value = String(editBuffer.id);
+    workFormTitle.textContent = 'İşi redaktə et (ID: ' + editBuffer.id + ')';
+    if (workLocaleSel) workLocaleSel.value = DEFAULT_LOCALE;
+    fillFormFromBuffer();
+    imagePaths = Array.isArray(editBuffer.images) ? editBuffer.images.slice() : [];
     workFiles.value = '';
     btnWorkCancel.classList.remove('hidden');
     renderImageList();
+    updateRemoveLocaleButton();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -149,7 +224,7 @@
             w.id +
             '</td>' +
             '<td class="px-4 py-3 font-medium text-gray-800">' +
-            escapeHtml(w.title) +
+            escapeHtml(workDisplayTitle(w)) +
             '</td>' +
             '<td class="px-4 py-3">' +
             (w.images ? w.images.length : 0) +
@@ -204,6 +279,43 @@
     loadWorks();
   });
 
+  if (workLocaleSel) {
+    workLocaleSel.addEventListener('change', () => {
+      flushFormToBuffer();
+      fillFormFromBuffer();
+      updateRemoveLocaleButton();
+    });
+  }
+
+  if (btnRemoveLocale) {
+    btnRemoveLocale.addEventListener('click', () => {
+      const id = Number(workEditId.value);
+      const loc = getFormLocale();
+      if (!id || loc === DEFAULT_LOCALE) return;
+      if (!confirm('Bu dil üçün tərcümə silinsin? (AZ silinmir)')) return;
+      runWithButtonBusy(btnRemoveLocale, 'Silinir…', () =>
+        fetch('/api/admin/works/' + id + '/locale/' + encodeURIComponent(loc), {
+          method: 'DELETE',
+          ...credentials,
+        })
+          .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
+          .then(({ ok, d }) => {
+            if (!ok) {
+              showErr((d && d.error) || 'Silinmədi');
+              return;
+            }
+            showOk('Tərcümə silindi');
+            editBuffer = normalizeWorkFromApi(d.work);
+            workLocaleSel.value = DEFAULT_LOCALE;
+            fillFormFromBuffer();
+            updateRemoveLocaleButton();
+            return loadWorks();
+          })
+          .catch(() => showErr('Şəbəkə xətası'))
+      );
+    });
+  }
+
   btnUpload.addEventListener('click', () => {
     const files = workFiles.files;
     if (!files || !files.length) {
@@ -238,22 +350,47 @@
   workForm.addEventListener('submit', function (e) {
     e.preventDefault();
     hideGlobals();
-    const title = workTitle.value.trim();
-    const description = workDesc.value.trim();
     if (!imagePaths.length) {
       showErr('Ən azı bir şəkil yolu olmalıdır (fayl yükləyin).');
       return;
     }
     const editId = workEditId.value.trim();
-    const payload = { title, description, images: imagePaths };
-
-    const url = editId ? '/api/admin/works/' + encodeURIComponent(editId) : '/api/admin/works';
-    const method = editId ? 'PUT' : 'POST';
     const submitBtn = workForm.querySelector('button[type="submit"]');
 
+    if (editId) {
+      flushFormToBuffer();
+      const payload = { images: imagePaths, i18n: editBuffer.i18n };
+      runWithButtonBusy(submitBtn, 'Saxlanır…', () =>
+        fetch('/api/admin/works/' + encodeURIComponent(editId), {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          ...credentials,
+        })
+          .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
+          .then(({ ok, d }) => {
+            if (!ok) {
+              showErr((d && d.error) || 'Saxlanılmadı');
+              return;
+            }
+            showOk('Dəyişiklik saxlanıldı.');
+            editBuffer = normalizeWorkFromApi(d.work);
+            resetWorkForm();
+            return loadWorks();
+          })
+          .catch(() => showErr('Şəbəkə xətası'))
+      );
+      return;
+    }
+
+    const title = workTitle.value.trim();
+    const description = workDesc.value.trim();
+    const locale = getFormLocale();
+    const payload = { locale, title, description, images: imagePaths };
+
     runWithButtonBusy(submitBtn, 'Saxlanır…', () =>
-      fetch(url, {
-        method,
+      fetch('/api/admin/works', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
         ...credentials,

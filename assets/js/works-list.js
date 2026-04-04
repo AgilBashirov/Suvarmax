@@ -1,4 +1,8 @@
 (function () {
+  function workLang() {
+    return window.SuvarmaxLang && window.SuvarmaxLang.getLang ? window.SuvarmaxLang.getLang() : 'az';
+  }
+
   const grid = document.getElementById('works-grid');
   const loading = document.getElementById('works-loading');
   const errEl = document.getElementById('works-error');
@@ -6,6 +10,33 @@
   const pagNav = document.getElementById('works-pagination');
 
   const PAGE_SIZE = 9;
+
+  /** API gecikəndə düymə mətnləri URL dilinə uyğun qalsın (static-home ilə eyni məzmun) */
+  const PAGINATION_FALLBACK = {
+    az: { prev: '← Əvvəlki', next: 'Növbəti →' },
+    ru: { prev: '← Назад', next: 'Далее →' },
+    en: { prev: '← Previous', next: 'Next →' },
+  };
+
+  function paginationButtonLabels() {
+    var cur =
+      window.SuvarmaxLang && window.SuvarmaxLang.getLang ? window.SuvarmaxLang.getLang() : 'az';
+    var homeLang = window.__SUMAX_HOME_CONTENT_LANG;
+    var wp = window.__SUMAX_HOME_LAST && window.__SUMAX_HOME_LAST.worksPage;
+    if (
+      wp &&
+      homeLang === cur &&
+      wp.paginationPrev != null &&
+      wp.paginationNext != null
+    ) {
+      return { prev: String(wp.paginationPrev), next: String(wp.paginationNext) };
+    }
+    var fb = PAGINATION_FALLBACK[cur] || PAGINATION_FALLBACK.az;
+    return { prev: fb.prev, next: fb.next };
+  }
+
+  /** Son uğurlu cavabın səhifələmə meta-sı — worksPage etiketləri gec gələndə yenidən çəkmək üçün */
+  let lastPaginationMeta = null;
 
   function showError(msg) {
     loading.classList.add('hidden');
@@ -32,12 +63,17 @@
     window.history.pushState({ page }, '', url.pathname + url.search);
   }
 
-  function renderCards(works) {
+  function renderCards(works, listLang) {
+    var hrefLang = listLang || workLang();
     grid.innerHTML = '';
     works.forEach((w) => {
       const imgPath = (w.images && w.images[0]) || 'assets/images/logo.svg';
       const card = document.createElement('a');
-      card.href = 'work-detail.html?id=' + encodeURIComponent(w.id);
+      card.href =
+        'work-detail.html?id=' +
+        encodeURIComponent(w.id) +
+        '&lang=' +
+        encodeURIComponent(hrefLang);
       card.className =
         'work-card block bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition';
       const wrap = document.createElement('div');
@@ -89,10 +125,14 @@
     const btnActive = 'border-primary bg-primary text-white hover:bg-primary-dark';
     const btnIdle = 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50';
 
+    var btnLab = paginationButtonLabels();
+    const prevText = btnLab.prev;
+    const nextText = btnLab.next;
+
     const prev = document.createElement('button');
     prev.type = 'button';
     prev.className = btnClass + btnIdle;
-    prev.textContent = '← Əvvəlki';
+    prev.textContent = prevText;
     prev.disabled = page <= 1;
     prev.addEventListener('click', () => {
       if (page > 1) {
@@ -130,7 +170,7 @@
     const next = document.createElement('button');
     next.type = 'button';
     next.className = btnClass + btnIdle;
-    next.textContent = 'Növbəti →';
+    next.textContent = nextText;
     next.disabled = page >= totalPages;
     next.addEventListener('click', () => {
       if (page < totalPages) {
@@ -145,15 +185,31 @@
     pagNav.appendChild(wrap);
   }
 
-  function loadWorks(page) {
+  function normalizeLangArg(x) {
+    if (!x) return null;
+    var s = String(x)
+      .toLowerCase()
+      .trim();
+    return s === 'az' || s === 'ru' || s === 'en' ? s : null;
+  }
+
+  function loadWorks(page, langOverride) {
     loading.classList.remove('hidden');
     errEl.classList.add('hidden');
     empty.classList.add('hidden');
     grid.classList.add('hidden');
     pagNav.classList.add('hidden');
 
-    const url = '/api/works?page=' + encodeURIComponent(page) + '&limit=' + PAGE_SIZE;
-    fetch(url)
+    var lang = normalizeLangArg(langOverride) || workLang();
+
+    const url =
+      '/api/works?page=' +
+      encodeURIComponent(page) +
+      '&limit=' +
+      PAGE_SIZE +
+      '&lang=' +
+      encodeURIComponent(lang);
+    fetch(url, { cache: 'no-store' })
       .then((r) => {
         if (!r.ok) throw new Error('Serverə qoşulmaq mümkün olmadı. npm start ilə serveri işə salın.');
         return r.json();
@@ -171,12 +227,14 @@
         setUrlPage(pagination.page);
 
         if (pagination.total === 0) {
+          lastPaginationMeta = null;
           empty.classList.remove('hidden');
           return;
         }
 
+        lastPaginationMeta = pagination;
         grid.classList.remove('hidden');
-        renderCards(works);
+        renderCards(works, lang);
         renderPagination(pagination);
       })
       .catch(() => {
@@ -188,5 +246,14 @@
     loadWorks(getPageFromUrl());
   });
 
+  window.__SUMAX_WORKS_RERENDER_PAGINATION = function () {
+    if (lastPaginationMeta) renderPagination(lastPaginationMeta);
+  };
+
   loadWorks(getPageFromUrl());
+
+  window.addEventListener('suvarmax:lang-changed', function (ev) {
+    var d = ev.detail && ev.detail.lang;
+    loadWorks(getPageFromUrl(), d);
+  });
 })();

@@ -1,0 +1,239 @@
+{
+  "az": {
+    "services": {
+      "sectionTitle": "Xidmətlərimiz",
+      "cards": [
+        {
+          "title": "Suvarma Sistemlərinin Satışı",
+          "body": "Yüksək keyfiyyətli suvarma avadanlıqlarının geniş çeşidini təqdim edirik. Drip suvarma, sprinkler sistemləri, mərkəzi pivot sistemləri və digər müasir suvarma texnologiyaları.",
+          "bullets": [
+            "Drip suvarma sistemləri",
+            "Sprinkler sistemləri",
+            "Mərkəzi pivot sistemləri"
+          ]
+        },
+        {
+          "title": "Layihələndirmə",
+          "body": "Peşəkar mühəndislərimiz sizin sahəniz üçün optimal suvarma sistemini layihələndirir. Torpaq analizi, su ehtiyatlarının qiymətləndirilməsi və effektiv suvarma planının hazırlanması.",
+          "bullets": [
+            "Torpaq və su analizi",
+            "Texniki layihələndirmə",
+            "Konsultasiya xidmətləri"
+          ]
+        },
+        {
+          "title": "Quraşdırma",
+          "body": "Təcrübəli quraşdırma komandamız suvarma sistemlərinin peşəkar quraşdırılmasını və işə salınmasını təmin edir. Bütün işlər vaxtında və keyfiyyətli şəkildə həyata keçirilir.",
+          "bullets": [
+            "Peşəkar quraşdırma",
+            "İşə salma və test",
+            "İstifadə təlimatı"
+          ]
+        },
+        {
+          "title": "Servis & Təmir",
+          "body": "Suvarma sistemlərinizin düzgün işləməsi üçün müntəzəm servis və təmir xidmətləri təqdim edirik. Problemlərin tez həlli və sistemin uzunmüddətli işləməsi.",
+          "bullets": [
+            "Müntəzəm texniki xidmət",
+            "Qəza təmiri",
+            "Diagnostika və yoxlama"
+          ]
+        },
+        {
+          "title": "Ehtiyat Hissələri",
+          "body": "Orijinal və uyğun ehtiyat hissələrinin geniş çeşidini təqdim edirik. Sistemlərinizin fasiləsiz işləməsi üçün lazım olan bütün komponentlər.",
+          "bullets": [
+            "Orijinal ehtiyat hissələri",
+            "Geniş məhsul çeşidi",
+            "Sürətli çatdırılma"
+          ]
+        },
+        {
+          "title": "Konsultasiya",
+          "body": "Suvarma sistemləri ilə bağlı pulsuz konsultasiya xidmətləri. Sizin sahəniz üçün ən yaxşı həlli seçməkdə kömək edirik.",
+          "bullets": [
+            "Pulsuz konsultasiya",
+            "Texniki dəstək",
+            "Layihə planlaşdırması"
+          ]
+        }
+      ]
+    },
+    "about": {
+      "sectionTitle": "Haqqımızda",
+      "companyHeading": "Şirkətimiz haqqında",
+      "companyP1": "Suvarmax, Azərbaycanda suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə məşğul olan aparıcı şirkətdir. Biz müştərilərimizə yüksək keyfiyyətli məhsul və xidmət təqdim etməklə, müasir suvarma texnologiyalarını Azərbaycan bazarına gətiririk.",
+      "companyP2": "Təcrübəli komandamız və geniş məhsul çeşidimizlə, həm kiçik bağçalar, həm də böyük kənd təsərrüfatı sahələri üçün optimal həllər təklif edirik.",
+      "missionTitle": "Missiyamız",
+      "missionText": "Su ehtiyatlarının səmərəli istifadəsini təmin etmək və müştərilərimizə ən yaxşı suvarma həllərini təqdim etmək. Keyfiyyət, etibarlılıq və müştəri məmnuniyyəti bizim əsas prioritetlərimizdir.",
+      "visionTitle": "Vizyonumuz",
+      "visionText": "Azərbaycanda suvarma sistemləri sahəsində aparıcı şirkət olmaq və müasir texnologiyalar vasitəsilə kənd təsərrüfatının inkişafına töhfə vermək.",
+      "teamHeading": "Komandamız",
+      "teamP1": "Suvarmax komandası təcrübəli mütəxəssislərdən ibarətdir. Bizim mühəndislərimiz, texniklərimiz və satış məsləhətçilərimiz müştərilərimizə ən yaxşı xidməti təqdim etmək üçün daim öz bilik və bacarıqlarını təkmilləşdirirlər.",
+      "role1Title": "Layihə Komandası",
+      "role1Sub": "Peşəkar mühəndislər",
+      "role2Title": "Quraşdırma Komandası",
+      "role2Sub": "Təcrübəli texniklər",
+      "role3Title": "Servis Komandası",
+      "role3Sub": "Peşəkar servis mütəxəssisləri"
+    }
+  },
+  "ru": {
+    "services": {
+      "sectionTitle": "Наши услуги",
+      "cards": [
+        {
+          "title": "Продажа систем орошения",
+          "body": "Широкий выбор качественного оборудования: капельный полив, дождевание, центральные pivot-системы и другие современные технологии.",
+          "bullets": [
+            "Капельные системы",
+            "Спринклеры и дождеватели",
+            "Центральные pivot-системы"
+          ]
+        },
+        {
+          "title": "Проектирование",
+          "body": "Инженеры подберут оптимальную схему орошения для вашего участка: анализ почвы и воды, расчёт режимов и рабочая документация.",
+          "bullets": [
+            "Анализ почвы и воды",
+            "Техническое проектирование",
+            "Консультации"
+          ]
+        },
+        {
+          "title": "Монтаж",
+          "body": "Профессиональный монтаж и пусконаладка. Соблюдаем сроки и стандарты качества на всех этапах работ.",
+          "bullets": [
+            "Монтаж «под ключ»",
+            "Пусконаладка и тесты",
+            "Инструктаж персонала"
+          ]
+        },
+        {
+          "title": "Сервис и ремонт",
+          "body": "Регулярное обслуживание и оперативный ремонт для бесперебойной работы ваших систем орошения.",
+          "bullets": [
+            "Плановое ТО",
+            "Аварийный ремонт",
+            "Диагностика"
+          ]
+        },
+        {
+          "title": "Запчасти",
+          "body": "Оригинальные и совместимые комплектующие, чтобы система работала без простоев.",
+          "bullets": [
+            "Оригинальные запчасти",
+            "Широкий ассортимент",
+            "Быстрая поставка"
+          ]
+        },
+        {
+          "title": "Консультации",
+          "body": "Бесплатные консультации по подбору оборудования и схемы орошения под ваши задачи.",
+          "bullets": [
+            "Первичная консультация",
+            "Техподдержка",
+            "Планирование проекта"
+          ]
+        }
+      ]
+    },
+    "about": {
+      "sectionTitle": "О компании",
+      "companyHeading": "О нашей компании",
+      "companyP1": "Suvarmax — ведущий поставщик в Азербайджане: продажа, проектирование, монтаж и сервис систем орошения. Мы предлагаем качественное оборудование и услуги и выводим на рынок современные технологии орошения.",
+      "companyP2": "Благодаря опытной команде и широкому ассортименту мы подбираем решения как для небольших садов и участков, так и для крупных сельхозплощадей.",
+      "missionTitle": "Миссия",
+      "missionText": "Эффективно использовать водные ресурсы и предлагать клиентам лучшие решения в орошении. Качество, надёжность и удовлетворённость заказчиков — наши приоритеты.",
+      "visionTitle": "Видение",
+      "visionText": "Быть лидером в сфере систем орошения в Азербайджане и способствовать развитию агросектора за счёт современных технологий.",
+      "teamHeading": "Команда",
+      "teamP1": "В Suvarmax работают опытные инженеры, монтажники и специалисты по продажам; мы постоянно повышаем квалификацию, чтобы обеспечивать высокий уровень сервиса.",
+      "role1Title": "Проектный отдел",
+      "role1Sub": "Инженеры-проектировщики",
+      "role2Title": "Монтаж",
+      "role2Sub": "Опытные монтажники",
+      "role3Title": "Сервис",
+      "role3Sub": "Сервисные специалисты"
+    }
+  },
+  "en": {
+    "services": {
+      "sectionTitle": "Our services",
+      "cards": [
+        {
+          "title": "Irrigation equipment sales",
+          "body": "A wide range of quality products: drip irrigation, sprinklers, centre-pivot systems and other modern irrigation technologies.",
+          "bullets": [
+            "Drip irrigation systems",
+            "Sprinkler systems",
+            "Centre-pivot systems"
+          ]
+        },
+        {
+          "title": "Engineering & design",
+          "body": "Our engineers design the right irrigation layout for your site: soil and water assessment, hydraulic planning and technical documentation.",
+          "bullets": [
+            "Soil and water analysis",
+            "Technical design",
+            "Consulting"
+          ]
+        },
+        {
+          "title": "Installation",
+          "body": "Professional installation and commissioning. We deliver on time and to a high standard of workmanship.",
+          "bullets": [
+            "Professional installation",
+            "Commissioning & testing",
+            "Operator training"
+          ]
+        },
+        {
+          "title": "Service & repair",
+          "body": "Planned maintenance and fast repairs to keep your irrigation systems running reliably.",
+          "bullets": [
+            "Scheduled maintenance",
+            "Breakdown repair",
+            "Diagnostics"
+          ]
+        },
+        {
+          "title": "Spare parts",
+          "body": "Original and compatible components so your systems stay operational without long downtime.",
+          "bullets": [
+            "Genuine spare parts",
+            "Broad product range",
+            "Fast supply"
+          ]
+        },
+        {
+          "title": "Consulting",
+          "body": "Free initial advice on equipment selection and irrigation concepts tailored to your plot or farm.",
+          "bullets": [
+            "Free consultation",
+            "Technical support",
+            "Project planning"
+          ]
+        }
+      ]
+    },
+    "about": {
+      "sectionTitle": "About us",
+      "companyHeading": "About our company",
+      "companyP1": "Suvarmax is a leading provider in Azerbaijan for sales, design, installation and service of irrigation systems. We supply quality products and services and bring modern irrigation technology to the local market.",
+      "companyP2": "With an experienced team and a broad portfolio, we deliver optimal solutions for small gardens as well as large agricultural areas.",
+      "missionTitle": "Our mission",
+      "missionText": "To use water resources efficiently and deliver the best irrigation solutions to our clients. Quality, reliability and customer satisfaction are our priorities.",
+      "visionTitle": "Our vision",
+      "visionText": "To be a leading irrigation company in Azerbaijan and support agricultural development through modern technology.",
+      "teamHeading": "Our team",
+      "teamP1": "The Suvarmax team includes skilled engineers, technicians and sales advisors who continuously develop their expertise to serve clients at the highest level.",
+      "role1Title": "Project team",
+      "role1Sub": "Professional engineers",
+      "role2Title": "Installation team",
+      "role2Sub": "Experienced technicians",
+      "role3Title": "Service team",
+      "role3Sub": "Service specialists"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana səhifə — Xidmətlər və Haqqımızda — Admin — Suvarmax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2d8659',
+                        'primary-dark': '#1f5d3f',
+                        'primary-light': '#e8f5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="../index.html" class="flex items-center shrink-0" title="Sayta qayıt">
+                    <img src="../assets/images/logo.svg" alt="Suvarmax" class="h-12 md:h-20 w-auto object-contain">
+                </a>
+                <span class="text-gray-300 hidden sm:inline">|</span>
+                <a href="panel.html" class="text-sm text-gray-600 hover:text-primary">← Admin əsas</a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="admin-user" class="text-gray-600"></span>
+                <button type="button" id="btn-logout" class="text-gray-600 hover:text-gray-900">Çıxış</button>
+            </div>
+        </div>
+        <nav class="border-t border-gray-100 bg-gray-50/80">
+            <div class="container mx-auto px-4 py-2 flex flex-wrap gap-1">
+                <a href="panel.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əsas</a>
+                <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
+                <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
+                <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əlaqə və sosial</a>
+                <a href="panel-home.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Xidmət və Haqqımızda</a>
+                <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
+                <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 container mx-auto px-4 py-8 max-w-6xl">
+        <section>
+            <h1 class="text-lg font-semibold text-gray-800 mb-2">Ana səhifə — yalnız Xidmətlərimiz və Haqqımızda</h1>
+            <p class="text-sm text-gray-600 mb-4">Menyu, hero, düymələr, footer, əlaqə formu etiketləri və işlər səhifəsi mətnləri üç dil üçün <code class="text-xs bg-gray-100 px-1 rounded">data/static-home-by-locale.json</code> faylında statikdir (redaktə üçün kod). Burada yalnız xidmət kartları və &quot;Haqqımızda&quot; bölməsi idarə olunur; standart mətn <code class="text-xs bg-gray-100 px-1 rounded">data/default-pages-home.json</code> + AZ + seçilmiş dil üst-üstə düşür.</p>
+            <div class="flex flex-wrap items-center gap-4 mb-4">
+                <label class="text-sm text-gray-700 flex items-center gap-2">
+                    Dil
+                    <select id="admin-home-locale" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                        <option value="az">AZ</option>
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                    </select>
+                </label>
+                <button type="button" id="admin-save-home" class="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary-dark">Saxla</button>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-2">
+                <button type="button" data-home-tab="services" class="home-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Xidmətlərimiz</button>
+                <button type="button" data-home-tab="about" class="home-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Haqqımızda</button>
+            </div>
+
+            <div id="panel-services" data-home-panel="services" class="home-panel space-y-6">
+                <fieldset class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                    <legend class="text-sm font-semibold text-gray-800 px-1">Xidmətlər bölməsi</legend>
+                    <label class="block text-xs text-gray-600 mt-2">sectionTitle <input type="text" data-home-path="services.sectionTitle" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                </fieldset>
+                <div id="services-cards-wrap" class="space-y-6"></div>
+            </div>
+
+            <div id="panel-about" data-home-panel="about" class="home-panel hidden space-y-4">
+                <fieldset class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                    <legend class="text-sm font-semibold text-gray-800 px-1">Haqqımızda</legend>
+                    <div class="grid gap-3 mt-2">
+                        <label class="block text-xs text-gray-600">sectionTitle <input type="text" data-home-path="about.sectionTitle" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        <label class="block text-xs text-gray-600">companyHeading <input type="text" data-home-path="about.companyHeading" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        <label class="block text-xs text-gray-600">companyP1 <textarea data-home-path="about.companyP1" rows="4" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></textarea></label>
+                        <label class="block text-xs text-gray-600">companyP2 <textarea data-home-path="about.companyP2" rows="3" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></textarea></label>
+                        <label class="block text-xs text-gray-600">missionTitle <input type="text" data-home-path="about.missionTitle" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        <label class="block text-xs text-gray-600">missionText <textarea data-home-path="about.missionText" rows="3" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></textarea></label>
+                        <label class="block text-xs text-gray-600">visionTitle <input type="text" data-home-path="about.visionTitle" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        <label class="block text-xs text-gray-600">visionText <textarea data-home-path="about.visionText" rows="3" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></textarea></label>
+                        <label class="block text-xs text-gray-600">teamHeading <input type="text" data-home-path="about.teamHeading" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        <label class="block text-xs text-gray-600">teamP1 <textarea data-home-path="about.teamP1" rows="3" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></textarea></label>
+                        <div class="grid sm:grid-cols-3 gap-3 pt-2 border-t border-gray-100">
+                            <label class="block text-xs text-gray-600">role1Title <input type="text" data-home-path="about.role1Title" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                            <label class="block text-xs text-gray-600 sm:col-span-2">role1Sub <input type="text" data-home-path="about.role1Sub" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                            <label class="block text-xs text-gray-600">role2Title <input type="text" data-home-path="about.role2Title" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                            <label class="block text-xs text-gray-600 sm:col-span-2">role2Sub <input type="text" data-home-path="about.role2Sub" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                            <label class="block text-xs text-gray-600">role3Title <input type="text" data-home-path="about.role3Title" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                            <label class="block text-xs text-gray-600 sm:col-span-2">role3Sub <input type="text" data-home-path="about.role3Sub" class="mt-0.5 w-full border border-gray-300 rounded-lg px-2 py-1.5 text-sm"></label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin-common.js"></script>
+    <script src="admin-home.js"></script>
+</body>
+</html>

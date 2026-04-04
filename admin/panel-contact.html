@@ -44,6 +44,7 @@
                 <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
                 <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
                 <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Əlaqə və sosial</a>
+                <a href="panel-home.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Xidmət və Haqqımızda</a>
                 <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
                 <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
             </div>
@@ -52,7 +53,16 @@
 
     <main class="flex-1 container mx-auto px-4 py-8 max-w-5xl">
         <section>
-            <h1 class="text-lg font-semibold text-gray-800 mb-4">Əlaqə və sosial şəbəkələr</h1>
+            <h1 class="text-lg font-semibold text-gray-800 mb-2">Əlaqə və sosial şəbəkələr</h1>
+            <p class="text-sm text-gray-600 mb-3">Telefon, email və ünvan üçün dil seçin (hər dil ayrıca). Sosial şəbəkə sətirləri bütün dillərdə eyni göstərilir və yalnız bir dəfə redaktə olunur.</p>
+            <div class="mb-4 flex flex-wrap items-center gap-2">
+                <label for="admin-edit-locale" class="text-sm font-medium text-gray-700">Dil (yalnız əlaqə)</label>
+                <select id="admin-edit-locale" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary outline-none">
+                    <option value="az">AZ</option>
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
             <div class="bg-white rounded-xl shadow border border-gray-100 p-6 space-y-6">
                 <div>
                     <h2 class="font-medium text-gray-800 mb-3">Əlaqə (telefon, email, ünvan)</h2>
@@ -76,6 +86,7 @@
                     </div>
                 </div>
                 <div>
+                    <p class="text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mb-3">Sosial siyahısı dillərdən asılı deyil — aşağıdakı sətirlər bütün dillərdə eyni görünür.</p>
                     <div class="flex items-center justify-between mb-2">
                         <h2 class="font-medium text-gray-800">Sosial şəbəkələr (footer)</h2>
                         <button type="button" id="adm-site-add-social" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1.5 rounded-lg">+ Sosial</button>

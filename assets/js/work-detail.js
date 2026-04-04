@@ -1,4 +1,8 @@
 (function () {
+  function detailLang() {
+    return window.SuvarmaxLang && window.SuvarmaxLang.getLang ? window.SuvarmaxLang.getLang() : 'az';
+  }
+
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
   const loading = document.getElementById('detail-loading');
@@ -24,7 +28,9 @@
     return;
   }
 
-  fetch('/api/works/' + encodeURIComponent(id))
+  fetch('/api/works/' + encodeURIComponent(id) + '?lang=' + encodeURIComponent(detailLang()), {
+    cache: 'no-store',
+  })
     .then((r) => {
       if (r.status === 404) throw new Error('Bu iş mövcud deyil.');
       if (!r.ok) throw new Error('Serverə qoşulmaq mümkün olmadı.');
@@ -36,7 +42,14 @@
 
       loading.classList.add('hidden');
       content.classList.remove('hidden');
-      document.title = work.title + ' — Suvarmax';
+      const wd = (window.__SUMAX_HOME_LAST && window.__SUMAX_HOME_LAST.workDetailPage) || {};
+      const suf = wd.documentTitleSuffix != null ? String(wd.documentTitleSuffix) : ' — Suvarmax';
+      document.title = work.title + suf;
+
+      const backToWorks = document.querySelector('a[href="works.html"]');
+      if (backToWorks && window.SuvarmaxLang && window.SuvarmaxLang.withLang) {
+        backToWorks.setAttribute('href', window.SuvarmaxLang.withLang('works.html'));
+      }
 
       titleEl.textContent = work.title;
       descEl.textContent = work.description || '';
@@ -117,4 +130,8 @@
       .replace(/"/g, '&quot;')
       .replace(/</g, '&lt;');
   }
+
+  window.addEventListener('suvarmax:lang-changed', function () {
+    window.location.reload();
+  });
 })();

@@ -87,6 +87,69 @@ img[loading="lazy"].loaded {
     opacity: 1;
 }
 
+/* Navbar dil seçici — segmented control (peşəkar pill qrup) */
+.lang-switch {
+    display: inline-flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    padding: 3px;
+    gap: 2px;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 9999px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.lang-switch [data-lang-set] {
+    margin: 0;
+    min-width: 2.375rem;
+    padding: 0.4rem 0.55rem;
+    font-family: inherit;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    color: #64748b;
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lang-switch [data-lang-set][aria-pressed="false"]:hover {
+    color: #334155;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.lang-switch [data-lang-set][aria-pressed="true"] {
+    color: #fff;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+    box-shadow: 0 1px 3px rgba(45, 134, 89, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.lang-switch [data-lang-set][aria-pressed="true"]:hover {
+    color: #fff;
+    filter: brightness(1.05);
+}
+
+.lang-switch [data-lang-set]:focus {
+    outline: none;
+}
+
+.lang-switch [data-lang-set]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    z-index: 2;
+}
+
+/* Mobil menyuda sütun düzülüşündə dil bloku dartılmasın */
+#mobile-menu.flex-col .lang-switch {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+}
+
 /* Mobile menu animation */
 #mobile-menu {
     transition: all 0.3s ease;

@@ -1,0 +1,287 @@
+{
+  "az": {
+    "meta": {
+      "documentTitle": "Suvarmax — Peşəkar suvarma sistemləri",
+      "metaDescription": "Suvarmax: suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis. Bakı, Azərbaycan.",
+      "metaKeywords": "suvarma sistemləri, damcı suvarma, sprinkler, layihələndirmə, quraşdırma, servis, Bakı, Azərbaycan, Suvarmax",
+      "ogTitle": "Suvarmax — Peşəkar suvarma sistemləri",
+      "ogDescription": "Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis — müasir texnologiya və təcrübəli komanda."
+    },
+    "nav": {
+      "home": "Ana səhifə",
+      "about": "Haqqımızda",
+      "services": "Xidmətlər",
+      "partners": "Partnyorlar",
+      "works": "İşlərimiz",
+      "contact": "Əlaqə"
+    },
+    "hero": {
+      "badge": "Peşəkar suvarma həlləri",
+      "headingLine1": "Peşəkar",
+      "headingLine2": "suvarma sistemləri",
+      "description": "Suvarma avadanlığının satışı, sahə üçün layihələndirmə, quraşdırma və servis xidmətləri ilə səmərəli və davamlı həllər təqdim edirik. Müasir avadanlıq və təcrübəli komanda.",
+      "stat1Value": "500+",
+      "stat1Label": "Layihə",
+      "stat2Value": "15+",
+      "stat2Label": "il təcrübə",
+      "stat3Value": "98%",
+      "stat3Label": "məmnuniyyət",
+      "ctaPrimary": "Layihə sorğusu göndər",
+      "ctaSecondary": "Xidmətlərimiz",
+      "float1Title": "Keyfiyyətli",
+      "float1Sub": "xidmət",
+      "float2Title": "Sürətli",
+      "float2Sub": "quraşdırma"
+    },
+    "contactSection": {
+      "sectionTitle": "Bizimlə əlaqə",
+      "infoHeading": "Əlaqə məlumatları",
+      "phoneHeading": "Telefon",
+      "emailHeading": "E-poçt",
+      "addressHeading": "Ünvan",
+      "formHeading": "Mesaj göndərin",
+      "labelName": "Ad, soyad *",
+      "labelEmail": "E-poçt",
+      "labelPhone": "Telefon *",
+      "labelMessage": "Mesaj",
+      "submit": "Göndər"
+    },
+    "cta": {
+      "title": "Layihəniz üçün peşəkar həll axtarırsınız?",
+      "subtitle": "Bizimlə əlaqə saxlayın — ilkin konsultasiya pulsuzdur.",
+      "button": "Əlaqə saxlayın"
+    },
+    "footer": {
+      "tagline": "Peşəkar suvarma sistemləri təchizatçısı",
+      "pagesHeading": "Səhifələr",
+      "contactHeading": "Əlaqə",
+      "socialHeading": "Sosial şəbəkələr",
+      "phonePrefix": "Telefon:",
+      "emailPrefix": "E-poçt:",
+      "addressPrefix": "Ünvan:",
+      "copyright": "© Suvarmax. Bütün hüquqlar qorunur."
+    },
+    "worksPage": {
+      "documentTitle": "İşlərimiz — Suvarmax",
+      "metaDescription": "Suvarmax tərəfindən həyata keçirilmiş suvarma və aqro layihələrdən nümunələr.",
+      "heading": "İşlərimiz",
+      "subheading": "Həyata keçirdiyimiz layihələrdən seçmələr.",
+      "loading": "Yüklənir…",
+      "empty": "Hələ heç bir iş əlavə edilməyib.",
+      "paginationLabel": "Səhifələr üzrə keçid",
+      "paginationPrev": "← Əvvəlki",
+      "paginationNext": "Növbəti →"
+    },
+    "workDetailPage": {
+      "documentTitleSuffix": " — Suvarmax",
+      "metaDescription": "Layihə təsviri və şəkillər — Suvarmax.",
+      "backLink": "← Bütün işlər",
+      "loading": "Yüklənir…",
+      "sliderNavLabel": "Şəkil slayderi",
+      "prevImage": "Əvvəlki şəkil",
+      "nextImage": "Növbəti şəkil"
+    },
+    "contactForm": {
+      "sending": "Göndərilir…",
+      "errName": "Ad və soyad mütləqdir",
+      "errPhone": "Telefon nömrəsi mütləqdir",
+      "errSubmit": "Mesaj göndərilərkən xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "okSent": "Mesajınız qəbul olundu. Tezliklə sizinlə əlaqə saxlayacağıq.",
+      "errFileProtocol": "Səhifəni fayl kimi (file://) açmısınız — forma işləmir. Layihə qovluğunda «npm start» işə salın və saytı brauzerdə http://localhost:3000 ünvanından açın."
+    },
+    "partnersSection": {
+      "title": "Partnyorlarımız",
+      "subtitle": "Bizimlə əməkdaşlıq edən etibarlı brendlər və təchizatçılar"
+    }
+  },
+  "ru": {
+    "meta": {
+      "documentTitle": "Suvarmax — профессиональные системы орошения",
+      "metaDescription": "Suvarmax: продажа, проектирование, монтаж и сервис систем орошения. Баку, Азербайджан.",
+      "metaKeywords": "орошение, капельный полив, дождевание, проектирование орошения, монтаж, сервис, Баку, Азербайджан, Suvarmax",
+      "ogTitle": "Suvarmax — системы орошения под ключ",
+      "ogDescription": "Продажа оборудования, проектирование, монтаж и обслуживание систем орошения — современные решения и опытная команда."
+    },
+    "nav": {
+      "home": "Главная",
+      "about": "О компании",
+      "services": "Услуги",
+      "partners": "Партнёры",
+      "works": "Наши работы",
+      "contact": "Контакты"
+    },
+    "hero": {
+      "badge": "Решения для эффективного орошения",
+      "headingLine1": "Профессиональные",
+      "headingLine2": "системы орошения",
+      "description": "Поставка оборудования, проектирование под ваш участок, монтаж «под ключ» и сервисное обслуживание. Повышаем урожайность и экономим воду за счёт современных технологий и грамотной инженерии.",
+      "stat1Value": "500+",
+      "stat1Label": "реализованных проектов",
+      "stat2Value": "15+",
+      "stat2Label": "лет на рынке",
+      "stat3Value": "98%",
+      "stat3Label": "довольных клиентов",
+      "ctaPrimary": "Оставить заявку на проект",
+      "ctaSecondary": "Смотреть услуги",
+      "float1Title": "Гарантия",
+      "float1Sub": "качества",
+      "float2Title": "Сжатые",
+      "float2Sub": "сроки монтажа"
+    },
+    "contactSection": {
+      "sectionTitle": "Свяжитесь с нами",
+      "infoHeading": "Контакты",
+      "phoneHeading": "Телефон",
+      "emailHeading": "Эл. почта",
+      "addressHeading": "Адрес",
+      "formHeading": "Написать нам",
+      "labelName": "Имя и фамилия *",
+      "labelEmail": "Эл. почта",
+      "labelPhone": "Телефон *",
+      "labelMessage": "Текст сообщения",
+      "submit": "Отправить сообщение"
+    },
+    "cta": {
+      "title": "Нужен проект орошения или подбор оборудования?",
+      "subtitle": "Оставьте заявку — первичная консультация бесплатно.",
+      "button": "Связаться с нами"
+    },
+    "footer": {
+      "tagline": "Поставщик систем орошения и комплектующих",
+      "pagesHeading": "Разделы сайта",
+      "contactHeading": "Контакты",
+      "socialHeading": "Социальные сети",
+      "phonePrefix": "Тел.:",
+      "emailPrefix": "Email:",
+      "addressPrefix": "Адрес:",
+      "copyright": "© Suvarmax. Все права защищены."
+    },
+    "worksPage": {
+      "documentTitle": "Наши работы — Suvarmax",
+      "metaDescription": "Примеры реализованных проектов: системы орошения и инженерные решения от Suvarmax.",
+      "heading": "Наши работы",
+      "subheading": "Подборка выполненных объектов и проектов.",
+      "loading": "Загрузка…",
+      "empty": "Пока нет опубликованных работ.",
+      "paginationLabel": "Переход по страницам списка",
+      "paginationPrev": "← Назад",
+      "paginationNext": "Далее →"
+    },
+    "workDetailPage": {
+      "documentTitleSuffix": " — Suvarmax",
+      "metaDescription": "Описание проекта и фотогалерея — Suvarmax.",
+      "backLink": "← Ко всем работам",
+      "loading": "Загрузка…",
+      "sliderNavLabel": "Галерея изображений",
+      "prevImage": "Предыдущее фото",
+      "nextImage": "Следующее фото"
+    },
+    "contactForm": {
+      "sending": "Отправка…",
+      "errName": "Укажите имя и фамилию",
+      "errPhone": "Укажите номер телефона",
+      "errSubmit": "Не удалось отправить сообщение. Попробуйте позже.",
+      "okSent": "Сообщение принято. Мы свяжемся с вами в ближайшее время.",
+      "errFileProtocol": "Страница открыта как локальный файл (file://) — отправка формы недоступна. Запустите сервер (npm start) и откройте сайт по адресу http://localhost:3000."
+    },
+    "partnersSection": {
+      "title": "Наши партнёры",
+      "subtitle": "Надёжные бренды и поставщики, с которыми мы работаем"
+    }
+  },
+  "en": {
+    "meta": {
+      "documentTitle": "Suvarmax — Professional irrigation systems",
+      "metaDescription": "Suvarmax: irrigation equipment sales, system design, installation and service. Baku, Azerbaijan.",
+      "metaKeywords": "irrigation systems, drip irrigation, sprinklers, system design, installation, service, Baku, Azerbaijan, Suvarmax",
+      "ogTitle": "Suvarmax — Irrigation systems & engineering",
+      "ogDescription": "Equipment supply, field-specific design, professional installation and after-sales service — modern tech and an experienced team."
+    },
+    "nav": {
+      "home": "Home",
+      "about": "About us",
+      "services": "Services",
+      "partners": "Partners",
+      "works": "Our work",
+      "contact": "Contact"
+    },
+    "hero": {
+      "badge": "Smart irrigation for agriculture & landscaping",
+      "headingLine1": "Professional",
+      "headingLine2": "irrigation systems",
+      "description": "We supply equipment, engineer systems for your site, install and maintain them — helping you save water, cut costs and get reliable performance in the field.",
+      "stat1Value": "500+",
+      "stat1Label": "projects delivered",
+      "stat2Value": "15+",
+      "stat2Label": "years in the field",
+      "stat3Value": "98%",
+      "stat3Label": "client satisfaction",
+      "ctaPrimary": "Request a quote",
+      "ctaSecondary": "Explore services",
+      "float1Title": "Quality",
+      "float1Sub": "you can trust",
+      "float2Title": "Fast",
+      "float2Sub": "deployment"
+    },
+    "contactSection": {
+      "sectionTitle": "Contact us",
+      "infoHeading": "Contact information",
+      "phoneHeading": "Phone",
+      "emailHeading": "Email",
+      "addressHeading": "Address",
+      "formHeading": "Send us a message",
+      "labelName": "Full name *",
+      "labelEmail": "Email",
+      "labelPhone": "Phone *",
+      "labelMessage": "Message",
+      "submit": "Send message"
+    },
+    "cta": {
+      "title": "Planning a new irrigation project?",
+      "subtitle": "Reach out for a free initial consultation.",
+      "button": "Get in touch"
+    },
+    "footer": {
+      "tagline": "Irrigation systems supplier & integrator",
+      "pagesHeading": "Site map",
+      "contactHeading": "Contact",
+      "socialHeading": "Social media",
+      "phonePrefix": "Phone:",
+      "emailPrefix": "Email:",
+      "addressPrefix": "Address:",
+      "copyright": "© Suvarmax. All rights reserved."
+    },
+    "worksPage": {
+      "documentTitle": "Our work — Suvarmax",
+      "metaDescription": "Selected irrigation and agri-engineering projects completed by Suvarmax.",
+      "heading": "Our work",
+      "subheading": "A selection of projects we have delivered.",
+      "loading": "Loading…",
+      "empty": "No projects have been published yet.",
+      "paginationLabel": "Page navigation",
+      "paginationPrev": "← Previous",
+      "paginationNext": "Next →"
+    },
+    "workDetailPage": {
+      "documentTitleSuffix": " — Suvarmax",
+      "metaDescription": "Project description and gallery — Suvarmax.",
+      "backLink": "← Back to all projects",
+      "loading": "Loading…",
+      "sliderNavLabel": "Image gallery",
+      "prevImage": "Previous image",
+      "nextImage": "Next image"
+    },
+    "contactForm": {
+      "sending": "Sending…",
+      "errName": "Please enter your full name",
+      "errPhone": "Please enter your phone number",
+      "errSubmit": "We couldn’t send your message. Please try again in a moment.",
+      "okSent": "Thank you — your message has been received. We’ll get back to you shortly.",
+      "errFileProtocol": "This page was opened as a local file (file://), so the contact form cannot submit. Run npm start and open the site at http://localhost:3000."
+    },
+    "partnersSection": {
+      "title": "Our partners",
+      "subtitle": "Trusted brands and suppliers we work with"
+    }
+  }
+}
