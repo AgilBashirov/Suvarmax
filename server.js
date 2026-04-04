@@ -360,8 +360,14 @@ function mergeHomeForPublic(norm, lang) {
   const byLoc = loadStaticHomeByLocale();
   const shellSrc = byLoc[L] || byLoc[DEFAULT_LOCALE] || {};
   const shell = JSON.parse(JSON.stringify(shellSrc));
+  const heroFromStatic =
+    shell.hero && typeof shell.hero === 'object'
+      ? JSON.parse(JSON.stringify(shell.hero))
+      : null;
   const sa = mergeHomeServicesAboutForPublic(norm, L);
-  return { ...shell, ...sa };
+  const out = { ...shell, ...sa };
+  if (heroFromStatic) out.hero = heroFromStatic;
+  return out;
 }
 
 function pickStr(tr, az, defVal, maxLen) {

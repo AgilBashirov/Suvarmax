@@ -43,6 +43,7 @@
     window.SuvarmaxLang && window.SuvarmaxLang.getLang ? window.SuvarmaxLang.getLang() : 'az';
 
   window.__SUMAX_BOOTSTRAP_HOME = null;
+  window.__SUMAX_BOOTSTRAP_LANG = null;
   try {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', withNoCacheParam(jsonUrl()), false);
@@ -64,9 +65,11 @@
         } catch (e2) {}
       }
       window.__SUMAX_BOOTSTRAP_HOME = shell;
+      window.__SUMAX_BOOTSTRAP_LANG = shell ? L : null;
     }
   } catch (e) {
     window.__SUMAX_BOOTSTRAP_HOME = null;
+    window.__SUMAX_BOOTSTRAP_LANG = null;
   }
 
   function setHtmlLang() {

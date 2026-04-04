@@ -48,6 +48,23 @@
   function applyHomePageFromData(home) {
     if (!home || typeof home !== 'object') return;
 
+    /** Hero yalnız statik JSON-dadır; köhnə /api/site və ya ayrı backend 98% qaytarsa, boot ilə eyni dildədirsə statik qalib gəlir */
+    var curLang =
+      window.SuvarmaxLang && window.SuvarmaxLang.getLang ? window.SuvarmaxLang.getLang() : 'az';
+    var boot = window.__SUMAX_BOOTSTRAP_HOME;
+    var bootLang = window.__SUMAX_BOOTSTRAP_LANG;
+    if (
+      boot &&
+      boot.hero &&
+      typeof boot.hero === 'object' &&
+      bootLang === curLang
+    ) {
+      try {
+        home = JSON.parse(JSON.stringify(home));
+        home.hero = JSON.parse(JSON.stringify(boot.hero));
+      } catch (e) {}
+    }
+
     applyShellTexts(home);
 
     if (typeof document.documentElement.lang === 'string' || true) {

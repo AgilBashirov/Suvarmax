@@ -142,6 +142,26 @@
     return '/api/site?lang=' + encodeURIComponent(lang || 'az');
   }
 
+  /** Hero mətnləri həmişə data/static-home-by-locale.json ilə eyniləşsin (köhnə API, CDN, ayrı backend) */
+  function applyStaticHeroToHome(site, lang) {
+    var home = site && site.pages && site.pages.home;
+    if (!home) return Promise.resolve();
+    var loc = lang === 'ru' || lang === 'en' ? lang : 'az';
+    return fetch('/data/static-home-by-locale.json?_=' + String(Date.now()), { cache: 'no-store' })
+      .then(function (r) {
+        return r.ok ? r.json() : Promise.reject();
+      })
+      .then(function (all) {
+        var shell = all[loc] || all.az;
+        if (shell && shell.hero && typeof shell.hero === 'object') {
+          try {
+            home.hero = JSON.parse(JSON.stringify(shell.hero));
+          } catch (e) {}
+        }
+      })
+      .catch(function () {});
+  }
+
   function applyHomeIfPresent(site) {
     var home = site && site.pages && site.pages.home;
     if (!home || typeof window.applyHomePageFromData !== 'function') return;
@@ -169,10 +189,12 @@
       })
       .then(function (data) {
         applySite(data.site);
-        applyHomeIfPresent(data.site);
-        if (window.SuvarmaxLang && window.SuvarmaxLang.patchDocumentLinks) {
-          window.SuvarmaxLang.patchDocumentLinks();
-        }
+        return applyStaticHeroToHome(data.site, lang).then(function () {
+          applyHomeIfPresent(data.site);
+          if (window.SuvarmaxLang && window.SuvarmaxLang.patchDocumentLinks) {
+            window.SuvarmaxLang.patchDocumentLinks();
+          }
+        });
       })
       .catch(function () {
         console.warn(
