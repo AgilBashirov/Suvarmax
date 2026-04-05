@@ -121,7 +121,7 @@
       'flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6';
 
     const btnClass =
-      'px-4 py-2 rounded-lg text-sm font-medium border transition disabled:opacity-40 disabled:cursor-not-allowed ';
+      'min-h-[44px] min-w-[44px] sm:min-w-0 inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium border transition disabled:opacity-40 disabled:cursor-not-allowed ';
     const btnActive = 'border-primary bg-primary text-white hover:bg-primary-dark';
     const btnIdle = 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50';
 
@@ -154,10 +154,11 @@
       const b = document.createElement('button');
       b.type = 'button';
       b.className =
-        'min-w-[2.25rem] px-2 py-2 rounded-lg text-sm font-medium border transition ' +
+        'min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-[2.25rem] inline-flex items-center justify-center px-2 py-2 rounded-lg text-sm font-medium border transition ' +
         (p === page ? btnActive : btnIdle + ' border-gray-200');
       b.textContent = String(p);
-      b.setAttribute('aria-current', p === page ? 'page' : 'false');
+      if (p === page) b.setAttribute('aria-current', 'page');
+      else b.removeAttribute('aria-current');
       b.addEventListener('click', () => {
         if (p !== page) {
           loadWorks(p);

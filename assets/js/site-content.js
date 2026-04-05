@@ -120,6 +120,24 @@
       });
     }
 
+    var pdfWrap = document.getElementById('site-nav-pdf-wrap');
+    var pdfView = document.getElementById('site-nav-pdf-view');
+    if (pdfWrap && pdfView) {
+      var np = site.navPdf;
+      if (!np || !np.url) {
+        pdfWrap.classList.add('hidden');
+        pdfView.setAttribute('href', '#');
+        pdfView.textContent = '';
+        pdfView.removeAttribute('aria-label');
+      } else {
+        pdfWrap.classList.remove('hidden');
+        pdfView.href = np.url;
+        var pdfLabel = String(np.label || 'PDF');
+        pdfView.textContent = pdfLabel;
+        pdfView.setAttribute('aria-label', pdfLabel);
+      }
+    }
+
     if (typeof window.initPartnersSwiper === 'function') {
       window.initPartnersSwiper();
     }

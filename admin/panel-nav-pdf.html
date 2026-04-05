@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../assets/images/favicon.png">
+    <title>Nav PDF — Admin — Suvarmax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2d8659',
+                        'primary-dark': '#1f5d3f',
+                        'primary-light': '#e8f5e9',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+                <a href="../index.html" class="flex items-center shrink-0" title="Sayta qayıt">
+                    <img src="../assets/images/logo.svg" alt="Suvarmax" class="h-12 md:h-20 w-auto object-contain">
+                </a>
+                <span class="text-gray-300 hidden sm:inline">|</span>
+                <a href="panel.html" class="text-sm text-gray-600 hover:text-primary">← Admin əsas</a>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+                <span id="admin-user" class="text-gray-600"></span>
+                <button type="button" id="btn-logout" class="text-gray-600 hover:text-gray-900">Çıxış</button>
+            </div>
+        </div>
+        <nav class="border-t border-gray-100 bg-gray-50/80">
+            <div class="container mx-auto px-4 py-2 flex flex-wrap gap-1">
+                <a href="panel.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əsas</a>
+                <a href="panel-works.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İşlər</a>
+                <a href="panel-partners.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Partnyorlar</a>
+                <a href="panel-contact.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Əlaqə və sosial</a>
+                <a href="panel-nav-pdf.html" class="px-3 py-1.5 rounded-lg text-sm font-medium bg-primary-light text-primary" aria-current="page">Nav PDF</a>
+                <a href="panel-home.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Xidmət və Haqqımızda</a>
+                <a href="panel-telegram.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">Telegram</a>
+                <a href="panel-admins.html" class="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200/80">İstifadəçilər</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 container mx-auto px-4 py-8 max-w-3xl">
+        <h1 class="text-lg font-semibold text-gray-800 mb-2">Navbar PDF (AZ / RU / EN)</h1>
+        <p class="text-sm text-gray-600 mb-6">Hər dil üçün ayrı PDF: yalnız həmin dil üçün fayl yüklənibsə, həmin dildə menyuda link görünür. Fayllar <code class="text-xs bg-gray-100 px-1 rounded">assets/documents/</code> altındadır.</p>
+
+        <div class="bg-white rounded-xl shadow border border-gray-100 p-6 space-y-6">
+            <div class="space-y-4 border-b border-gray-100 pb-6">
+                <h2 class="text-sm font-semibold text-gray-800">PDF — Azərbaycan (AZ)</h2>
+                <input type="hidden" id="adm-navpdf-path-az" value="">
+                <p id="adm-navpdf-hint-az" class="text-sm text-gray-600 mb-2">—</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <label class="inline-flex items-center px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium cursor-pointer hover:bg-primary-dark">
+                        AZ PDF yüklə
+                        <input type="file" id="adm-navpdf-upload-az" accept="application/pdf" class="sr-only">
+                    </label>
+                    <button type="button" id="adm-navpdf-remove-az" class="text-sm text-red-600 hover:text-red-800 px-2">Sil (yaddaşdan)</button>
+                    <a id="adm-navpdf-current-az" href="#" target="_blank" rel="noopener noreferrer" class="hidden text-sm text-primary hover:underline">Önizləmə</a>
+                </div>
+            </div>
+            <div class="space-y-4 border-b border-gray-100 pb-6">
+                <h2 class="text-sm font-semibold text-gray-800">PDF — Rus (RU)</h2>
+                <input type="hidden" id="adm-navpdf-path-ru" value="">
+                <p id="adm-navpdf-hint-ru" class="text-sm text-gray-600 mb-2">—</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <label class="inline-flex items-center px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium cursor-pointer hover:bg-primary-dark">
+                        RU PDF yüklə
+                        <input type="file" id="adm-navpdf-upload-ru" accept="application/pdf" class="sr-only">
+                    </label>
+                    <button type="button" id="adm-navpdf-remove-ru" class="text-sm text-red-600 hover:text-red-800 px-2">Sil (yaddaşdan)</button>
+                    <a id="adm-navpdf-current-ru" href="#" target="_blank" rel="noopener noreferrer" class="hidden text-sm text-primary hover:underline">Önizləmə</a>
+                </div>
+            </div>
+            <div class="space-y-4 border-b border-gray-100 pb-6">
+                <h2 class="text-sm font-semibold text-gray-800">PDF — İngilis (EN)</h2>
+                <input type="hidden" id="adm-navpdf-path-en" value="">
+                <p id="adm-navpdf-hint-en" class="text-sm text-gray-600 mb-2">—</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <label class="inline-flex items-center px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium cursor-pointer hover:bg-primary-dark">
+                        EN PDF yüklə
+                        <input type="file" id="adm-navpdf-upload-en" accept="application/pdf" class="sr-only">
+                    </label>
+                    <button type="button" id="adm-navpdf-remove-en" class="text-sm text-red-600 hover:text-red-800 px-2">Sil (yaddaşdan)</button>
+                    <a id="adm-navpdf-current-en" href="#" target="_blank" rel="noopener noreferrer" class="hidden text-sm text-primary hover:underline">Önizləmə</a>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 -mt-2">Yükləmə və ya silmədən sonra dəyişiklikləri təsdiqləmək üçün <strong>Saxla</strong> basın.</p>
+            <div class="grid gap-4 sm:grid-cols-3">
+                <div>
+                    <label for="adm-navpdf-az" class="block text-xs font-medium text-gray-600 mb-1">Menyu mətni (AZ)</label>
+                    <input type="text" id="adm-navpdf-az" maxlength="80" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="PDF kataloq">
+                </div>
+                <div>
+                    <label for="adm-navpdf-ru" class="block text-xs font-medium text-gray-600 mb-1">Menyu mətni (RU)</label>
+                    <input type="text" id="adm-navpdf-ru" maxlength="80" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="PDF-каталог">
+                </div>
+                <div>
+                    <label for="adm-navpdf-en" class="block text-xs font-medium text-gray-600 mb-1">Menyu mətni (EN)</label>
+                    <input type="text" id="adm-navpdf-en" maxlength="80" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="PDF catalog">
+                </div>
+            </div>
+            <div class="pt-2 border-t border-gray-100">
+                <button type="button" id="admin-save-navpdf" class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary-dark">Saxla</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin-common.js"></script>
+    <script src="admin-nav-pdf.js"></script>
+</body>
+</html>

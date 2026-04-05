@@ -26,6 +26,7 @@ document.addEventListener('suvarmax:home-i18n', function (ev) {
 // DOM yükləndikdən sonra
 document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
+    initNavActiveHighlight();
     initLightbox();
     initContactForm();
     initLazyLoading();
@@ -89,6 +90,299 @@ function openMobileMenu(btn, menu) {
 }
 
 /**
+ * Üst menyu: cari bölməyə görə yalnız rəng (font qalınlığı dəyişmir).
+ * Scroll-spy: yalnız geniş masaüstü (≥1280px); tablet/iPad Pro-da yalnız hash/klik.
+ */
+function initNavActiveHighlight() {
+    var menu = document.getElementById('mobile-menu');
+    if (!menu) return;
+
+    var textLinks = menu.querySelectorAll('a.nav-top-link[data-nav]');
+    var contactBtn = menu.querySelector('a.nav-contact-btn[data-nav="contact"]');
+    if (!textLinks.length) return;
+
+    function applyTextActive(el, on) {
+        if (on) {
+            el.classList.add('text-primary', 'hover:text-primary-dark');
+            el.classList.remove('text-gray-700', 'hover:text-primary');
+        } else {
+            el.classList.remove('text-primary', 'hover:text-primary-dark');
+            el.classList.add('text-gray-700', 'hover:text-primary');
+        }
+    }
+
+    function setAriaCurrent(key) {
+        textLinks.forEach(function (a) {
+            a.removeAttribute('aria-current');
+        });
+        if (contactBtn) contactBtn.removeAttribute('aria-current');
+        var cur = menu.querySelector('[data-nav="' + key + '"]');
+        if (cur) cur.setAttribute('aria-current', 'page');
+    }
+
+    function highlight(key) {
+        textLinks.forEach(function (a) {
+            var nav = a.getAttribute('data-nav');
+            if (!nav || nav === 'contact') return;
+            applyTextActive(a, nav === key);
+        });
+        if (contactBtn) {
+            if (key === 'contact') {
+                contactBtn.classList.add('bg-primary-dark');
+                contactBtn.classList.remove('bg-primary');
+            } else {
+                contactBtn.classList.add('bg-primary');
+                contactBtn.classList.remove('bg-primary-dark');
+            }
+        }
+        setAriaCurrent(key);
+    }
+
+    function navFile() {
+        var p = (window.location.pathname || '').replace(/\\/g, '/');
+        return p.split('/').pop() || '';
+    }
+
+    function hashSectionKey() {
+        var h = (window.location.hash || '').replace(/^#/, '').trim();
+        if (!h) return null;
+        if (/^(home|about|services|partners|contact)$/.test(h)) return h;
+        return null;
+    }
+
+    var file = navFile();
+    var isIndex = !file || file === 'index.html';
+    var isWorks = file === 'works.html';
+    var isDetail = file === 'work-detail.html';
+
+    if (isWorks || isDetail) {
+        highlight('works');
+        return;
+    }
+
+    if (!isIndex) {
+        highlight('home');
+        return;
+    }
+
+    var navBar = document.querySelector('body > nav') || document.querySelector('nav');
+    if (!navBar) {
+        highlight(hashSectionKey() || 'home');
+        return;
+    }
+
+    /** Tailwind xl (1280px) — iPad Pro və planşetlərdə scroll ilə avtomatik dəyişmə olmasın */
+    var NAV_SCROLL_SPY_MIN_PX = 1280;
+
+    function isDesktopNavScrollSpy() {
+        return (
+            typeof window.matchMedia === 'function' &&
+            window.matchMedia('(min-width: ' + NAV_SCROLL_SPY_MIN_PX + 'px)').matches
+        );
+    }
+
+    function highlightFromHashOrHome() {
+        highlight(hashSectionKey() || 'home');
+    }
+
+    /** index.html section ardıcıllığı — yalnız masaüstü scroll-spy */
+    var SECTION_IDS = ['home', 'services', 'about', 'partners', 'contact'];
+    var THRESHOLDS = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+    var NAV_CLICK_LOCK_MS = 550;
+
+    var ratios = new Map();
+    var io = null;
+    var navigatingUntil = 0;
+    var rafPick = null;
+    var vpResizeRaf = null;
+
+    function headerOffsetPx() {
+        return Math.ceil(navBar.getBoundingClientRect().height) + 8;
+    }
+
+    function sectionFromHeaderLine() {
+        var line = headerOffsetPx();
+        var cur = 'home';
+        for (var i = 0; i < SECTION_IDS.length; i++) {
+            var el = document.getElementById(SECTION_IDS[i]);
+            if (el && el.getBoundingClientRect().top <= line) {
+                cur = SECTION_IDS[i];
+            }
+        }
+        return cur;
+    }
+
+    function tickFromHashOrLine() {
+        var hk = hashSectionKey();
+        highlight(hk != null ? hk : sectionFromHeaderLine());
+    }
+
+    function syncNavScrollSpy() {
+        if (!isDesktopNavScrollSpy()) {
+            if (io) {
+                io.disconnect();
+                io = null;
+            }
+            ratios.clear();
+            highlightFromHashOrHome();
+            return;
+        }
+        remakeObserverAndPick();
+    }
+
+    function pickActiveFromRatios() {
+        if (!isDesktopNavScrollSpy()) return;
+        if (performance.now() < navigatingUntil) return;
+
+        var anyPositive = false;
+        for (var i = 0; i < SECTION_IDS.length; i++) {
+            var r = ratios.get(SECTION_IDS[i]);
+            if (r != null && r > 0) {
+                anyPositive = true;
+                break;
+            }
+        }
+
+        if (!anyPositive) {
+            highlight(sectionFromHeaderLine());
+            return;
+        }
+
+        var best = 'home';
+        var bestScore = -1;
+        var bestIdx = -1;
+        for (var j = 0; j < SECTION_IDS.length; j++) {
+            var id = SECTION_IDS[j];
+            var score = ratios.has(id) ? ratios.get(id) : 0;
+            if (score > bestScore || (score === bestScore && score > 0 && j > bestIdx)) {
+                bestScore = score;
+                best = id;
+                bestIdx = j;
+            }
+        }
+        highlight(best);
+    }
+
+    function schedulePick() {
+        if (rafPick != null) return;
+        rafPick = requestAnimationFrame(function () {
+            rafPick = null;
+            pickActiveFromRatios();
+        });
+    }
+
+    function onIo(entries) {
+        if (!isDesktopNavScrollSpy()) return;
+        for (var i = 0; i < entries.length; i++) {
+            var en = entries[i];
+            var id = en.target.id;
+            if (SECTION_IDS.indexOf(id) === -1) continue;
+            ratios.set(id, en.isIntersecting ? en.intersectionRatio : 0);
+        }
+        schedulePick();
+    }
+
+    function makeObserver() {
+        if (io) {
+            io.disconnect();
+            io = null;
+        }
+        var top = headerOffsetPx();
+        var margin = '-' + top + 'px 0px -45% 0px';
+        try {
+            io = new IntersectionObserver(onIo, {
+                root: null,
+                rootMargin: margin,
+                threshold: THRESHOLDS,
+            });
+            for (var s = 0; s < SECTION_IDS.length; s++) {
+                var el = document.getElementById(SECTION_IDS[s]);
+                if (el) io.observe(el);
+            }
+        } catch (e) {
+            io = null;
+        }
+    }
+
+    function remakeObserverAndPick() {
+        if (!isDesktopNavScrollSpy()) return;
+        makeObserver();
+        requestAnimationFrame(function () {
+            if (performance.now() < navigatingUntil) return;
+            pickActiveFromRatios();
+        });
+    }
+
+    var mqlScrollSpy = window.matchMedia('(min-width: ' + NAV_SCROLL_SPY_MIN_PX + 'px)');
+    function onScrollSpyBreakpointChange() {
+        syncNavScrollSpy();
+    }
+    if (mqlScrollSpy.addEventListener) {
+        mqlScrollSpy.addEventListener('change', onScrollSpyBreakpointChange);
+    } else if (mqlScrollSpy.addListener) {
+        mqlScrollSpy.addListener(onScrollSpyBreakpointChange);
+    }
+
+    navBar.addEventListener(
+        'click',
+        function (e) {
+            var t = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+            if (!t || !navBar.contains(t)) return;
+            var href = t.getAttribute('href') || '';
+            if (href === '#' || href.length < 2) return;
+            var key = href.replace(/^#/, '').trim();
+            if (!/^(home|about|services|partners|contact)$/.test(key)) return;
+            navigatingUntil = performance.now() + NAV_CLICK_LOCK_MS;
+            highlight(key);
+        },
+        true
+    );
+
+    window.addEventListener('hashchange', function () {
+        navigatingUntil = performance.now() + NAV_CLICK_LOCK_MS;
+        window.setTimeout(function () {
+            if (isDesktopNavScrollSpy()) {
+                tickFromHashOrLine();
+            } else {
+                highlightFromHashOrHome();
+            }
+        }, 80);
+    });
+
+    window.addEventListener('load', function () {
+        syncNavScrollSpy();
+    });
+
+    var ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(function () {
+        if (isDesktopNavScrollSpy()) remakeObserverAndPick();
+    }) : null;
+    if (ro) ro.observe(navBar);
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+            if (vpResizeRaf != null) return;
+            vpResizeRaf = requestAnimationFrame(function () {
+                vpResizeRaf = null;
+                if (isDesktopNavScrollSpy()) remakeObserverAndPick();
+            });
+        });
+    }
+
+    syncNavScrollSpy();
+
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            if (isDesktopNavScrollSpy()) {
+                tickFromHashOrLine();
+                schedulePick();
+            } else {
+                highlightFromHashOrHome();
+            }
+        });
+    });
+}
+
+/**
  * Mobil menyu funksionallığı
  */
 function initMobileMenu() {
@@ -111,7 +405,7 @@ function initMobileMenu() {
         }
     });
 
-    var mql = window.matchMedia('(min-width: 740px)');
+    var mql = window.matchMedia('(min-width: 1024px)');
     function onViewportChange() {
         if (mql.matches) {
             closeMobileMenu(mobileMenuBtn, mobileMenu);
@@ -419,7 +713,9 @@ function initLazyLoading() {
  */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+        const href = this.getAttribute('href') || '';
+        /** Dinamik href (məs. nav PDF /assets/...pdf) — yalnız # ilə başlayan anchor-ları idarə et */
+        if (!href.startsWith('#')) return;
         if (href !== '#' && href.length > 1) {
             e.preventDefault();
             const target = document.querySelector(href);

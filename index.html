@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
     <meta name="description" content="Suvarmax - Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri. Bakı, Azərbaycan." data-i18n-meta="meta.metaDescription">
     <meta name="keywords" content="suvarma sistemləri, suvarma, layihələndirmə, quraşdırma, servis, Bakı, Azərbaycan" data-i18n-meta="meta.metaKeywords">
     <meta property="og:title" content="Suvarmax - Peşəkar Suvarma Sistemləri" data-i18n-meta="meta.ogTitle">
@@ -13,7 +15,7 @@
     <script>
         tailwind.config = {
             theme: {
-                /* md: 740px — iPad Mini portret (744px) və dar tablet üçün */
+                /* md: 740px — tablet məzmun şəbəkələri; nav hamburgeri lg: 1024px-dək */
                 screens: {
                     xs: '480px',
                     sm: '640px',
@@ -42,27 +44,30 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
-<body class="font-sans antialiased min-h-screen overflow-x-hidden">
+<body class="font-sans antialiased min-h-screen overflow-x-hidden text-base">
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
         <div class="container mx-auto px-4 sm:px-5 py-3 sm:py-4">
             <div class="flex items-center justify-between gap-3 relative">
                 <a href="#home" class="flex items-center shrink-0 min-h-[44px]">
-                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-10 sm:h-12 md:h-20 w-auto max-h-[44px] sm:max-h-none object-contain">
+                    <img src="assets/images/logo.svg" alt="Suvarmax Logo" class="h-12 sm:h-12 md:h-20 w-auto object-contain">
                 </a>
-                <button type="button" id="mobile-menu-btn" class="md:hidden touch-target flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-50 active:bg-gray-100 -mr-1" aria-controls="mobile-menu" aria-expanded="false" aria-label="Menyunu aç/bağla">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden touch-target flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-50 active:bg-gray-100 -mr-1" aria-controls="mobile-menu" aria-expanded="false" aria-label="Menyunu aç/bağla">
                     <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <div id="mobile-menu" class="hidden md:flex md:flex-wrap md:items-center md:gap-3 lg:gap-4">
-                    <a href="#home" class="text-primary font-medium hover:text-primary-dark transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.home">Ana Səhifə</a>
-                    <a href="#about" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.about">Haqqımızda</a>
-                    <a href="#services" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.services">Xidmətlər</a>
-                    <a href="#partners" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.partners">Partnyorlar</a>
-                    <a href="works.html" class="text-gray-700 hover:text-primary transition text-base md:text-lg py-2 md:py-0 block md:inline" data-i18n="nav.works">İşlərimiz</a>
-                    <a href="#contact" class="bg-primary text-white px-4 py-3 md:py-2 rounded-lg hover:bg-primary-dark transition text-base md:text-lg font-semibold text-center md:text-left" data-i18n="nav.contact">Əlaqə</a>
-                    <div class="flex items-center w-full md:w-auto justify-start pt-4 mt-1 border-t border-gray-200 md:border-t-0 md:pt-0 md:mt-0 md:border-l md:pl-4 md:ml-2">
+                <div id="mobile-menu" class="hidden lg:flex lg:flex-wrap lg:items-center lg:gap-3 xl:gap-4">
+                    <a href="#home" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg py-2 lg:py-0 block lg:inline" data-nav="home" data-i18n="nav.home">Ana Səhifə</a>
+                    <a href="#services" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg py-2 lg:py-0 block lg:inline" data-nav="services" data-i18n="nav.services">Xidmətlər</a>
+                    <a href="#about" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg py-2 lg:py-0 block lg:inline" data-nav="about" data-i18n="nav.about">Haqqımızda</a>
+                    <a href="#partners" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg py-2 lg:py-0 block lg:inline" data-nav="partners" data-i18n="nav.partners">Partnyorlar</a>
+                    <a href="works.html" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg py-2 lg:py-0 block lg:inline" data-nav="works" data-i18n="nav.works">İşlərimiz</a>
+                    <span id="site-nav-pdf-wrap" class="hidden flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-1 lg:gap-2 py-2 lg:py-0 border-t border-gray-200 mt-2 pt-3 lg:border-t-0 lg:mt-0 lg:pt-0 w-full lg:w-auto">
+                        <a id="site-nav-pdf-view" href="#" target="_blank" rel="noopener noreferrer" class="nav-top-link text-gray-700 hover:text-primary transition text-base lg:text-lg lg:inline-block"></a>
+                    </span>
+                    <a href="#contact" class="nav-contact-btn bg-primary text-white px-4 py-3 lg:py-2 rounded-lg hover:bg-primary-dark transition text-base lg:text-lg font-semibold text-center lg:text-left" data-nav="contact" data-i18n="nav.contact">Əlaqə</a>
+                    <div class="flex items-center w-full lg:w-auto justify-start pt-4 mt-1 border-t border-gray-200 lg:border-t-0 lg:pt-0 lg:mt-0 lg:border-l lg:pl-4 lg:ml-2">
                         <div class="lang-switch" role="group" aria-label="Dil">
                             <button type="button" data-lang-set="az">AZ</button>
                             <button type="button" data-lang-set="ru">RU</button>
@@ -86,9 +91,9 @@
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
         
         <div class="relative container mx-auto px-4 sm:px-5 py-16 sm:py-20 md:py-28 lg:py-32">
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-8 lg:gap-12 items-center min-w-0">
                 <!-- Left Content -->
-                <div class="text-white space-y-6 sm:space-y-8 animate-fade-in">
+                <div class="text-white space-y-6 sm:space-y-8 animate-fade-in min-w-0">
                     <!-- Badge -->
                     <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +104,7 @@
                     
                     <!-- Main Heading -->
                     <div class="space-y-4">
-                        <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] sm:leading-tight">
+                        <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.15] sm:leading-tight md:leading-tight">
                             <span class="block" data-i18n="hero.headingLine1">Peşəkar</span>
                             <span class="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-i18n="hero.headingLine2">
                                 Suvarma Sistemləri
@@ -109,23 +114,23 @@
                     </div>
                     
                     <!-- Description -->
-                    <p class="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-xl" data-i18n="hero.description">
+                    <p class="text-base sm:text-lg md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-xl" data-i18n="hero.description">
                         Suvarma sistemlərinin satışı, layihələndirmə, quraşdırma və servis xidmətləri ilə yüksək keyfiyyətli həllər təqdim edirik. Müasir texnologiyalar və təcrübəli komanda ilə.
                     </p>
                     
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-2 sm:pt-4">
-                        <div>
-                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat1Value">500+</div>
-                            <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat1Label">Layihə</div>
+                    <!-- Stats (dar mobil: daha sıx şəbəkə, 320px-də sızmaz) -->
+                    <div class="grid grid-cols-3 gap-2 xs:gap-3 sm:gap-6 pt-2 sm:pt-4 min-w-0">
+                        <div class="min-w-0 text-center sm:text-left">
+                            <div class="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums leading-tight" data-i18n="hero.stat1Value">500+</div>
+                            <div class="text-xs xs:text-sm text-white/70 mt-1 leading-snug" data-i18n="hero.stat1Label">Layihə</div>
                         </div>
-                        <div>
-                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat2Value">15+</div>
-                            <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat2Label">İl Təcrübə</div>
+                        <div class="min-w-0 text-center sm:text-left">
+                            <div class="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums leading-tight" data-i18n="hero.stat2Value">15+</div>
+                            <div class="text-xs xs:text-sm text-white/70 mt-1 leading-snug" data-i18n="hero.stat2Label">İl Təcrübə</div>
                         </div>
-                        <div>
-                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums" data-i18n="hero.stat3Value">99%</div>
-                            <div class="text-sm text-white/70 mt-1" data-i18n="hero.stat3Label">Məmnuniyyət</div>
+                        <div class="min-w-0 text-center sm:text-left">
+                            <div class="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold text-white tabular-nums leading-tight" data-i18n="hero.stat3Value">99%</div>
+                            <div class="text-xs xs:text-sm text-white/70 mt-1 leading-snug" data-i18n="hero.stat3Label">Məmnuniyyət</div>
                         </div>
                     </div>
                     
@@ -147,10 +152,10 @@
                 </div>
                 
                 <!-- Right Image -->
-                <div class="hidden md:block relative">
+                <div class="hidden md:block relative min-w-0">
                     <div class="relative z-10">
                         <!-- Main Image with Overlay -->
-                        <div class="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl md:shadow-xl transform hover:scale-105 transition-transform duration-500">
                             <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop" 
                                  alt="Suvarma sistemi" 
                                  class="w-full h-auto object-cover">
@@ -158,7 +163,7 @@
                         </div>
                         
                         <!-- Floating Card 1 -->
-                        <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                        <div class="absolute -bottom-4 -left-4 md:-bottom-5 md:-left-5 lg:-bottom-6 lg:-left-6 bg-white rounded-xl p-3 md:p-3.5 lg:p-4 shadow-2xl md:shadow-xl transform hover:scale-105 transition-transform duration-300 max-w-[min(100%,16rem)]">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center">
                                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,7 +178,7 @@
                         </div>
                         
                         <!-- Floating Card 2 -->
-                        <div class="absolute -top-6 -right-6 bg-white rounded-xl p-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                        <div class="absolute -top-4 -right-4 md:-top-5 md:-right-5 lg:-top-6 lg:-right-6 bg-white rounded-xl p-3 md:p-3.5 lg:p-4 shadow-2xl md:shadow-xl transform hover:scale-105 transition-transform duration-300 max-w-[min(100%,16rem)]">
                             <div class="flex items-center gap-3">
                                 <div class="w-12 h-12 bg-primary-light rounded-lg flex items-center justify-center">
                                     <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,7 +205,7 @@
     <section id="services" class="py-12 sm:py-14 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4 sm:px-5">
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12" data-i18n="services.sectionTitle">Xidmətlərimiz</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-6 lg:gap-8">
                 <!-- Service 1 -->
                 <div class="bg-white p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl transition">
                     <div class="w-16 h-16 bg-primary-light rounded-lg flex items-center justify-center mb-6">
@@ -420,7 +425,7 @@
                     </p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-5 sm:gap-8 mb-10 sm:mb-12">
+                <div class="grid md:grid-cols-2 gap-5 sm:gap-6 md:gap-6 lg:gap-8 mb-10 sm:mb-12">
                     <div class="bg-gray-50 p-5 sm:p-6 rounded-lg">
                         <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4" data-i18n="about.missionTitle">Missiyamız</h3>
                         <p class="text-gray-600 leading-relaxed" data-i18n="about.missionText">
@@ -492,7 +497,7 @@
     <section id="contact" class="py-12 sm:py-14 md:py-16 bg-gray-50">
         <div class="container mx-auto px-4 sm:px-5">
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-8 sm:mb-12" data-i18n="contactSection.sectionTitle">Bizimlə Əlaqə</h2>
-            <div class="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
                 <!-- Contact Info -->
                 <div>
                     <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 sm:mb-8" data-i18n="contactSection.infoHeading">Əlaqə Məlumatları</h3>
@@ -563,7 +568,7 @@
                             <div id="message-error" class="text-red-600 text-sm mt-1 hidden"></div>
                         </div>
                         <button type="submit" 
-                                class="w-full bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                class="w-full min-h-[48px] inline-flex items-center justify-center bg-primary text-white px-8 py-3 rounded-lg text-base font-semibold hover:bg-primary-dark transition disabled:opacity-50 disabled:cursor-not-allowed">
                             <span data-i18n="contactSection.submit">Mesaj Göndər</span>
                         </button>
                     </form>
@@ -597,8 +602,8 @@
                     <h3 class="font-semibold mb-4" data-i18n="footer.pagesHeading">Səhifələr</h3>
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="#home" class="hover:text-white transition" data-i18n="nav.home">Ana Səhifə</a></li>
-                        <li><a href="#about" class="hover:text-white transition" data-i18n="nav.about">Haqqımızda</a></li>
                         <li><a href="#services" class="hover:text-white transition" data-i18n="nav.services">Xidmətlər</a></li>
+                        <li><a href="#about" class="hover:text-white transition" data-i18n="nav.about">Haqqımızda</a></li>
                         <li><a href="#partners" class="hover:text-white transition" data-i18n="nav.partners">Partnyorlar</a></li>
                         <li><a href="works.html" class="hover:text-white transition" data-i18n="nav.works">İşlərimiz</a></li>
                         <li><a href="#contact" class="hover:text-white transition" data-i18n="nav.contact">Əlaqə</a></li>

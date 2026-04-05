@@ -55,7 +55,15 @@ html {
     text-size-adjust: 100%;
 }
 
-@media (min-width: 740px) {
+/* iOS Safari: ünvan sətri ilə 100vh fərqi; flex səhifələrdə tam hündürlük */
+@supports (min-height: 100dvh) {
+    body.min-h-screen {
+        min-height: 100dvh;
+    }
+}
+
+/* Üfüqi nav yalnız lg+ (1024px); hamburgerdə daha aşağı nav hündürlüyü */
+@media (min-width: 1024px) {
     html {
         scroll-padding-top: 5rem;
     }
@@ -309,6 +317,73 @@ img[loading="lazy"].loaded {
     box-sizing: border-box;
 }
 
+/* Mobil: ikiqat toxunma gözləməsini azaltmaq (swiper öz hərəkətini saxlayır) */
+.touch-target,
+.lang-switch [data-lang-set],
+button[type='submit'],
+.partners-nav-next,
+.partners-nav-prev {
+    touch-action: manipulation;
+}
+
+/*
+ * Çox dar telefon (320px, köhnə iPod touch / iPhone SE).
+ * iOS: input < 16px fokusda səhifə zoom edir — form sahələri minimum 16px.
+ */
+@media (max-width: 739px) {
+    /* Dil düymələri: toxunma sahəsi */
+    .lang-switch [data-lang-set] {
+        min-height: 40px;
+        min-width: 2.5rem;
+        padding: 0.45rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='search'],
+    input[type='url'],
+    input[type='number'],
+    textarea,
+    select {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    /* Açıq mobil menyu: notch / home indicator ilə kənar boşluq */
+    nav #mobile-menu.flex.flex-col.absolute {
+        padding-left: max(1rem, env(safe-area-inset-left, 0px));
+        padding-right: max(1rem, env(safe-area-inset-right, 0px));
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Footer linkləri: toxunma sahəsi + uzun email/telefon */
+    footer a {
+        -webkit-tap-highlight-color: rgba(45, 134, 89, 0.15);
+    }
+
+    footer ul a {
+        display: inline-block;
+        padding-top: 0.35rem;
+        padding-bottom: 0.35rem;
+        max-width: 100%;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 359px) {
+    .partners-swiper {
+        padding: 10px 34px !important;
+    }
+
+    .partners-nav-next,
+    .partners-nav-prev {
+        width: 34px !important;
+        height: 34px !important;
+    }
+}
+
 /* Leaflet map custom styles */
 .custom-marker {
     background: transparent !important;
@@ -425,75 +500,51 @@ img[loading="lazy"].loaded {
 }
 
 /*
- * iPad Mini / iPad Air portret və orta enli tablet (740px – 1024px).
- * Eni 1024+ olan albom (məs. iPad Air landscape) tam geniş düzülüş alır.
+ * 740–1024px: nav indi hamburgerdir (üfüqi yalnız lg+); burada yalnız məzmun/spacing.
  */
 @media (min-width: 740px) and (max-width: 1024px) {
-    /* Nav: sıx linklər, logo nisbətən kiçik — çox sətir sarılmasının qarşısı */
-    nav .container #mobile-menu {
-        column-gap: 0.5rem !important;
-        row-gap: 0.35rem !important;
-    }
-
-    nav .container #mobile-menu > a[href] {
-        font-size: 0.8125rem !important;
-        line-height: 1.2 !important;
-    }
-
-    nav .container .flex.items-center.justify-between > a[href] img {
-        max-height: 3.25rem !important;
-        height: auto !important;
-    }
-
-    /* Əlaqə düyməsi (nav) */
-    nav a[href="#contact"],
-    nav a[href="index.html#contact"] {
-        font-size: 0.8125rem !important;
-        padding-left: 0.65rem !important;
-        padding-right: 0.65rem !important;
-        padding-top: 0.45rem !important;
-        padding-bottom: 0.45rem !important;
-    }
-
-    /* Hero CTA */
     section#home a[href="#contact"],
     section#home a[href="#services"] {
-        font-size: 0.875rem !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        padding-top: 0.75rem !important;
-        padding-bottom: 0.75rem !important;
+        font-size: 0.9375rem !important;
+        padding-left: 1.125rem !important;
+        padding-right: 1.125rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 0.8rem !important;
     }
 
     form#contact-form button[type="submit"] {
-        font-size: 0.875rem !important;
+        font-size: 0.9375rem !important;
         padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
-        padding-top: 0.75rem !important;
-        padding-bottom: 0.75rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 0.8rem !important;
     }
 
     section.bg-primary a.bg-white {
-        font-size: 0.875rem !important;
+        font-size: 0.9375rem !important;
         padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
-        padding-top: 0.75rem !important;
-        padding-bottom: 0.75rem !important;
+        padding-top: 0.8rem !important;
+        padding-bottom: 0.8rem !important;
     }
 
-    /* Partnyor swiper — tablet portret üçün bir az daha çox hava */
     .partners-swiper {
-        padding: 18px 52px !important;
+        padding: 20px 54px !important;
+    }
+
+    .partners-nav-next,
+    .partners-nav-prev {
+        width: 46px !important;
+        height: 46px !important;
     }
 }
 
 /*
- * iPad Air portret (~820px) və 1025–1180px arası albom: nav bir az böyüsün,
- * amma hələ sıx qalsın.
+ * Albom 1025–1180px (məs. iPad Air landscape): üfüqi nav — sıx, orta ölçü.
  */
 @media (min-width: 1025px) and (max-width: 1180px) {
     nav .container #mobile-menu {
-        column-gap: 0.625rem !important;
+        column-gap: 0.65rem !important;
     }
 
     nav .container #mobile-menu > a[href] {

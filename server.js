@@ -15,6 +15,7 @@ const path = require('path');
 const ROOT = __dirname;
 const DATA_PATH = path.join(ROOT, 'data', 'site-data.json');
 const IMAGES_DIR = path.join(ROOT, 'assets', 'images');
+const DOCUMENTS_DIR = path.join(ROOT, 'assets', 'documents');
 const DEFAULT_PAGES_HOME_PATH = path.join(ROOT, 'data', 'default-pages-home.json');
 const STATIC_HOME_BY_LOCALE_PATH = path.join(ROOT, 'data', 'static-home-by-locale.json');
 
@@ -86,6 +87,34 @@ function resolveSafeImageFile(relPath) {
     return null;
   }
   return resolved;
+}
+
+/** Navbar PDF — yalnız assets/documents/ altı */
+function resolveSafePdfFile(relPath) {
+  if (typeof relPath !== 'string' || !relPath.trim()) return null;
+  const normalized = relPath.replace(/\\/g, '/').trim();
+  if (normalized.includes('..')) return null;
+  const lower = normalized.toLowerCase();
+  if (!lower.startsWith('assets/documents/')) return null;
+  if (!lower.endsWith('.pdf')) return null;
+  const abs = path.join(ROOT, ...normalized.split('/'));
+  const resolved = path.resolve(abs);
+  const docsRoot = path.resolve(DOCUMENTS_DIR);
+  if (resolved !== docsRoot && !resolved.startsWith(docsRoot + path.sep)) {
+    return null;
+  }
+  return resolved;
+}
+
+function deletePdfFileIfExists(absPath) {
+  if (!absPath) return;
+  try {
+    if (fs.existsSync(absPath) && fs.statSync(absPath).isFile()) {
+      fs.unlinkSync(absPath);
+    }
+  } catch (e) {
+    console.warn('PDF faylı silinmədi:', absPath, e.message);
+  }
 }
 
 function deleteImageFileIfExists(absPath) {
@@ -378,6 +407,81 @@ function pickStr(tr, az, defVal, maxLen) {
   return String(defVal || '').slice(0, maxLen);
 }
 
+const NAV_PDF_LABEL_MAX = 80;
+
+function sanitizeOneNavPdfPath(rel) {
+  let p = String(rel || '')
+    .trim()
+    .replace(/\\/g, '/');
+  if (p && !resolveSafePdfFile(p)) {
+    p = '';
+  }
+  return p;
+}
+
+function sanitizeNavPdf(obj) {
+  if (!obj || typeof obj !== 'object') {
+    return {
+      pathAz: '',
+      pathRu: '',
+      pathEn: '',
+      labelAz: '',
+      labelRu: '',
+      labelEn: '',
+    };
+  }
+  let pathAz = sanitizeOneNavPdfPath(obj.pathAz);
+  let pathRu = sanitizeOneNavPdfPath(obj.pathRu);
+  let pathEn = sanitizeOneNavPdfPath(obj.pathEn);
+  const legacy = sanitizeOneNavPdfPath(obj.path);
+  if (!pathAz && legacy) pathAz = legacy;
+  return {
+    pathAz,
+    pathRu,
+    pathEn,
+    labelAz: String(obj.labelAz || '').trim().slice(0, NAV_PDF_LABEL_MAX),
+    labelRu: String(obj.labelRu || '').trim().slice(0, NAV_PDF_LABEL_MAX),
+    labelEn: String(obj.labelEn || '').trim().slice(0, NAV_PDF_LABEL_MAX),
+  };
+}
+
+/** İctimai API üçün nav PDF — hər dil üçün ayrı fayl; boşdursa null (digər dilə düşmə yox) */
+function buildPublicNavPdf(norm, lang) {
+  const np = (norm && norm.navPdf) || {};
+  const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
+  let rel = '';
+  if (L === 'az') rel = String(np.pathAz || '').trim();
+  else if (L === 'ru') rel = String(np.pathRu || '').trim();
+  else rel = String(np.pathEn || '').trim();
+  if (!rel) return null;
+  const abs = resolveSafePdfFile(rel);
+  if (!abs || !fs.existsSync(abs)) return null;
+  const az = String(np.labelAz || '').trim();
+  const ru = String(np.labelRu || '').trim();
+  const en = String(np.labelEn || '').trim();
+  let label;
+  if (L === 'ru') {
+    label = pickStr(ru, az, 'PDF', NAV_PDF_LABEL_MAX);
+  } else if (L === 'en') {
+    label = pickStr(en, az, 'PDF', NAV_PDF_LABEL_MAX);
+  } else {
+    label = pickStr(az, '', 'PDF', NAV_PDF_LABEL_MAX);
+  }
+  const fileName = path.basename(rel) || 'document.pdf';
+  const url = `/${rel.replace(/^\/+/, '')}`;
+  return { url, label, fileName };
+}
+
+function navPdfDocumentPathSet(np) {
+  const s = new Set();
+  if (!np || typeof np !== 'object') return s;
+  for (const k of ['pathAz', 'pathRu', 'pathEn']) {
+    const v = String(np[k] || '').trim();
+    if (v) s.add(v);
+  }
+  return s;
+}
+
 /** Partnyor bölmə başlığı/alt başlığı — data/static-home-by-locale.json */
 function staticPartnersHeadings(lang) {
   const L = LOCALES.includes(lang) ? lang : DEFAULT_LOCALE;
@@ -416,6 +520,7 @@ function resolvePublicLocaleSlice(norm, lang) {
       address: pickStr(cTr.address, cAz.address, cDef.address, 300),
     },
     social,
+    navPdf: buildPublicNavPdf(norm, lang),
     pages: { home: mergeHomeForPublic(norm, lang) },
   };
 }
@@ -481,11 +586,13 @@ function normalizeSiteStorage(raw) {
     return {
       telegramBotToken: '',
       telegramChatId: '',
+      navPdf: sanitizeNavPdf({}),
       locales: Object.fromEntries(LOCALES.map((loc) => [loc, sanitizeLocaleSlice({})])),
     };
   }
   const telegramBotToken = String(raw.telegramBotToken || '').trim().slice(0, 220);
   const telegramChatId = String(raw.telegramChatId || '').trim().slice(0, 50);
+  const navPdf = sanitizeNavPdf(raw.navPdf);
   const locRaw = raw.locales && typeof raw.locales === 'object' ? raw.locales : null;
   const locales = {};
   if (!locRaw) {
@@ -506,7 +613,7 @@ function normalizeSiteStorage(raw) {
       locales[loc] = sanitizeLocaleSlice(locRaw[loc] || {});
     }
   }
-  return { telegramBotToken, telegramChatId, locales };
+  return { telegramBotToken, telegramChatId, navPdf, locales };
 }
 
 function deepMergeLocaleSlices(base, over) {
@@ -562,11 +669,28 @@ function buildSiteFromPayload(s, previousSite = {}) {
       }
     }
   }
+  const navPdf =
+    s.navPdf !== undefined && s.navPdf !== null
+      ? sanitizeNavPdf(s.navPdf)
+      : prev.navPdf;
   return {
     telegramBotToken: String(tokenIn || '').trim().slice(0, 220),
     telegramChatId: String(chatIn || '').trim().slice(0, 50),
+    navPdf,
     locales,
   };
+}
+
+function deleteRemovedNavPdf(oldRaw, newSiteObj) {
+  const oldNorm = normalizeSiteStorage(oldRaw && typeof oldRaw === 'object' ? oldRaw : {});
+  const newNorm = normalizeSiteStorage(newSiteObj && typeof newSiteObj === 'object' ? newSiteObj : {});
+  const oldSet = navPdfDocumentPathSet(oldNorm.navPdf);
+  const newSet = navPdfDocumentPathSet(newNorm.navPdf);
+  oldSet.forEach((p) => {
+    if (newSet.has(p)) return;
+    const abs = resolveSafePdfFile(p);
+    if (abs) deletePdfFileIfExists(abs);
+  });
 }
 
 function allLocalSiteMediaPathsMultilingual(siteSt) {
@@ -727,6 +851,30 @@ function makeSubdirMulter(subDir) {
 }
 
 const uploadSocial = makeSubdirMulter('social');
+
+const pdfStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    fs.mkdirSync(DOCUMENTS_DIR, { recursive: true });
+    cb(null, DOCUMENTS_DIR);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname || '').toLowerCase() === '.pdf' ? '.pdf' : '.pdf';
+    const base =
+      path
+        .basename(file.originalname || 'document', path.extname(file.originalname || ''))
+        .replace(/[^a-zA-Z0-9-_]/g, '_') || 'document';
+    cb(null, `${Date.now()}-${base}${ext}`);
+  },
+});
+
+const uploadPdf = multer({
+  storage: pdfStorage,
+  limits: { fileSize: 20 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'application/pdf') cb(null, true);
+    else cb(new Error('Yalnız PDF faylı qəbul olunur'));
+  },
+});
 
 const app = express();
 
@@ -988,9 +1136,22 @@ app.put('/api/admin/site', requireAdmin, (req, res) => {
     data.site = newSite;
     deleteRemovedSiteMedia(previousRaw, newSite);
     writeData(data);
+    deleteRemovedNavPdf(previousRaw, newSite);
     res.json({ ok: true, site: newSite });
   } catch (e) {
     res.status(500).json({ ok: false, error: 'Saxlanılmadı' });
+  }
+});
+
+app.post('/api/admin/upload/pdf', requireAdmin, uploadPdf.single('file'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ ok: false, error: 'Fayl seçin' });
+    }
+    const relPath = `assets/documents/${req.file.filename}`.replace(/\\/g, '/');
+    res.json({ ok: true, path: relPath });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: 'PDF yüklənmədi' });
   }
 });
 

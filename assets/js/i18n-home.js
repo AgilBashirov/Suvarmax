@@ -19,12 +19,18 @@
     if (el) el.setAttribute('content', String(content));
   }
 
+  /** Yalnız ana səhifədə shell documentTitle — işlər / iş detalı öz başlıqlarını təyin edir */
+  function isShellDocumentTitlePage() {
+    var p = (window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+    return p === '/' || p.endsWith('/index.html');
+  }
+
   /** Meta + data-i18n (API və ya statik JSON-dan — ilk rəsmə qədər boot üçün) */
   function applyShellTexts(home) {
     if (!home || typeof home !== 'object') return;
 
     var mt = home.meta || {};
-    if (mt.documentTitle) document.title = String(mt.documentTitle);
+    if (mt.documentTitle && isShellDocumentTitlePage()) document.title = String(mt.documentTitle);
     setMetaByName('description', mt.metaDescription);
     setMetaByName('keywords', mt.metaKeywords);
     var ogT = document.querySelector('meta[property="og:title"]');

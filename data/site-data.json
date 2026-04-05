@@ -220,10 +220,18 @@
   "site": {
     "telegramBotToken": "8554708256:AAGUJXtJjehvX4gvHMGphK6YI6L7zuQ6I1E",
     "telegramChatId": "-1003825193367",
+    "navPdf": {
+      "pathAz": "assets/documents/1775399415613-Suvarmax.pdf",
+      "pathRu": "",
+      "pathEn": "",
+      "labelAz": "Kataloq",
+      "labelRu": "",
+      "labelEn": ""
+    },
     "locales": {
       "az": {
-        "partnersTitle": "Partnyorlarımız",
-        "partnersSubtitle": "Bizimlə əməkdaşlıq edən etibarlı partnyorlarımız",
+        "partnersTitle": "",
+        "partnersSubtitle": "",
         "partners": [
           {
             "id": 1,
@@ -287,12 +295,16 @@
         }
       },
       "ru": {
+        "partnersTitle": "",
+        "partnersSubtitle": "",
+        "partners": [],
         "contact": {
           "phoneTel": "+994556485658",
           "phoneLabel": "+994 55 648 56 58",
           "email": "info@suvarmax.com",
           "address": "Баку, Азербайджан"
         },
+        "social": [],
         "pages": {
           "home": {
             "services": {
@@ -376,12 +388,16 @@
         }
       },
       "en": {
+        "partnersTitle": "",
+        "partnersSubtitle": "",
+        "partners": [],
         "contact": {
           "phoneTel": "+994556485658",
           "phoneLabel": "+994 55 648 56 58",
           "email": "info@suvarmax.com",
           "address": "Baku, Azerbaijan"
         },
+        "social": [],
         "pages": {
           "home": {
             "services": {
